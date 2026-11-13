@@ -2749,3 +2749,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 U.S. Bureau of Labor Statistics, Survey of Occupational Injuries and Illnesses, and U.S. Census Bureau, NAICS. U.S. government works, public domain.
 
+### Loss prevention guidance sources
+
+The guidance in `data/loss-prevention-guidance.json` is our own short summary of public U.S. government sources (OSHA, NIOSH/CDC, FDA, USDA, EPA, FMCSA, PHMSA, FHWA, CPSC, FEMA/USFA/Ready.gov, DOL and DOJ), each linked in the file and in `GUIDANCE.md`. Works of the U.S. federal government are in the public domain. One source is a Washington State Department of Labor & Industries tip sheet held in the NIOSH collection; it is cited and linked, not copied. The late-reporting item cites published research (NCCI, as reported by Business Insurance, and The Hartford, as cited by Gallagher on the PRIMA blog); it is cited and linked, not copied. No text from these sources is reproduced beyond short factual references such as regulation numbers.
+

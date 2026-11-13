@@ -6,6 +6,8 @@ One file covers every industry. The start screen asks what the company does: typ
 
 Optional safety rates: add OSHA columns and hours worked and the Safety section works out TRIR, DART, days-away rate and severity rate, then compares them with the BLS average for any NAICS code.
 
+Each finding comes with a short piece of loss prevention guidance and a link to its public source (OSHA, NIOSH, CDC, FDA, EPA, FMCSA and other government agencies). The full list is in `GUIDANCE.md`. It's general information, not advice.
+
 All sample data is synthetic and generated in the browser from fixed seeds. See `PROVENANCE.md`.
 
 ## Quick start
@@ -72,11 +74,27 @@ Reuse it elsewhere: `src/lib/naics.ts` has no imports, so the file can be copied
 
 Updating to a new BLS year: BLS plans to publish 2025 rates on Nov 18, 2026. Replace `SOII_YEAR`, `SOII_URL` and the `DATA` block in `src/lib/naics.ts` with the new Table 1, and regenerate the CSV.
 
+## Findings and guidance
+
+Findings come from fixed rules and math on the loss run (`src/lib/metrics.ts`, `src/lib/safety.ts`). No AI writes them.
+
+| Part of a finding card | Where it comes from |
+|---|---|
+| Whether it shows and its color | The cut points in Risk levels |
+| Title and detail | The user's own data |
+| Guidance text and source links | `data/loss-prevention-guidance.json`, matched by template and cause. Readable copy: `GUIDANCE.md` |
+
+Guidance labels: "Public guidance" summarizes a government source; "Published research" summarizes a study; "Who can help" points to the carrier, TPA or counsel for claim-handling topics that have no safety standard; "Note" explains the numbers. Every card set ends with a disclaimer, and the PowerPoint findings slide carries it too.
+
+To change the guidance, edit the JSON, run `node scripts/build-guidance-md.mjs`, then rebuild.
+
 ## Where things live
 
 | Path | What it does |
 |---|---|
-| `src/lib/industries.ts` | Industry profiles: coverages, cause categories and rules, safety tips, field labels, detail charts, sample spec and seed |
+| `src/lib/industries.ts` | Industry profiles: coverages, cause categories and rules, field labels, detail charts, sample spec and seed |
+| `data/loss-prevention-guidance.json` | Guidance text and government sources for every cause and finding. `src/lib/guidance.ts` reads it |
+| `GUIDANCE.md` | Readable list of all guidance and sources, built by `scripts/build-guidance-md.mjs` |
 | `src/lib/thresholds.ts` | Risk level defaults, sources, and the Risk levels window layout |
 | `src/lib/fields.ts` | Standard loss-run fields, header synonyms, auto-mapping |
 | `src/lib/normalize.ts` | Dates, money, coverage and status parsing, cause categorizing |
@@ -97,8 +115,8 @@ Updating to a new BLS year: BLS plans to publish 2025 rates on Nov 18, 2026. Rep
 
 ## Add an industry
 
-1. Copy one profile in `src/lib/industries.ts` and change the coverages, categories, regex rules, tips, field labels, sample spec and `bls` codes (default NAICS, quick picks, and the code the sample follows).
-2. Add it to `INDUSTRIES` and send its NAICS codes to it in `profileForNaics()`.
+1. Copy one profile in `src/lib/industries.ts` and change the coverages, categories, regex rules, field labels, sample spec and `bls` codes (default NAICS, quick picks, and the code the sample follows).
+2. Add it to `INDUSTRIES` and send its NAICS codes to it in `profileForNaics()`. Add a block for it under `causes` in `data/loss-prevention-guidance.json` (one guide id per category) and rebuild `GUIDANCE.md`.
 3. Run `bash build-offline.sh` and check the sample with the Findings section.
 
 ## Notes
