@@ -1,5 +1,23 @@
 # Loss Dashboard (plug-and-play loss run template)
 
+https://github.com/user-attachments/assets/064c8119-6c20-4382-b5a8-569a9f6cd001
+
+A 90 second walkthrough. Everything shown is synthetic sample data.
+
+## Download (no GitHub account needed)
+
+Click a link and the file downloads. Nothing to install and no sign-up.
+
+| Download | What it is |
+|---|---|
+| [Loss Dashboard (offline).html](https://github.com/Raxa-Personal-Hobby/loss-dashboard/releases/latest/download/Loss-Dashboard-offline.html) | The dashboard. Save it anywhere, then double-click to open it in Chrome or Edge. Works with Wi-Fi off. |
+| [Quick Start Guide (PDF)](https://github.com/Raxa-Personal-Hobby/loss-dashboard/releases/latest/download/Loss-Dashboard-Quick-Start-Guide.pdf) | How to use it, step by step. Ready to print. |
+| [Both in one zip](https://github.com/Raxa-Personal-Hobby/loss-dashboard/releases/latest/download/Loss-Dashboard-offline.zip) | The dashboard and the guide together. On Windows, right-click the zip and pick Extract All first. |
+
+Free and open source under the MIT license, so anyone can use, share or change it. Your files stay on your computer. The dashboard has no server and doesn't upload anything. It's general information, not legal, safety or insurance advice.
+
+## What it does
+
 Drop in a loss run (Excel, CSV or a Word table), check the auto-matched columns, brand it, filter it, and export to PowerPoint, PNG or Excel. Everything runs in the browser. Files are never uploaded.
 
 One file covers every industry. The start screen asks what the company does: type a NAICS code or plain words ("commercial fishing", "roofing", "senior living") and it finds the closest NAICS industries, picks the template that fits, and sets the BLS safety benchmark. Templates: restaurant, construction, fleet, real estate, and a general one for everything else.
@@ -10,7 +28,9 @@ Each finding comes with a short piece of loss prevention guidance and a link to 
 
 All sample data is synthetic and generated in the browser from fixed seeds. See `PROVENANCE.md`.
 
-## Quick start
+## Build it yourself (for developers)
+
+You don't need this to use the dashboard. Use the download links above.
 
 ```
 pnpm install
