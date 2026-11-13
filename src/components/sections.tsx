@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowDownRight, ArrowUpRight, ChevronsUpDown, Filter, Minus } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, ChevronsUpDown, ExternalLink, Filter, Minus } from "lucide-react";
 import type { Band, Claim, Filters } from "@/lib/types";
 import type { Concern, Kpi, LocationRow } from "@/lib/metrics";
 import type { Industry } from "@/lib/industries";
@@ -9,6 +9,7 @@ import { fmtDay } from "@/lib/normalize";
 import { inkOn, seqColor } from "@/lib/color";
 import { BAND_STYLE, BandPill } from "./bands";
 import { ChartCard } from "./kit";
+import { GUIDANCE_CHECKED, GUIDANCE_DISCLAIMER, GUIDE_LABEL } from "@/lib/guidance";
 
 export function KpiTile({ k }: { k: Kpi }) {
   const Icon = k.deltaDir === "up" ? ArrowUpRight : k.deltaDir === "down" ? ArrowDownRight : Minus;
@@ -213,10 +214,26 @@ export function Findings({ items, onApply, ind }: { items: Concern[]; onApply: (
               </div>
               <h4 className="mt-2 text-[14.5px] font-bold leading-snug text-[#1c2126]">{c.title}</h4>
               <p className="mt-1 text-[12.5px] leading-relaxed text-[#5d6570]">{c.detail}</p>
-              <p className="mt-2.5 rounded-lg bg-[#f6f7f9] px-3 py-2 text-[12.5px] leading-relaxed text-[#3c434c]">
-                <span className="font-semibold text-[#1c2126]">Next step: </span>
-                {c.action}
-              </p>
+              <div className="mt-2.5 rounded-lg bg-[#f6f7f9] px-3 py-2 text-[12.5px] leading-relaxed text-[#3c434c]">
+                <p>
+                  <span className="font-semibold text-[#1c2126]">{GUIDE_LABEL[c.kind]}: </span>
+                  {c.action}
+                </p>
+                {c.sources.length > 0 && (
+                  <p className="mt-1.5 text-[11.5px] leading-snug text-[#5d6570]">
+                    <span className="font-semibold">Source{c.sources.length > 1 ? "s" : ""}: </span>
+                    {c.sources.map((src, i) => (
+                      <span key={src.id}>
+                        {i > 0 && "; "}
+                        <a href={src.url} target="_blank" rel="noopener noreferrer" className="text-[color:var(--brand-deep)] underline-offset-2 hover:underline">
+                          {src.agency}, {src.title}
+                          <ExternalLink className="ml-0.5 inline h-3 w-3 align-[-1px]" aria-hidden />
+                        </a>
+                      </span>
+                    ))}
+                  </p>
+                )}
+              </div>
             </article>
           );
         })}
@@ -226,8 +243,16 @@ export function Findings({ items, onApply, ind }: { items: Concern[]; onApply: (
           {all ? "Show fewer" : `Show all ${items.length} findings`}
         </button>
       )}
+      <p className="mt-3 text-[11.5px] leading-relaxed text-[#6c737d]">
+        {GUIDANCE_DISCLAIMER} Sources checked {fmtCheck(GUIDANCE_CHECKED)}.
+      </p>
     </div>
   );
+}
+
+function fmtCheck(iso: string) {
+  const d = new Date(`${iso}T12:00:00`);
+  return Number.isNaN(d.getTime()) ? iso : d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
 export function BandKey({ ind, th, onEdit }: { ind: Industry; th: Thresholds; onEdit: () => void }) {
