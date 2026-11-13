@@ -1,0 +1,864 @@
+{
+  "about": "Loss prevention guidance shown with findings in the Loss Dashboard. Each item summarizes what a public source says, in our own words, and links to it. See GUIDANCE.md.",
+  "checked": "2026-11-13",
+  "disclaimer": "Guidance summarizes public government resources and published research for general information only. It isn't legal, safety, insurance or medical advice, may not fit your operation, and may not reflect the latest rules. Rules vary by state and city. Check the original source and talk with a qualified safety professional, your carrier or broker, or an attorney before acting on it.",
+  "kinds": {
+    "public": "Public guidance",
+    "research": "Published research",
+    "review": "Who can help",
+    "note": "Note"
+  },
+  "sources": {
+    "osha-rest-cooking": {
+      "agency": "OSHA",
+      "title": "Young Worker Safety in Restaurants eTool: Cooking",
+      "url": "https://www.osha.gov/etools/young-workers-restaurant-safety/cooking"
+    },
+    "osha-rest-foodprep": {
+      "agency": "OSHA",
+      "title": "Young Worker Safety in Restaurants eTool: Food Preparation",
+      "url": "https://www.osha.gov/etools/young-workers-restaurant-safety/food-prep"
+    },
+    "osha-rest-cleanup": {
+      "agency": "OSHA",
+      "title": "Young Worker Safety in Restaurants eTool: Clean-Up",
+      "url": "https://www.osha.gov/etools/young-workers-restaurant-safety/clean-up"
+    },
+    "osha-rest-delivery": {
+      "agency": "OSHA",
+      "title": "Young Worker Safety in Restaurants eTool: Delivery/Storage",
+      "url": "https://www.osha.gov/etools/young-workers-restaurant-safety/delivery"
+    },
+    "osha-3153": {
+      "agency": "OSHA",
+      "title": "Recommendations for Workplace Violence Prevention Programs in Late-Night Retail Establishments (OSHA 3153)",
+      "url": "https://www.osha.gov/sites/default/files/publications/osha3153.pdf"
+    },
+    "osha-wpv": {
+      "agency": "OSHA",
+      "title": "Workplace Violence",
+      "url": "https://www.osha.gov/workplace-violence"
+    },
+    "fda-foodcode": {
+      "agency": "FDA",
+      "title": "FDA Food Code",
+      "url": "https://www.fda.gov/food/retail-food-protection/fda-food-code"
+    },
+    "fda-sesame": {
+      "agency": "FDA",
+      "title": "Addition to the 2022 Food Code: Sesame Added as a Major Food Allergen (fact sheet)",
+      "url": "https://www.fda.gov/media/176623/download"
+    },
+    "osha-mv-guide": {
+      "agency": "OSHA, NHTSA and NETS",
+      "title": "Guidelines for Employers to Reduce Motor Vehicle Crashes",
+      "url": "https://www.osha.gov/sites/default/files/publications/motor_vehicle_guide.pdf"
+    },
+    "usfa-restaurant": {
+      "agency": "U.S. Fire Administration (FEMA)",
+      "title": "Restaurant Fires, Topical Fire Research Series Vol. 4 Issue 3",
+      "url": "https://apps.usfa.fema.gov/downloads/pdf/statistics/v4i3.pdf"
+    },
+    "epa-mold": {
+      "agency": "EPA",
+      "title": "A Brief Guide to Mold, Moisture and Your Home",
+      "url": "https://www.epa.gov/mold/brief-guide-mold-moisture-and-your-home"
+    },
+    "usda-outage": {
+      "agency": "USDA Food Safety and Inspection Service",
+      "title": "Keep Your Food Safe During Emergencies",
+      "url": "https://www.fsis.usda.gov/food-safety/safe-food-handling-and-preparation/emergencies/keep-your-food-safe-during-emergencies"
+    },
+    "doj-cpted": {
+      "agency": "U.S. Department of Justice, COPS Office",
+      "title": "Using Crime Prevention Through Environmental Design in Problem-Solving (Problem-Solving Tools Series No. 8)",
+      "url": "https://cops.usdoj.gov/RIC/Publications/cops-p132-pub.pdf"
+    },
+    "osha-fall": {
+      "agency": "OSHA",
+      "title": "Fall Protection",
+      "url": "https://www.osha.gov/fall-protection"
+    },
+    "osha-1926-25": {
+      "agency": "OSHA",
+      "title": "29 CFR 1926.25, Housekeeping (construction)",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1926/1926.25"
+    },
+    "osha-focus4": {
+      "agency": "OSHA",
+      "title": "Construction Focus Four Training",
+      "url": "https://www.osha.gov/training/outreach/construction/focus-four"
+    },
+    "osha-trench": {
+      "agency": "OSHA",
+      "title": "Trenching and Excavation",
+      "url": "https://www.osha.gov/trenching-excavation"
+    },
+    "osha-electrical": {
+      "agency": "OSHA",
+      "title": "Electrical",
+      "url": "https://www.osha.gov/electrical"
+    },
+    "niosh-rnle": {
+      "agency": "NIOSH (CDC)",
+      "title": "Revised NIOSH Lifting Equation",
+      "url": "https://www.cdc.gov/niosh/ergonomics/about/RNLE.html"
+    },
+    "osha-ergo": {
+      "agency": "OSHA",
+      "title": "Ergonomics",
+      "url": "https://www.osha.gov/ergonomics"
+    },
+    "osha-1910-138": {
+      "agency": "OSHA",
+      "title": "29 CFR 1910.138, Hand Protection",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.138"
+    },
+    "osha-ppe": {
+      "agency": "OSHA",
+      "title": "Personal Protective Equipment",
+      "url": "https://www.osha.gov/personal-protective-equipment"
+    },
+    "osha-eye": {
+      "agency": "OSHA",
+      "title": "Eye and Face Protection",
+      "url": "https://www.osha.gov/eye-face-protection"
+    },
+    "osha-heat": {
+      "agency": "OSHA",
+      "title": "Heat",
+      "url": "https://www.osha.gov/heat-exposure"
+    },
+    "osha-backover": {
+      "agency": "OSHA",
+      "title": "Preventing Backovers",
+      "url": "https://www.osha.gov/preventing-backovers"
+    },
+    "phmsa-811": {
+      "agency": "PHMSA (U.S. DOT)",
+      "title": "Call Before You Dig",
+      "url": "https://primis.phmsa.dot.gov/stakeholder-comms/cbyd"
+    },
+    "fhwa-wz": {
+      "agency": "FHWA (U.S. DOT)",
+      "title": "Work Zone Management Program",
+      "url": "https://ops.fhwa.dot.gov/wz/index.asp"
+    },
+    "osha-1910-22": {
+      "agency": "OSHA",
+      "title": "29 CFR 1910.22, Walking-Working Surfaces: General Requirements",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.22"
+    },
+    "osha-machine": {
+      "agency": "OSHA",
+      "title": "Machine Guarding",
+      "url": "https://www.osha.gov/machine-guarding"
+    },
+    "osha-loto": {
+      "agency": "OSHA",
+      "title": "Control of Hazardous Energy (Lockout/Tagout)",
+      "url": "https://www.osha.gov/control-hazardous-energy"
+    },
+    "osha-hazcom": {
+      "agency": "OSHA",
+      "title": "Hazard Communication",
+      "url": "https://www.osha.gov/hazcom"
+    },
+    "osha-1910-39": {
+      "agency": "OSHA",
+      "title": "29 CFR 1910.39, Fire Prevention Plans",
+      "url": "https://www.osha.gov/laws-regs/regulations/standardnumber/1910/1910.39"
+    },
+    "cpsc-business": {
+      "agency": "CPSC",
+      "title": "Business & Manufacturing",
+      "url": "https://www.cpsc.gov/Business--Manufacturing"
+    },
+    "fmcsa-tips": {
+      "agency": "FMCSA",
+      "title": "Tips for Truck and Bus Drivers",
+      "url": "https://www.fmcsa.dot.gov/ourroads/tips-truck-and-bus-drivers"
+    },
+    "fmcsa-following": {
+      "agency": "FMCSA",
+      "title": "CMV Driving Tips: Following Too Closely",
+      "url": "https://www.fmcsa.dot.gov/safety/driver-safety/cmv-driving-tips-following-too-closely"
+    },
+    "fmcsa-speed-card": {
+      "agency": "FMCSA",
+      "title": "Tips for Maintaining a Safe Speed (driver visor card)",
+      "url": "https://www.fmcsa.dot.gov/sites/fmcsa.dot.gov/files/2023-01/FMCSA_OROS%20Toolkits_Speeding_VisorCard_508.pdf"
+    },
+    "fmcsa-weather-card": {
+      "agency": "FMCSA",
+      "title": "Tips for Driving in Hazardous Weather (driver visor card)",
+      "url": "https://www.fmcsa.dot.gov/sites/fmcsa.dot.gov/files/2022-03/FMCSA-OROS-CMV-Driver-Toolkit-VisorCard-8x4-EW-visor1_508_Hazardous%20Weather.pdf"
+    },
+    "fmcsa-cargo": {
+      "agency": "FMCSA",
+      "title": "Cargo Securement Rules",
+      "url": "https://www.fmcsa.dot.gov/regulations/cargo-securement/cargo-securement-rules"
+    },
+    "cfr-391-25": {
+      "agency": "FMCSA regulation",
+      "title": "49 CFR 391.25, Annual inquiry and review of driving record",
+      "url": "https://www.ecfr.gov/current/title-49/section-391.25"
+    },
+    "cfr-390-15": {
+      "agency": "FMCSA regulation",
+      "title": "49 CFR 390.15, Assistance in investigations and special studies",
+      "url": "https://www.ecfr.gov/current/title-49/section-390.15"
+    },
+    "wa-3points": {
+      "agency": "Washington State Dept. of Labor & Industries (in the NIOSH collection)",
+      "title": "It Really Happened: Three-Pointers Get Wins",
+      "url": "https://stacks.cdc.gov/view/cdc/225116"
+    },
+    "readygov-wind": {
+      "agency": "Ready.gov (FEMA)",
+      "title": "Ready Business Severe Wind/Tornado Toolkit",
+      "url": "https://www.ready.gov/sites/default/files/2020-04/ready_business_severe-wind-tornado-toolkit.pdf"
+    },
+    "usfa-apartment": {
+      "agency": "U.S. Fire Administration (FEMA)",
+      "title": "Apartment Fire Safety",
+      "url": "https://www.usfa.fema.gov/downloads/fief/apartment_fire_safety.pdf"
+    },
+    "cdc-dogs": {
+      "agency": "CDC",
+      "title": "Dogs (Healthy Pets, Healthy People)",
+      "url": "https://www.cdc.gov/healthy-pets/about/dogs.html"
+    },
+    "cpsc-pool": {
+      "agency": "CPSC Pool Safely",
+      "title": "Pool Safely",
+      "url": "https://www.poolsafely.gov/"
+    },
+    "epa-ipm": {
+      "agency": "EPA",
+      "title": "Integrated Pest Management (IPM) Principles",
+      "url": "https://www.epa.gov/ipm"
+    },
+    "dol-sawrtw": {
+      "agency": "U.S. Department of Labor, ODEP",
+      "title": "Stay-at-Work/Return-to-Work",
+      "url": "https://www.dol.gov/agencies/odep/initiatives/saw-rtw"
+    },
+    "osha-recprac": {
+      "agency": "OSHA",
+      "title": "Recommended Practices for Safety and Health Programs",
+      "url": "https://www.osha.gov/safety-management"
+    },
+    "ncci-lag": {
+      "agency": "NCCI research brief (2015), as reported by Business Insurance",
+      "title": "Reporting delays tied to higher workers comp claim costs",
+      "url": "https://www.businessinsurance.com/reporting-delays-tied-to-higher-workers-comp-claim-costs/"
+    },
+    "hartford-lag": {
+      "agency": "The Hartford claim lag study, as cited by Gallagher on the PRIMA blog",
+      "title": "A New Approach to Controlling Lag Time",
+      "url": "https://primacentral.org/education/podcasts-blog/a-new-approach-to-controlling-lag-time/"
+    }
+  },
+  "guides": {
+    "water": {
+      "kind": "public",
+      "text": "EPA's moisture guidance covers fixing leaks fast, drying wet materials within 24 to 48 hours, keeping indoor humidity below 60%, keeping gutters, drains and AC drip pans clear, and grading soil away from the foundation.",
+      "sources": [
+        "epa-mold"
+      ]
+    },
+    "theft": {
+      "kind": "public",
+      "text": "The Justice Department's COPS Office guide on Crime Prevention Through Environmental Design covers controlling access (fences, gates, locks, signs), making the site easy to see into (lighting, sight lines, trimmed landscaping) and visible upkeep that shows someone is paying attention.",
+      "sources": [
+        "doj-cpted"
+      ]
+    },
+    "strain": {
+      "kind": "public",
+      "text": "OSHA's ergonomics guidance covers fitting the job to the worker: cutting heavy lifting, awkward postures and repetitive motion, involving workers, and encouraging early reporting of symptoms. NIOSH's lifting equation is the government tool for rating lifting tasks.",
+      "sources": [
+        "osha-ergo",
+        "niosh-rnle"
+      ]
+    },
+    "hand": {
+      "kind": "public",
+      "text": "OSHA's hand protection rule (29 CFR 1910.138) calls for gloves chosen for the specific hazard, such as cuts, punctures, burns or chemicals, based on the task, the conditions and how long they're worn.",
+      "sources": [
+        "osha-1910-138"
+      ]
+    },
+    "vehicle": {
+      "kind": "public",
+      "text": "The OSHA, NHTSA and NETS employer guide covers written driving policies, signed driver agreements, driving record checks before hiring and periodically after, reporting and investigating every crash, vehicle maintenance and ongoing training. It applies to personal vehicles used for work too.",
+      "sources": [
+        "osha-mv-guide"
+      ]
+    },
+    "backover": {
+      "kind": "public",
+      "text": "OSHA's backover guidance covers spotters, rear cameras, proximity sensors, internal traffic control plans that cut down on backing and keep people away from vehicles, and training workers on blind spots.",
+      "sources": [
+        "osha-backover"
+      ]
+    },
+    "wpv": {
+      "kind": "public",
+      "text": "OSHA's workplace violence guidance covers a zero-tolerance policy, a worksite assessment, a written prevention program with physical and administrative controls, training on warning signs and response, and prompt follow-up on every report.",
+      "sources": [
+        "osha-wpv"
+      ]
+    },
+    "other": {
+      "kind": "note",
+      "text": "These claims have no clear cause, so they can't be grouped into a trend. Cause codes usually come from the carrier or TPA claim system.",
+      "sources": []
+    },
+    "rest-slip": {
+      "kind": "public",
+      "text": "OSHA's restaurant guidance covers keeping floors clean and dry, cleaning spills right away and marking wet areas, non-slip mats or grit-coated surfaces where grease builds up, keeping drains and grates clear, and slip-resistant, closed-toe shoes.",
+      "sources": [
+        "osha-rest-cooking",
+        "osha-rest-foodprep",
+        "osha-rest-cleanup"
+      ]
+    },
+    "rest-burn": {
+      "kind": "public",
+      "text": "OSHA's restaurant guidance on fryers and hot surfaces covers training on fryer use, correct oil levels and temperatures, keeping water and ice out of hot oil, letting oil cool before moving or straining it, and protective gloves and clothing.",
+      "sources": [
+        "osha-rest-cooking",
+        "osha-1910-138"
+      ]
+    },
+    "rest-cut": {
+      "kind": "public",
+      "text": "OSHA's restaurant guidance covers cut-resistant gloves, knife storage and handling, keeping blades sharp, using machine guards and push sticks, and turning off and unplugging slicers and mixers before cleaning.",
+      "sources": [
+        "osha-rest-foodprep",
+        "osha-1910-138"
+      ]
+    },
+    "rest-strain": {
+      "kind": "public",
+      "text": "OSHA's restaurant guidance covers storing heavy items on low shelves, using carts and hand trucks, getting help with heavy loads, using smaller containers and rotating repetitive tasks. NIOSH's lifting equation is the government tool for rating lifting tasks.",
+      "sources": [
+        "osha-rest-delivery",
+        "osha-rest-foodprep",
+        "niosh-rnle"
+      ]
+    },
+    "rest-struck": {
+      "kind": "public",
+      "text": "OSHA's restaurant guidance covers guarding food prep machines, turning off and unplugging equipment before cleaning or clearing jams, and keeping loose clothing and jewelry away from moving parts.",
+      "sources": [
+        "osha-rest-foodprep",
+        "osha-machine"
+      ]
+    },
+    "rest-robbery": {
+      "kind": "public",
+      "text": "OSHA's late-night retail recommendations cover drop safes and low cash in registers, bright lighting inside and out, clear sight lines into the store, cameras and alarms, locked doors outside business hours, buddy systems and parking escorts at night, and training on de-escalation and robbery response.",
+      "sources": [
+        "osha-3153"
+      ]
+    },
+    "rest-food": {
+      "kind": "public",
+      "text": "The FDA Food Code is the model food safety code most state and local health departments adopt. It covers employee health and hygiene, time and temperature control, and preventing contamination. Your local health code is the version that applies to you.",
+      "sources": [
+        "fda-foodcode"
+      ]
+    },
+    "rest-allergy": {
+      "kind": "public",
+      "text": "Under the FDA Food Code, staff food safety training includes awareness of the 9 major food allergens, including sesame, and the 2022 and later editions add telling customers in writing about major allergens in unpackaged food. Check which edition your state or county uses.",
+      "sources": [
+        "fda-sesame",
+        "fda-foodcode"
+      ]
+    },
+    "rest-fire": {
+      "kind": "public",
+      "text": "OSHA's restaurant guidance covers Class K extinguishers for grease fires, keeping grills and grease traps clean, knowing how to trigger the hood suppression system, and an emergency action plan. The U.S. Fire Administration notes NFPA 96 is widely recognized as the governing standard for kitchen exhaust, grease removal and suppression; your local fire code sets the schedules.",
+      "sources": [
+        "osha-rest-cooking",
+        "usfa-restaurant"
+      ]
+    },
+    "rest-spoil": {
+      "kind": "public",
+      "text": "USDA food safety guidance covers keeping appliance thermometers in refrigerators and freezers (40°F or below, 0°F or below), keeping doors closed during an outage, and the limits of about 4 hours for a refrigerator and about 48 hours for a full freezer without power.",
+      "sources": [
+        "usda-outage"
+      ]
+    },
+    "con-fall": {
+      "kind": "public",
+      "text": "OSHA requires fall protection at 6 feet in construction. The options OSHA lists include guardrails and toe-boards, hole covers, safety nets and personal fall arrest systems. OSHA's Focus Four training also covers ladders and scaffolds.",
+      "sources": [
+        "osha-fall",
+        "osha-focus4"
+      ]
+    },
+    "con-slip": {
+      "kind": "public",
+      "text": "OSHA's construction housekeeping rule (29 CFR 1926.25) requires clearing debris, including lumber with protruding nails, from work areas, walkways and stairs, and removing scrap and combustible waste on a regular schedule.",
+      "sources": [
+        "osha-1926-25"
+      ]
+    },
+    "con-struck": {
+      "kind": "public",
+      "text": "Struck-by is one of OSHA's Construction Focus Four hazards. OSHA's training covers vehicles and equipment, falling and flying objects, nail guns, crane and rigging loads, and the protective equipment that goes with them.",
+      "sources": [
+        "osha-focus4",
+        "osha-backover"
+      ]
+    },
+    "con-caught": {
+      "kind": "public",
+      "text": "Caught-in or between is one of OSHA's Construction Focus Four hazards. For trenches, OSHA's guidance covers sloping, shoring or trench boxes, keeping materials back from the edge, a safe way in and out, and inspection before anyone enters.",
+      "sources": [
+        "osha-focus4",
+        "osha-trench"
+      ]
+    },
+    "con-elec": {
+      "kind": "public",
+      "text": "OSHA lists contact with power lines and missing ground-fault protection among the most frequent causes of electrical injuries. Its guidance covers insulation, guarding, grounding, electrical protective devices and safe work practices. Electrocution is one of the Construction Focus Four.",
+      "sources": [
+        "osha-electrical",
+        "osha-focus4"
+      ]
+    },
+    "con-cut": {
+      "kind": "public",
+      "text": "OSHA's personal protective equipment guidance says employers provide protective gear when other controls aren't enough, and train workers on when it's needed, what kind, how to wear it and its limits.",
+      "sources": [
+        "osha-ppe"
+      ]
+    },
+    "con-eye": {
+      "kind": "public",
+      "text": "OSHA requires eye and face protection whenever needed to guard against chemical, environmental, radiological or mechanical hazards, and notes many eye injuries could be prevented with the right protection chosen and worn.",
+      "sources": [
+        "osha-eye"
+      ]
+    },
+    "con-heat": {
+      "kind": "public",
+      "text": "OSHA's heat guidance centers on water, rest and shade, letting new or returning workers build tolerance with shorter shifts and more breaks, and training everyone on heat illness symptoms and first aid. California, Washington, Oregon, Minnesota and Colorado have their own heat rules.",
+      "sources": [
+        "osha-heat"
+      ]
+    },
+    "con-utility": {
+      "kind": "public",
+      "text": "For underground utilities, PHMSA's federal guidance calls for contacting 811 before every dig, waiting the required time for lines to be marked, respecting the marks and digging with care. State one-call laws set the notice period.",
+      "sources": [
+        "phmsa-811"
+      ]
+    },
+    "con-public": {
+      "kind": "public",
+      "text": "Where work affects roads or sidewalks, Part 6 of the federal Manual on Uniform Traffic Control Devices (MUTCD) sets the national standard for temporary traffic control, and FHWA's work zone program covers motorist and worker safety.",
+      "sources": [
+        "fhwa-wz"
+      ]
+    },
+    "con-defect": {
+      "kind": "review",
+      "text": "There's no OSHA or federal safety standard for workmanship. Quality is governed by the contract, plans and specifications and the local building code, with inspections by the local building department. Project counsel and the carrier can speak to specific claims.",
+      "sources": []
+    },
+    "con-weather": {
+      "kind": "public",
+      "text": "OSHA's construction housekeeping rule requires removing combustible scrap on a schedule and covered containers for oily or flammable waste. For storms, Ready.gov's business toolkit covers identifying your risk, making a plan and taking protective steps before severe weather.",
+      "sources": [
+        "osha-1926-25",
+        "readygov-wind"
+      ]
+    },
+    "flt-rear": {
+      "kind": "public",
+      "text": "FMCSA's following-distance guidance for truck and bus drivers covers keeping enough space to stop and make well-planned decisions, and doubling following distance in bad weather, poor visibility or heavy traffic.",
+      "sources": [
+        "fmcsa-following"
+      ]
+    },
+    "flt-inter": {
+      "kind": "public",
+      "text": "FMCSA's tips for truck and bus drivers cover checking mirrors every 8 to 10 seconds, scanning about 15 seconds ahead, making wide turns with extra space and time, and signaling early.",
+      "sources": [
+        "fmcsa-tips"
+      ]
+    },
+    "flt-lane": {
+      "kind": "public",
+      "text": "FMCSA's tips cover checking mirrors every 8 to 10 seconds for vehicles entering blind spots and signaling early so other drivers see what you're about to do.",
+      "sources": [
+        "fmcsa-tips"
+      ]
+    },
+    "flt-fixed": {
+      "kind": "public",
+      "text": "FMCSA's tips cover planning routes ahead for weather, detours and mountain routes, noting that consumer navigation apps may not warn about commercial vehicle restrictions, and making wide turns with extra space.",
+      "sources": [
+        "fmcsa-tips"
+      ]
+    },
+    "flt-roll": {
+      "kind": "public",
+      "text": "FMCSA's driver tips cover slowing down for weather, curves and ramps, and allowing for the vehicle's weight on hills. FMCSA notes posted speed limits are set for passenger vehicles and says trucks should slow further on curves and ramps to avoid rollovers.",
+      "sources": [
+        "fmcsa-tips",
+        "fmcsa-speed-card"
+      ]
+    },
+    "flt-animal": {
+      "kind": "public",
+      "text": "There's no federal standard specific to animal strikes. FMCSA's driver tips on driving at a safe speed and slowing down for conditions are the closest federal reference; many state wildlife and transportation agencies publish local guidance.",
+      "sources": [
+        "fmcsa-tips"
+      ]
+    },
+    "flt-ped": {
+      "kind": "public",
+      "text": "FMCSA notes large trucks and buses have big blind spots on all sides. Its driver tips cover checking mirrors every 8 to 10 seconds and making wide turns carefully with extra space and time.",
+      "sources": [
+        "fmcsa-tips"
+      ]
+    },
+    "flt-parked": {
+      "kind": "public",
+      "text": "FMCSA's tips cover signaling early and using flashers, reflective triangles or flares when stopped on the road.",
+      "sources": [
+        "fmcsa-tips"
+      ]
+    },
+    "flt-weather": {
+      "kind": "public",
+      "text": "FMCSA's hazardous weather guidance covers slowing down, adjusting following distance to conditions and visibility, and avoiding flooded roads. Federal rules (49 CFR 392.14) require extreme caution when conditions reduce visibility or traction.",
+      "sources": [
+        "fmcsa-weather-card",
+        "fmcsa-tips"
+      ]
+    },
+    "flt-cargo": {
+      "kind": "public",
+      "text": "FMCSA's cargo securement rules (49 CFR 393, Subpart I) require cargo to be firmly immobilized with dunnage, shoring bars or tiedowns, set working load limits and minimum tiedown counts, and add commodity-specific rules for items like metal coils, lumber and heavy equipment.",
+      "sources": [
+        "fmcsa-cargo"
+      ]
+    },
+    "flt-crashinj": {
+      "kind": "public",
+      "text": "FMCSA's tips for truck and bus drivers call for wearing a seat belt on every trip and note that not wearing one is a key factor in fatal crashes.",
+      "sources": [
+        "fmcsa-tips"
+      ]
+    },
+    "flt-slip": {
+      "kind": "public",
+      "text": "Guidance from Washington State's Department of Labor & Industries, kept in the NIOSH collection, covers three points of contact facing the vehicle, secure grab handles and anti-slip steps, slip-resistant boots and not rushing when getting in and out.",
+      "sources": [
+        "wa-3points"
+      ]
+    },
+    "re-fire": {
+      "kind": "public",
+      "text": "The U.S. Fire Administration's apartment guidance covers working smoke alarms in every sleeping room, testing them monthly, reporting damaged alarms, extinguishers or exit lights to management, and having an escape plan. Local fire codes set the building's requirements.",
+      "sources": [
+        "usfa-apartment"
+      ]
+    },
+    "re-storm": {
+      "kind": "public",
+      "text": "Ready.gov's Ready Business severe wind toolkit walks through identifying your risk, making a plan, and taking protective steps for staff, buildings and systems before storms hit.",
+      "sources": [
+        "readygov-wind"
+      ]
+    },
+    "re-mold": {
+      "kind": "public",
+      "text": "EPA says moisture control is the key to mold control. Its guidance covers fixing leaks and drying wet materials within 24 to 48 hours, keeping humidity below 60%, venting moisture sources, and having residents report leaks right away.",
+      "sources": [
+        "epa-mold"
+      ]
+    },
+    "re-equip": {
+      "kind": "review",
+      "text": "There's no single federal standard for equipment breakdown. Manufacturer maintenance schedules and state or local inspection rules for boilers, elevators and fire systems are the usual references, along with the property insurer's loss control service.",
+      "sources": []
+    },
+    "re-slip": {
+      "kind": "public",
+      "text": "OSHA's walking-working surface rule (29 CFR 1910.22) calls for clean, dry, hazard-free floors, regular inspection, and fixing or guarding hazards before anyone uses the area. It applies to employees; local property maintenance codes also apply to resident and guest areas.",
+      "sources": [
+        "osha-1910-22"
+      ]
+    },
+    "re-assault": {
+      "kind": "public",
+      "text": "The COPS Office CPTED guide covers lighting, clear sight lines, access control and visible upkeep. For on-site staff, OSHA's workplace violence guidance covers a zero-tolerance policy, a worksite assessment, training and prompt follow-up on every report.",
+      "sources": [
+        "doj-cpted",
+        "osha-wpv"
+      ]
+    },
+    "re-dog": {
+      "kind": "public",
+      "text": "CDC says most dog bites are preventable and points to responsible ownership, such as socializing dogs and keeping them leashed in public, and to reporting bites to local animal control. Local leash and dangerous dog laws also apply.",
+      "sources": [
+        "cdc-dogs"
+      ]
+    },
+    "re-pool": {
+      "kind": "public",
+      "text": "CPSC's Pool Safely program covers fencing at least 4 feet high on all sides with self-closing, self-latching gates, compliant drain covers (federal law requires them on public pools and spas), constant supervision and CPR training. State and local health codes govern public pools.",
+      "sources": [
+        "cpsc-pool"
+      ]
+    },
+    "re-pest": {
+      "kind": "public",
+      "text": "EPA's Integrated Pest Management approach covers setting action thresholds, monitoring and identifying pests, preventing problems first, and using the least risky control methods before broader pesticide use.",
+      "sources": [
+        "epa-ipm"
+      ]
+    },
+    "re-park": {
+      "kind": "public",
+      "text": "The COPS Office CPTED guide covers lighting, clear sight lines and access control, which apply to parking areas as well as buildings.",
+      "sources": [
+        "doj-cpted"
+      ]
+    },
+    "gen-slip": {
+      "kind": "public",
+      "text": "OSHA's walking-working surface rule (29 CFR 1910.22) calls for clean, orderly floors kept dry where practical, mats or platforms where wet processes are used, regular inspection, and fixing or guarding hazards before anyone uses the area.",
+      "sources": [
+        "osha-1910-22"
+      ]
+    },
+    "gen-struck": {
+      "kind": "public",
+      "text": "OSHA requires safeguarding any machine part, function or process that can cause injury. Its lockout/tagout rule (29 CFR 1910.147) covers controlling hazardous energy so equipment can't start up during servicing and maintenance.",
+      "sources": [
+        "osha-machine",
+        "osha-loto"
+      ]
+    },
+    "gen-burn": {
+      "kind": "public",
+      "text": "OSHA's hazard communication standard covers chemical labels, safety data sheets and training so workers understand chemical hazards. OSHA's hand protection rule covers gloves chosen for chemical and heat burn hazards.",
+      "sources": [
+        "osha-hazcom",
+        "osha-1910-138"
+      ]
+    },
+    "gen-products": {
+      "kind": "public",
+      "text": "For consumer products, the Consumer Product Safety Commission's business resources cover federal safety rules, testing and certification, and reporting hazardous products. For completed work, contracts and local building codes govern.",
+      "sources": [
+        "cpsc-business"
+      ]
+    },
+    "gen-fire": {
+      "kind": "public",
+      "text": "OSHA's fire prevention plan rule (29 CFR 1910.39) covers listing major fire hazards and how to control them, keeping combustible waste from building up, maintaining heat-producing equipment, and naming who is responsible.",
+      "sources": [
+        "osha-1910-39"
+      ]
+    },
+    "large-open": {
+      "kind": "review",
+      "text": "Large open claims are usually reviewed with the adjuster or TPA. They can explain the plan, the reserve and any recovery options, such as subrogation.",
+      "sources": []
+    },
+    "large-lit": {
+      "kind": "review",
+      "text": "Litigated claims are handled by the carrier or TPA with defense counsel. They can explain the defense plan, the budget and which insurers are on notice.",
+      "sources": []
+    },
+    "large-more": {
+      "kind": "review",
+      "text": "Your carrier or TPA can walk through these claims and their reserves with you.",
+      "sources": []
+    },
+    "freq": {
+      "kind": "note",
+      "text": "A count alone doesn't show whether risk went up. Comparing claims with exposure, such as hours, payroll, revenue or vehicles, gives a rate that accounts for growth.",
+      "sources": []
+    },
+    "sev": {
+      "kind": "note",
+      "text": "Recent claims are still developing, so averages tend to rise as they mature. One or two large claims can move the average a lot; see Biggest claims below.",
+      "sources": []
+    },
+    "lag": {
+      "kind": "research",
+      "text": "Research by NCCI and The Hartford found that workers' comp claims reported later cost more on average than claims reported quickly.",
+      "sources": [
+        "ncci-lag",
+        "hartford-lag"
+      ]
+    },
+    "lit": {
+      "kind": "review",
+      "text": "Litigated claims are handled by the carrier or TPA with defense counsel. They can explain what's driving attorney involvement in these claims.",
+      "sources": []
+    },
+    "lit-fleet": {
+      "kind": "public",
+      "text": "FMCSA rules (49 CFR 390.15) require motor carriers to keep an accident register for 3 years, with copies of accident reports that states or insurers require. The carrier and defense counsel can speak to the claims themselves.",
+      "sources": [
+        "cfr-390-15"
+      ]
+    },
+    "repeat-drivers": {
+      "kind": "public",
+      "text": "For drivers FMCSA regulates, 49 CFR 391.25 requires pulling each driver's motor vehicle record at least once every 12 months, reviewing it with significant weight on serious violations, and noting the review in the driver file. The OSHA, NHTSA and NETS employer guide also covers progressive discipline for repeat violations.",
+      "sources": [
+        "cfr-391-25",
+        "osha-mv-guide"
+      ]
+    },
+    "aging": {
+      "kind": "review",
+      "text": "Your carrier or TPA can give the status and plan for each older open claim. Open claims carry reserves, which can affect collateral and experience rating.",
+      "sources": []
+    },
+    "safety-dart": {
+      "kind": "public",
+      "text": "The U.S. Department of Labor notes that early stay-at-work/return-to-work programs help injured workers get back to productive work as soon as medically possible during recovery.",
+      "sources": [
+        "dol-sawrtw"
+      ]
+    },
+    "safety-rise": {
+      "kind": "public",
+      "text": "OSHA's Recommended Practices for Safety and Health Programs cover hazard identification and assessment, worker participation, and regularly checking whether controls are working.",
+      "sources": [
+        "osha-recprac"
+      ]
+    },
+    "safety-locations": {
+      "kind": "public",
+      "text": "OSHA's Recommended Practices for Safety and Health Programs cover management leadership, worker participation, hazard identification and assessment, and hazard prevention and control at each site.",
+      "sources": [
+        "osha-recprac"
+      ]
+    }
+  },
+  "causes": {
+    "restaurant": {
+      "Slip/Trip/Fall": "rest-slip",
+      "Burn/Scald": "rest-burn",
+      "Cut/Laceration": "rest-cut",
+      "Strain/Lifting": "rest-strain",
+      "Struck By/Caught": "rest-struck",
+      "Assault/Robbery": "rest-robbery",
+      "Food Illness/Foreign Object": "rest-food",
+      "Allergic Reaction": "rest-allergy",
+      "Vehicle/Delivery": "vehicle",
+      "Fire/Smoke": "rest-fire",
+      "Water Damage": "water",
+      "Equipment/Spoilage": "rest-spoil",
+      "Theft/Vandalism": "theft",
+      "Other": "other"
+    },
+    "construction": {
+      "Fall from Height": "con-fall",
+      "Slip/Trip": "con-slip",
+      "Struck By": "con-struck",
+      "Caught In/Between": "con-caught",
+      "Electrical": "con-elec",
+      "Strain/Lifting": "strain",
+      "Cut/Puncture": "con-cut",
+      "Eye Injury": "con-eye",
+      "Heat Illness": "con-heat",
+      "Vehicle/Equipment": "backover",
+      "3rd-Party Property Damage": "con-utility",
+      "Third-Party Injury": "con-public",
+      "Construction Defect": "con-defect",
+      "Theft/Vandalism": "theft",
+      "Water/Fire/Weather": "con-weather",
+      "Other": "other"
+    },
+    "fleet": {
+      "Rear-End": "flt-rear",
+      "Backing": "backover",
+      "Intersection": "flt-inter",
+      "Lane Change/Sideswipe": "flt-lane",
+      "Fixed Object": "flt-fixed",
+      "Rollover/Jackknife": "flt-roll",
+      "Animal Strike": "flt-animal",
+      "Pedestrian/Cyclist": "flt-ped",
+      "Parked/Stationary": "flt-parked",
+      "Glass/Weather": "flt-weather",
+      "Theft/Vandalism": "theft",
+      "Cargo Loss/Damage": "flt-cargo",
+      "Driver Injury: In Crash": "flt-crashinj",
+      "Driver Injury: Slip/Fall": "flt-slip",
+      "Driver Injury: Strain/Loading": "strain",
+      "Driver Injury: Struck/Caught": "backover",
+      "Other": "other"
+    },
+    "realestate": {
+      "Water Damage": "water",
+      "Fire/Smoke": "re-fire",
+      "Wind/Hail/Storm": "re-storm",
+      "Mold": "re-mold",
+      "Theft/Vandalism": "theft",
+      "Equipment Breakdown": "re-equip",
+      "Slip/Trip/Fall": "re-slip",
+      "Assault/Security": "re-assault",
+      "Dog Bite/Animal": "re-dog",
+      "Pool/Amenity": "re-pool",
+      "Habitability/Pests": "re-pest",
+      "Strain/Lifting": "strain",
+      "Cut/Puncture": "hand",
+      "Vehicle/Parking": "re-park",
+      "Other": "other"
+    },
+    "general": {
+      "Slip/Trip/Fall": "gen-slip",
+      "Strain/Lifting": "strain",
+      "Struck By/Caught": "gen-struck",
+      "Cut/Puncture": "hand",
+      "Burn/Exposure": "gen-burn",
+      "Assault/Violence": "wpv",
+      "Vehicle": "vehicle",
+      "Products/Completed Work": "gen-products",
+      "Fire/Smoke": "gen-fire",
+      "Water Damage": "water",
+      "Theft/Vandalism": "theft",
+      "Other": "other"
+    }
+  },
+  "findings": {
+    "largeOpen": "large-open",
+    "largeLitigated": "large-lit",
+    "largeMore": "large-more",
+    "frequency": "freq",
+    "severity": "sev",
+    "lateReporting": "lag",
+    "litigation": {
+      "restaurant": "lit",
+      "construction": "lit",
+      "fleet": "lit-fleet",
+      "realestate": "lit",
+      "general": "lit"
+    },
+    "repeatPeople": "repeat-drivers",
+    "aging": "aging",
+    "dataQuality": "other",
+    "dart": "safety-dart",
+    "rateRise": "safety-rise",
+    "hotLocations": "safety-locations"
+  }
+}
