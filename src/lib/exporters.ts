@@ -16,6 +16,7 @@ import { MONTH_LABELS, fmtDay, fromDay, dayNum } from "./normalize";
 import type { ChartTheme } from "./color";
 import { deepen, ordinalRamp, seqColor, inkOn, PRIOR } from "./color";
 import type { Concern, Kpi, LocationRow } from "./metrics";
+import { GUIDANCE_DISCLAIMER, GUIDE_LABEL } from "./guidance";
 import { byYear, categoryCompare, coverageByYear, coverageColor, detailRows, filterSummary, heatGrid, money, num, pct, samePeriod, topClaims, yearsIn } from "./metrics";
 import { BAND_STYLE } from "@/components/bands";
 import type { Table } from "./parse";
@@ -370,9 +371,18 @@ export async function buildPptx(x: ExportInput): Promise<Blob> {
         s.addShape(pptx.ShapeType.rect, { x: X, y: Y, w: 0.08, h: 1.58, fill: { color: hx(b.fg) }, line: { color: hx(b.fg) } });
         s.addText(BAND_LABEL[c.band].toUpperCase(), { x: X + 0.25, y: Y + 0.08, w: 2, h: 0.25, fontFace: FONT, fontSize: 8, bold: true, color: hx(b.fg), charSpacing: 1 });
         s.addText(c.title, { x: X + 0.25, y: Y + 0.3, w: 5.6, h: 0.4, fontFace: FONT, fontSize: 12, bold: true, color: INK, fit: "shrink" });
-        s.addText(c.detail, { x: X + 0.25, y: Y + 0.68, w: 5.6, h: 0.4, fontFace: FONT, fontSize: 9, color: MUTED, valign: "top", fit: "shrink" });
-        s.addText(`Next step: ${c.action}`, { x: X + 0.25, y: Y + 1.05, w: 5.6, h: 0.48, fontFace: FONT, fontSize: 9, color: INK, valign: "top", fit: "shrink" });
+        s.addText(c.detail, { x: X + 0.25, y: Y + 0.66, w: 5.6, h: 0.34, fontFace: FONT, fontSize: 8.5, color: MUTED, valign: "top", fit: "shrink" });
+        const src = [...new Set(c.sources.map((x) => x.agency))].join("; ");
+        s.addText(
+          [
+            { text: `${GUIDE_LABEL[c.kind]}: `, options: { bold: true } },
+            { text: c.action },
+            ...(src ? [{ text: `  Source: ${src}`, options: { color: MUTED, italic: true } }] : []),
+          ],
+          { x: X + 0.25, y: Y + 1.0, w: 5.6, h: 0.56, fontFace: FONT, fontSize: 7.5, color: INK, valign: "top", fit: "shrink" },
+        );
       });
+      s.addText(`${GUIDANCE_DISCLAIMER} Full source list and links: GUIDANCE.md in the project repo.`, { x: 0.5, y: 6.48, w: 12.3, h: 0.46, fontFace: FONT, fontSize: 7, color: MUTED, valign: "top", fit: "shrink" });
     }
   }
 

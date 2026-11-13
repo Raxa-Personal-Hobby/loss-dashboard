@@ -2,6 +2,7 @@ import type { Band, Claim, Coverage, Filters } from "./types";
 import type { DetailChart, Industry } from "./industries";
 import { MONTH_LABELS, fromDay, fmtDay } from "./normalize";
 import { bandOf, type Thresholds } from "./thresholds";
+import { asFinding, guideForCause, guideForFinding, type GuideKind, type GuideSource } from "./guidance";
 
 export const money = (n: number, compact = true) => {
   if (!isFinite(n)) return "$0";
@@ -326,7 +327,10 @@ export interface Concern {
   band: Band;
   title: string;
   detail: string;
+  /** Guidance text shown with the finding (see data/loss-prevention-guidance.json). */
   action: string;
+  kind: GuideKind;
+  sources: GuideSource[];
   weight: number;
   filter?: Partial<Filters>;
 }
@@ -335,8 +339,8 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
   const largeAt = th.largeLoss;
   const T = th.find;
   const out: Concern[] = [];
-  const TIPS = ind.tips;
-  const tip = (cat: string) => TIPS[cat] ?? TIPS.Other ?? "";
+  const tip = (cat: string) => asFinding(guideForCause(ind.id, cat));
+  const fg = (key: Parameters<typeof guideForFinding>[0]) => asFinding(guideForFinding(key, ind.id));
   const { l12, p12 } = rolling(dims, V);
   const sp = samePeriod(dims, V);
 
@@ -350,7 +354,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
         band,
         title: `${r.location}: claims ${pct(r.change)} in the last 12 months`,
         detail: `${r.l12} claims vs ${r.p12} the year before. Top cause: ${r.topCause} (${r.topCauseN}).`,
-        action: tip(r.topCause),
+        ...tip(r.topCause),
         weight: r.l12 * (1 + r.change),
         filter: { locations: [r.location] },
       });
@@ -367,8 +371,8 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
       id: `repeat-${k}`,
       band: n >= T.repeatHigh ? 3 : 2,
       title: `${n} ${cat} claims at ${loc} in 12 months`,
-      detail: `Same cause, same ${ind.unit.one}, inside a year. That usually points to one fixable condition.`,
-      action: tip(cat),
+      detail: `Same cause at the same ${ind.unit.one} within 12 months.`,
+      ...tip(cat),
       weight: n * 2,
       filter: { locations: [loc], categories: [cat] },
     });
@@ -381,9 +385,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
       band: c.litigated && c.incurred >= largeAt * 2.5 ? 4 : c.litigated || c.incurred >= largeAt * 2 ? 3 : 2,
       title: `Open large loss ${c.id}: ${money(c.incurred)} at ${c.location}`,
       detail: `${c.coverage} · ${c.category} · loss date ${fmtDay(c.lossDay)}${c.litigated ? " · in litigation" : ""}. ${money(c.reserve)} still reserved.`,
-      action: c.litigated
-        ? "Ask defense counsel for a budget and a settlement range; confirm the carrier has excess and umbrella on notice."
-        : "Ask the adjuster for a written action plan and a date to close or settle. Check for subrogation.",
+      ...fg(c.litigated ? "largeLitigated" : "largeOpen"),
       weight: c.incurred / 10000,
       filter: { locations: [c.location] },
     }),
@@ -394,7 +396,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
       band: 2,
       title: `${big.length - 4} more open claim${big.length - 4 === 1 ? "" : "s"} over ${money(largeAt)}`,
       detail: `${money(big.slice(4).reduce((s, c) => s + c.reserve, 0))} reserved across them.`,
-      action: "Set a quarterly large-loss review with the carrier or TPA.",
+      ...fg("largeMore"),
       weight: 5,
     });
   }
@@ -406,7 +408,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
       band: cc.change * 100 >= T.catHighPct ? 3 : 2,
       title: `${cc.category} claims ${pct(cc.change)} across the company`,
       detail: `${cc.current} in the last 12 months vs ${cc.prior} the year before.`,
-      action: tip(cc.category),
+      ...tip(cc.category),
       weight: cc.current * cc.change,
       filter: { categories: [cc.category] },
     });
@@ -419,7 +421,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
       band: chCount * 100 >= T.freqHighPct ? 3 : 2,
       title: `Claim count ${pct(chCount)} vs last year, same period`,
       detail: `${sp.cur.length} claims ${sp.label} ${sp.year} vs ${sp.prior.length} in ${sp.year - 1}. Check whether ${ind.exposure} grew at the same pace.`,
-      action: `Compare against ${ind.exposure} to see if the rate is really rising, then target the top two causes.`,
+      ...fg("frequency"),
       weight: 8,
     });
   }
@@ -432,7 +434,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
       band: chAvg * 100 >= T.sevHighPct ? 3 : 2,
       title: `Average claim cost ${pct(chAvg)} vs last year`,
       detail: `${money(avgC)} per claim vs ${money(avgP)}. Recent claims are still developing, so this tends to grow.`,
-      action: "Look at the largest few claims first; one or two often drive the jump. Push for early return-to-work on WC.",
+      ...fg("severity"),
       weight: 7,
     });
   }
@@ -448,7 +450,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
         band: share * 100 >= T.lateHighShare ? 3 : 2,
         title: `${Math.round(share * 100)}% of claims reported more than ${T.lateDays} days after the loss`,
         detail: worst.length ? `Slowest ${ind.unit.many}: ${worst.join(", ")}.` : `${late.length} of ${lagged.length} claims in the last 12 months.`,
-        action: "Report every incident within 24 to 48 hours, even minor ones. NCCI and The Hartford both found late-reported WC claims cost more.",
+        ...fg("lateReporting"),
         weight: share * 30,
         filter: worst.length ? { locations: worst } : undefined,
       });
@@ -464,7 +466,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
       band: litNow * 100 >= T.litHighRate || litDelta * 100 >= T.litHighDelta ? 3 : 2,
       title: `Litigation rate ${(litNow * 100).toFixed(1)}% in the last 12 months`,
       detail: `${litDelta >= 0 ? "Up" : "Down"} ${Math.abs(litDelta * 100).toFixed(1)} points from the year before. Litigated claims usually cost more and take longer to close.`,
-      action: ind.litigationAction,
+      ...fg("litigation"),
       weight: 9,
       filter: { litigatedOnly: true },
     });
@@ -480,7 +482,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
         band: worst >= 3 && rep.length >= 3 ? 3 : worst >= 3 ? 2 : 1,
         title: `${rep.length} ${rep.length === 1 ? ind.repeat.noun : ind.repeat.nouns} with 2 or more claims in 12 months`,
         detail: `Most frequent: ${top}.`,
-        action: ind.repeat.action,
+        ...fg("repeatPeople"),
         weight: rep.length * worst,
       });
     }
@@ -493,7 +495,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
       band: aging.length >= T.agingHigh ? 2 : 1,
       title: `${aging.length} claims open more than ${T.agingDays === 365 ? "a year" : `${T.agingDays} days`}`,
       detail: `${money(aging.reduce((s, c) => s + c.reserve, 0))} still reserved on them.`,
-      action: "Ask the TPA for a closure plan on each. Old open claims tie up collateral and inflate experience mods.",
+      ...fg("aging"),
       weight: aging.length,
       filter: { status: "Open" },
     });
@@ -506,7 +508,7 @@ export function concerns(dims: Claim[], V: number, locRows: LocationRow[], ind: 
       band: 1,
       title: `${Math.round((other / dims.length) * 100)}% of claims have no clear cause`,
       detail: "The cause column is blank or too vague to group.",
-      action: tip("Other"),
+      ...fg("dataQuality"),
       weight: 2,
       filter: { categories: ["Other"] },
     });

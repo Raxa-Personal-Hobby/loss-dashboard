@@ -8,6 +8,7 @@ import { bandOf, type Thresholds } from "./thresholds";
 import { norm } from "./fields";
 import { fromDay } from "./normalize";
 import type { Concern } from "./metrics";
+import { asFinding, guideForCause, guideForFinding } from "./guidance";
 
 export const BASE_HOURS = 200000;
 export const rateOf = (cases: number, hours: number | null) => (hours && hours > 0 ? (cases * BASE_HOURS) / hours : null);
@@ -164,7 +165,7 @@ export function safetyConcerns(rows: SafetyYear[], locs: SafetyLocation[], scope
   const T = th.find;
   const withRates = rows.filter((r) => r.trir != null);
   const last = withRates[withRates.length - 1];
-  const tip = (cat: string) => ind.tips[cat] ?? ind.tips.Other ?? "";
+  const tip = (cat: string) => asFinding(guideForCause(ind.id, cat));
   const topCause = (year: number) => {
     const m = new Map<string, number>();
     scoped.filter((c) => c.lossYear === year && c.recordable === true).forEach((c) => m.set(c.category, (m.get(c.category) ?? 0) + 1));
@@ -182,7 +183,7 @@ export function safetyConcerns(rows: SafetyYear[], locs: SafetyLocation[], scope
         band: bandOf(ratio, th.rateBands),
         title: `TRIR ${fmtRate(last.trir)} in ${last.label}, ${Math.round((ratio - 1) * 100)}% above ${vs}`,
         detail: `${last.recordable} recordable cases over ${Math.round(last.hours!).toLocaleString("en-US")} hours. ${src}: ${bench.trc.toFixed(1)}.${tc ? ` Most recordables: ${tc[0]} (${tc[1]}).` : ""}`,
-        action: tc ? tip(tc[0]) : tip("Other"),
+        ...(tc ? tip(tc[0]) : asFinding(guideForFinding("rateRise"))),
         weight: 30 * ratio,
         filter: tc ? { categories: [tc[0]], yearFrom: last.year, yearTo: last.year } : { yearFrom: last.year, yearTo: last.year },
       });
@@ -195,7 +196,7 @@ export function safetyConcerns(rows: SafetyYear[], locs: SafetyLocation[], scope
           band: bandOf(dr, th.rateBands),
           title: `DART rate ${fmtRate(last.dart)} in ${last.label} vs ${bench.dart.toFixed(1)} for ${vsShort}`,
           detail: `${last.dafw} days-away and ${last.djtr} restricted or transfer cases. DART counts the injuries serious enough to cost work time. ${src}.`,
-          action: "Bring injured workers back on modified duty where you can; a strong return-to-work program cuts days away and DART. Review the most severe cases with the TPA each month.",
+          ...asFinding(guideForFinding("dart")),
           weight: 26 * dr,
           filter: { yearFrom: last.year, yearTo: last.year },
         });
@@ -209,7 +210,7 @@ export function safetyConcerns(rows: SafetyYear[], locs: SafetyLocation[], scope
         band: up >= (2 * T.rateRisePct) / 100 ? 3 : 2,
         title: `TRIR up ${Math.round(up * 100)}%: ${fmtRate(prev.trir)} in ${prev.label} to ${fmtRate(last.trir)} in ${last.label}`,
         detail: `Rates adjust for hours worked, so this isn't just growth or a busier year.`,
-        action: "Compare the two years by cause and location to find what changed; check whether new hires or a new site account for it.",
+        ...asFinding(guideForFinding("rateRise")),
         weight: 18 + up * 20,
       });
     }
@@ -221,7 +222,7 @@ export function safetyConcerns(rows: SafetyYear[], locs: SafetyLocation[], scope
       band: hot.some((l) => l.trir >= bench.trc * T.locRateX * 1.5) ? 4 : 3,
       title: `${hot.length} ${hot.length === 1 ? ind.unit.one : ind.unit.many} at ${T.locRateX}x ${bench.kind === "custom" ? "your target" : "the industry"} TRIR or more`,
       detail: hot.map((l) => `${l.location} ${fmtRate(l.trir)}`).join(" · ") + `. ${bench.kind === "custom" ? "Your target" : "Industry"}: ${bench.trc.toFixed(1)}.`,
-      action: `Walk these ${hot.length === 1 ? ind.unit.one : ind.unit.many} with the site leads; look at training, staffing and housekeeping, and set a 90-day target.`,
+      ...asFinding(guideForFinding("hotLocations")),
       weight: 24 + hot.length * 3,
       filter: { locations: hot.map((l) => l.location) },
     });

@@ -1,5 +1,5 @@
 // Industry profiles. Everything that changes between industries lives here:
-// coverage lines, cause categories and their matching rules, safety tips,
+// coverage lines, cause categories and their matching rules,
 // field labels, wording, the extra charts, and the synthetic sample data.
 import type { FieldKey } from "./types";
 import { EVENTS, NATURES, BODY_PARTS } from "./bls";
@@ -72,14 +72,12 @@ export interface Industry {
   rules: [string, RegExp[]][];
   boost: Record<string, string[]>; // coverage -> categories that win ties
   fallback: Record<string, string>; // coverage -> category when nothing matches
-  tips: Record<string, string>;
   fields: Partial<Record<FieldKey, FieldOverride>>;
   details: DetailChart[];
   dowNote: string;
   exposure: string; // what frequency should be compared against
   benchmark: string;
-  litigationAction: string;
-  repeat?: { field: "jobTitle" | "bodyPart"; noun: string; nouns: string; action: string };
+  repeat?: { field: "jobTitle" | "bodyPart"; noun: string; nouns: string };
   /** BLS industry codes (NAICS): the default benchmark, the choices offered, and the one the sample mixes follow. */
   bls: { default: string; options: string[]; mix: string };
   sample: SampleSpec;
@@ -199,22 +197,6 @@ const restaurant: Industry = {
   ],
   boost: { Property: ["Fire/Smoke", "Water Damage", "Equipment/Spoilage", "Theft/Vandalism"], Auto: ["Vehicle/Delivery"] },
   fallback: { Auto: "Vehicle/Delivery" },
-  tips: {
-    "Slip/Trip/Fall": "Anti-slip mats at dish, fryer and entry; a slip-resistant footwear program; clean-as-you-go with spill kits; check floor drains and grease build-up.",
-    "Burn/Scald": "Fryer splash guards and a cool-down rule before filtering or changing oil; oil caddies, never carry hot oil by hand; heat-resistant gloves and aprons at the line.",
-    "Cut/Laceration": "Cut-resistant gloves for prep and slicer work; slicer guard checks each shift; knife storage and skills training; a broken-glass routine at bar and dish.",
-    "Strain/Lifting": "Lift training and two-person lifts over 50 lb; carts and dollies for deliveries; heavy items on low shelves; rotate repetitive tasks.",
-    "Struck By/Caught": "Organize walk-ins and dry storage; vision panels and closers on kitchen doors; anchor shelving.",
-    "Assault/Robbery": "Cash-handling limits and drop safes; exterior lighting and cameras; two-person closing; de-escalation training for managers.",
-    "Food Illness/Foreign Object": "Third-party food safety audits; temperature logs; supplier foreign-object controls; capture the incident and keep the sample to support defense.",
-    "Allergic Reaction": "Allergen matrix on menus; allergy flags on tickets; dedicated prep tools; servers escalate every allergy order to the manager.",
-    "Vehicle/Delivery": "MVR checks and driver eligibility rules; delivery promises that don't reward speeding; review hired and non-owned auto; telematics or app driving scores.",
-    "Fire/Smoke": "Hood and duct cleaning on schedule; fire suppression inspection every six months; fryer oil level and thermostat checks.",
-    "Water Damage": "Plumbing and grease-trap maintenance; leak sensors at dish and walk-ins; roof inspections before the rainy season.",
-    "Equipment/Spoilage": "Temperature alarms on walk-ins; preventive maintenance on compressors; confirm the spoilage limit on the property policy.",
-    "Theft/Vandalism": "Alarm and camera coverage; key and code control; nightly inventory checks on high-value items.",
-    Other: "Ask the carrier or TPA to code causes. Uncoded claims hide trends.",
-  },
   fields: {
     location: { label: "Location / store", header: "Location", extraSynonyms: ["store", "storename", "storenumber", "storeno", "unit", "unitname", "unitnumber", "restaurant", "restaurantname", "storeid"], example: "#101 Anaheim Hills" },
     bodyPart: { label: "Body part", header: "Body Part", help: "WC only. Feeds the body part chart.", example: "Hand" },
@@ -227,7 +209,6 @@ const restaurant: Industry = {
   dowNote: "Restaurants usually peak with weekend volume",
   exposure: "headcount or sales",
   benchmark: "multi-unit restaurant group",
-  litigationAction: "Call injured workers within 24 hours and keep in touch; it's the cheapest way to keep attorneys out. Review guest-incident response scripts.",
   bls: { default: "7225", options: ["7225", "722511", "722513", "722515", "private"], mix: "7225" },
   sample: {
     seed: 12,
@@ -407,24 +388,6 @@ const construction: Industry = {
   ],
   boost: { GL: ["3rd-Party Property Damage", "Third-Party Injury", "Construction Defect"], BR: ["Water/Fire/Weather", "Theft/Vandalism"], Equip: ["Theft/Vandalism", "Vehicle/Equipment"], Auto: ["Vehicle/Equipment"] },
   fallback: { Auto: "Vehicle/Equipment" },
-  tips: {
-    "Fall from Height": "100% tie-off above 6 feet; guardrails and hole covers checked daily; ladder inspections and 3-point contact; a rescue plan for every lift and scaffold.",
-    "Slip/Trip": "Daily housekeeping walks; cord management and clear walkways; lighting in stairwells and corridors; boots with good tread.",
-    "Struck By": "Hard hats and high-vis at all times; exclusion zones under overhead work; lift plans and tag lines for every pick; secure tools at height.",
-    "Caught In/Between": "Trench protection and a competent person on every excavation; lockout/tagout before servicing equipment; guard rotating parts.",
-    Electrical: "Lockout/tagout and test-before-touch; GFCI on all temporary power; keep clear of overhead lines; qualified electricians only on energized work.",
-    "Strain/Lifting": "Mechanical lifts and material carts; stage materials close to the work; team lifts over 50 lb; stretch-and-flex at start of shift.",
-    "Cut/Puncture": "Cut-resistant gloves; rebar caps; saw and grinder guards in place; nail gun sequential triggers.",
-    "Eye Injury": "Safety glasses required everywhere on site; face shields for grinding and chipping; eyewash stations at concrete and chemical work.",
-    "Heat Illness": "Water, rest and shade program; acclimatization for new hires; schedule heavy work early; buddy checks on hot days.",
-    "Vehicle/Equipment": "Spotters and backup alarms; operator certification; seat belts in all equipment; traffic control plans for the site and haul routes.",
-    "3rd-Party Property Damage": "Call 811 before every dig and pothole to verify marks; document existing conditions of neighboring property before work starts.",
-    "Third-Party Injury": "Fencing, signage and covered walkways at the perimeter; flaggers and traffic control; keep the public out of the swing radius.",
-    "Construction Defect": "QA/QC checklists and inspections at each phase; tight subcontract language with additional insured endorsements and indemnity; collect COIs before mobilization.",
-    "Theft/Vandalism": "Perimeter fencing and lighting; GPS trackers on equipment; lock up tools nightly; cameras on high-value laydown areas.",
-    "Water/Fire/Weather": "A water mitigation plan for the build; hot work permits and fire watch; secure materials before wind events; confirm builder's risk limits and deductibles.",
-    Other: "Ask the carrier or TPA to code causes. Uncoded claims hide trends.",
-  },
   fields: {
     location: { label: "Project / job site", header: "Project", extraSynonyms: ["project", "projectname", "projectnumber", "projectno", "projectid", "job", "jobname", "jobnumber", "jobno", "jobsite", "contract", "contractnumber"], example: "P-2401 Bayfront Office Tower" },
     bodyPart: { label: "Body part", header: "Body Part", help: "WC only. Feeds the body part chart.", example: "Lower Back" },
@@ -437,7 +400,6 @@ const construction: Industry = {
   dowNote: "Construction claims track the work week",
   exposure: "payroll or work hours",
   benchmark: "general contractor or wrap-up program",
-  litigationAction: "Investigate the same day with photos and daily logs. Tender GL claims to subcontractors' carriers when the contract allows.",
   bls: { default: "23", options: ["23", "236", "238", "private"], mix: "23" },
   sample: {
     seed: 7,
@@ -625,25 +587,6 @@ const fleet: Industry = {
   ],
   boost: { WC: ["Driver Injury: In Crash", "Driver Injury: Slip/Fall", "Driver Injury: Strain/Loading", "Driver Injury: Struck/Caught"], APD: ["Glass/Weather", "Fixed Object", "Animal Strike", "Backing"] },
   fallback: {},
-  tips: {
-    "Rear-End": "Following-distance training (6+ seconds for heavy trucks); forward collision warning; a hard no-phone policy backed by camera review.",
-    Backing: "GOAL: get out and look before every back; pull-through parking where possible; backup cameras and sensors; spotters at docks.",
-    Intersection: "Defensive driving refreshers on right-of-way; route planning that limits unprotected left turns; stale green light coaching.",
-    "Lane Change/Sideswipe": "Blind spot monitoring systems; mirror adjustment checks in pre-trips; signal early and hold the lane in congestion.",
-    "Fixed Object": "Route planning with clearance data; low-clearance alerts in navigation; customer site maps for tight docks and canopies.",
-    "Rollover/Jackknife": "Speed management on ramps and curves; load securement checks; electronic stability control; winter driving training.",
-    "Animal Strike": "Dawn and dusk awareness on rural routes; brake, don't swerve; deer whistles and lighting on high-risk lanes.",
-    "Pedestrian/Cyclist": "Urban driving and right-turn squeeze training; side cameras and convex mirrors; slow down in school and downtown zones.",
-    "Parked/Stationary": "Park in secure, lit lots; avoid road shoulders; use hazard triangles; video to support not-at-fault claims.",
-    "Glass/Weather": "Repair chips early with a glass vendor program; check comprehensive deductibles; weather routing and stand-down rules.",
-    "Theft/Vandalism": "Secure yards with gates, lighting and cameras; GPS tracking on tractors and trailers; kingpin and glad-hand locks.",
-    "Cargo Loss/Damage": "Load securement training; reefer temperature monitoring and alerts; seal checks; photo documentation at pickup and delivery.",
-    "Driver Injury: In Crash": "Seat belt compliance tracked by telematics; post-crash response kits; early return-to-work with modified duty.",
-    "Driver Injury: Slip/Fall": "Three points of contact entering and exiting; grab handles and lighted steps; boots with tread; no jumping from the cab or dock.",
-    "Driver Injury: Strain/Loading": "Lift gates and pallet jacks; tarping systems that keep drivers off the deck; stretch routines; team lifts for heavy freight.",
-    "Driver Injury: Struck/Caught": "Open trailer doors slowly and stand clear in case freight shifted; hand placement training at the fifth wheel and dock plates; gloves and steel toes.",
-    Other: "Ask the carrier or TPA to code accident types. Uncoded claims hide trends.",
-  },
   fields: {
     location: { label: "Terminal / branch", header: "Terminal", synonyms: ["terminal", "terminalname", "yard", "depot", "domicile", "hub", "branch", "branchname", "location", "locationname", "locationcode", "site", "facility", "homebase", "garage"], example: "Fontana, CA Terminal" },
     bodyPart: { label: "Vehicle / unit #", header: "Unit Number", synonyms: ["unit", "unitnumber", "unitno", "vehicle", "vehiclenumber", "vehicleid", "vehicleno", "truck", "trucknumber", "tractor", "tractornumber", "fleetnumber", "vin", "assetnumber", "equipmentnumber", "power unit", "powerunit"], help: "Truck or vehicle number. Shows which units keep getting hit.", example: "Truck 2187" },
@@ -657,8 +600,7 @@ const fleet: Industry = {
   dowNote: "Most fleet claims happen on route days",
   exposure: "miles driven or power units",
   benchmark: "regional trucking or delivery fleet",
-  litigationAction: "Get to the scene fast, preserve dashcam and ELD data the same day, and reach the other party early. Nuclear verdicts start with slow response.",
-  repeat: { field: "jobTitle", noun: "driver", nouns: "drivers", action: "Pull MVRs, ride along, and coach with camera footage. Consider a points system that ties repeat crashes to retraining or removal." },
+  repeat: { field: "jobTitle", noun: "driver", nouns: "drivers" },
   bls: { default: "484", options: ["484", "4841", "4842", "private"], mix: "484" },
   sample: {
     seed: 20,
@@ -805,23 +747,6 @@ const realestate: Industry = {
   ],
   boost: { Property: ["Water Damage", "Fire/Smoke", "Wind/Hail/Storm", "Mold", "Theft/Vandalism", "Equipment Breakdown"], GL: ["Slip/Trip/Fall", "Assault/Security", "Dog Bite/Animal", "Pool/Amenity", "Habitability/Pests"], WC: ["Strain/Lifting", "Cut/Puncture"], Auto: ["Vehicle/Parking"] },
   fallback: { Auto: "Vehicle/Parking" },
-  tips: {
-    "Water Damage": "Automatic leak sensors and shutoff valves; replace water heaters and supply lines on a schedule; annual plumbing and sprinkler inspections; freeze protocols for vacant units.",
-    "Fire/Smoke": "Working smoke detectors in every unit; stove auto-shutoff devices; dryer vent cleaning; grill and smoking rules on balconies.",
-    "Wind/Hail/Storm": "Roof inspections every spring and after storms; trim trees near buildings; secure patio furniture; know your named-storm deductibles.",
-    Mold: "Respond to every moisture call within 48 hours; dry and document; fix ventilation in bathrooms and laundry rooms.",
-    "Theft/Vandalism": "Access control on doors and gates; lighting and cameras in garages and mail rooms; key and fob audits at turnover.",
-    "Equipment Breakdown": "Preventive maintenance contracts on HVAC, boilers and elevators; surge protection; keep inspection certificates current.",
-    "Slip/Trip/Fall": "Snow and ice removal logs; lighting on paths and stairwells; handrails and sidewalk repairs; wet-floor signs during cleaning.",
-    "Assault/Security": "Security assessment by a qualified vendor; lighting, cameras and access control; document every incident and response; review courtesy patrol contracts.",
-    "Dog Bite/Animal": "Pet policy with breed and size rules; require renters insurance with pet liability; act fast on aggressive-animal complaints.",
-    "Pool/Amenity": "Self-latching pool gates and signage; chemical handling training; posted hours and rules; inspect gym and playground equipment.",
-    "Habitability/Pests": "Pest control contracts with documented treatments; work order response targets; photo-document unit condition at move-in and move-out.",
-    "Strain/Lifting": "Appliance dollies and team lifts for maintenance; stage materials close to the work; stretch-and-flex before shift.",
-    "Cut/Puncture": "Cut-resistant gloves for turnover and repairs; safe sharps and glass handling; tool guards.",
-    "Vehicle/Parking": "Speed bumps and signage in lots; gate and garage door maintenance logs; MVR checks for staff who drive.",
-    Other: "Ask the carrier or TPA to code causes. Uncoded claims hide trends.",
-  },
   fields: {
     location: { label: "Property", header: "Property", synonyms: ["property", "propertyname", "propertyid", "propertycode", "propertynumber", "building", "buildingname", "community", "communityname", "asset", "assetname", "location", "locationname", "site", "premises", "address"], example: "Canyon View Apartments" },
     region: { extraSynonyms: ["portfolio", "fund", "submarket"] },
@@ -835,7 +760,6 @@ const realestate: Industry = {
   dowNote: "Weekends and evenings bring more resident activity",
   exposure: "units or square footage",
   benchmark: "multifamily and commercial real estate portfolio",
-  litigationAction: "Respond to resident and guest incidents fast, photograph conditions, and keep maintenance records ready. Early carrier involvement keeps premises claims from growing.",
   bls: { default: "531", options: ["531", "5311", "5313", "private"], mix: "531" },
   sample: {
     seed: 22,
@@ -997,20 +921,6 @@ const general: Industry = {
   ],
   boost: { Property: ["Fire/Smoke", "Water Damage", "Theft/Vandalism"], Auto: ["Vehicle"], GL: ["Products/Completed Work"] },
   fallback: { Auto: "Vehicle" },
-  tips: {
-    "Slip/Trip/Fall": "Walkway and housekeeping checks each shift; slip-resistant footwear where floors get wet; ladder inspections and three-point contact training; fix lighting and uneven surfaces.",
-    "Strain/Lifting": "Lift-assist equipment and two-person lifts for heavy loads; store heavy items between knee and shoulder height; stretch-and-flex before shifts; rotate repetitive tasks.",
-    "Struck By/Caught": "Machine guarding and lockout/tagout; keep walkways clear of forklift traffic; secure stored materials; hard hats where things can fall.",
-    "Cut/Puncture": "Cut-resistant gloves matched to the task; safety knives with auto-retracting blades; sharps and broken-glass procedures.",
-    "Burn/Exposure": "Chemical inventory with safety data sheets; the right PPE for each chemical; ventilation checks; electrical safety training.",
-    "Assault/Violence": "Workplace violence plan; de-escalation training; lighting and cameras; never work alone in high-risk spots.",
-    Vehicle: "MVR checks and driver eligibility rules; telematics or app driving scores; review hired and non-owned auto; forklift certification and refreshers.",
-    "Products/Completed Work": "Quality checks and documentation before work is signed off; keep install and inspection records; check additional insured and contract terms.",
-    "Fire/Smoke": "Fire extinguisher and sprinkler inspections; hot-work permits; housekeeping around ignition sources.",
-    "Water Damage": "Roof and plumbing inspections; leak sensors in key areas; know where the shut-off valves are.",
-    "Theft/Vandalism": "Alarm and camera coverage; key and code control; inventory checks on high-value items.",
-    Other: "Ask the carrier or TPA to code causes. Uncoded claims hide trends.",
-  },
   fields: {
     location: { label: "Location / site", header: "Location", extraSynonyms: ["site", "sitename", "branch", "facility", "plant", "office", "store", "unit", "division"], example: "Ontario Warehouse" },
     bodyPart: { label: "Body part", header: "Body Part", help: "WC only. Feeds the body part chart.", example: "Lower Back" },
@@ -1023,7 +933,6 @@ const general: Industry = {
   dowNote: "Most workplaces peak midweek",
   exposure: "headcount, payroll or hours worked",
   benchmark: "company of your size",
-  litigationAction: "Call injured workers within 24 hours and keep in touch; it's the cheapest way to keep attorneys out. Report claims the same day.",
   bls: { default: "private", options: ["private", "31-33", "42", "44-45", "48-49", "56", "62", "71"], mix: "private" },
   sample: {
     seed: 31,
