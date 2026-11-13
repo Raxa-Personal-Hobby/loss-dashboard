@@ -1,0 +1,1035 @@
+naics_code,ownership,industry,total_recordable_cases,dart,days_away_from_work,job_transfer_or_restriction,other_recordable
+,All ownerships,"All industries including private, state and local government",2.6,1.5,0.9,0.5,1.1
+,Private industry,Private industry,2.3,1.4,0.8,0.5,1.0
+11,Private industry,"Agriculture, forestry, fishing and hunting",3.9,2.5,1.4,1.1,1.4
+111,Private industry,Crop production,4.1,2.5,1.4,1.1,1.7
+1111,Private industry,Oilseed and grain farming,1.8,0.3,,,
+1112,Private industry,Vegetable and melon farming,4.7,2.8,1.7,1.1,1.9
+1113,Private industry,Fruit and tree nut farming,4.3,2.8,1.5,1.3,1.5
+1114,Private industry,"Greenhouse, nursery, and floriculture production",3.6,2.2,1.1,1.1,1.5
+1119,Private industry,Other crop farming,6.0,3.4,2.1,1.3,2.6
+112,Private industry,Animal production and aquaculture,4.0,2.8,1.7,1.1,1.1
+1121,Private industry,Cattle ranching and farming,3.7,2.7,1.8,0.9,1.0
+11211,Private industry,"Beef cattle ranching and farming, including feedlots",5.3,3.8,2.1,1.7,1.6
+11212,Private industry,Dairy cattle and milk production,3.2,2.4,1.7,0.7,0.9
+1122,Private industry,Hog and pig farming,4.2,3.4,1.4,2.1,0.8
+1123,Private industry,Poultry and egg production,4.4,2.8,1.6,1.1,1.6
+1129,Private industry,Other animal production,4.3,3.0,1.5,1.5,1.3
+113,Private industry,Forestry and logging,1.3,0.7,0.5,0.3,0.6
+1133,Private industry,Logging,1.2,0.5,0.5,0.0,0.6
+115,Private industry,Support activities for agriculture and forestry,4.1,2.5,1.4,1.1,1.5
+1151,Private industry,Support activities for crop production,4.4,2.8,1.5,1.2,1.6
+11511,Private industry,Support activities for crop production,4.4,2.8,1.5,1.2,1.6
+115111,Private industry,Cotton ginning,6.3,2.7,2.2,,3.6
+115112,Private industry,"Soil preparation, planting, and cultivating",2.2,1.1,0.6,0.5,1.1
+115114,Private industry,Postharvest crop activities (except cotton ginning),4.7,3.0,1.5,1.5,1.7
+115115,Private industry,Farm labor contractors and crew leaders,4.2,2.8,1.7,1.1,1.4
+115116,Private industry,Farm management services,6.1,4.0,1.3,2.7,2.0
+1152,Private industry,Support activities for animal production,3.5,1.6,1.3,0.3,1.9
+1153,Private industry,Support activities for forestry,0.9,0.5,0.4,0.1,0.3
+21,Private industry,"Mining, quarrying, and oil and gas extraction",1.2,0.9,0.7,0.2,0.3
+21112,Private industry,Crude petroleum extraction,0.5,0.4,0.3,0.1,0.1
+212,Private industry,Mining (except oil and gas),2.0,1.4,1.0,0.4,0.6
+2121,Private industry,Coal mining,3.1,2.2,2.1,0.1,0.9
+21211,Private industry,Coal mining,3.1,2.2,2.1,0.1,0.9
+212111,Private industry,Bituminous coal and lignite surface mining,1.2,0.8,0.8,,0.4
+212112,Private industry,Bituminous coal underground mining,4.3,3.0,2.9,0.2,1.2
+212113,Private industry,Anthracite mining,3.4,3.1,2.9,,
+2122,Private industry,Metal ore mining,1.8,1.3,0.7,0.6,0.5
+21221,Private industry,Iron ore mining,1.4,0.8,0.5,0.3,0.6
+21222,Private industry,Gold ore and silver ore mining,1.4,1.0,0.6,0.4,0.4
+212221,Private industry,Gold ore mining,1.3,0.9,0.5,0.4,0.4
+212222,Private industry,Silver ore mining,2.7,1.9,1.7,,
+21223,Private industry,"Copper, nickel, lead, and zinc mining",2.2,1.7,0.8,0.9,0.5
+21229,Private industry,Other metal ore mining,2.0,1.3,1.0,0.3,0.6
+212299,Private industry,All other metal ore mining,1.9,1.3,1.0,0.4,0.6
+2123,Private industry,Nonmetallic mineral mining and quarrying,1.7,1.2,0.7,0.4,0.5
+21231,Private industry,Stone mining and quarrying,1.8,1.3,0.8,0.5,0.6
+212311,Private industry,Dimension stone mining and quarrying,1.8,1.4,0.8,0.6,0.4
+212312,Private industry,Crushed and broken limestone mining and quarrying,1.9,1.2,0.7,0.5,0.6
+212313,Private industry,Crushed and broken granite mining and quarrying,1.4,1.1,0.7,0.5,0.3
+212319,Private industry,Other crushed and broken stone mining and quarrying,1.8,1.3,0.9,0.4,0.5
+21232,Private industry,"Sand, gravel, clay, and ceramic and refractory minerals mining and quarrying",1.5,1.0,0.7,0.3,0.5
+212321,Private industry,Construction sand and gravel mining,1.5,1.0,0.6,0.3,0.5
+212324,Private industry,Kaolin and ball clay mining,1.3,0.9,0.5,0.4,0.4
+212325,Private industry,Clay and ceramic and refractory minerals mining,2.2,1.4,1.1,,0.8
+21239,Private industry,Other nonmetallic mineral mining and quarrying,1.8,1.2,1.0,0.3,0.6
+212391,Private industry,"Potash, soda, and borate mineral mining",1.3,0.9,0.7,,0.5
+212392,Private industry,Phosphate rock mining,1.8,1.3,1.1,,
+212393,Private industry,Other chemical and fertilizer mineral mining,2.4,1.6,1.2,0.4,0.9
+212399,Private industry,All other nonmetallic mineral mining,1.5,1.1,0.9,,
+213,Private industry,Support activities for mining,0.9,0.7,0.6,0.1,0.2
+2131,Private industry,Support activities for mining,0.9,0.7,0.6,0.1,0.2
+21311,Private industry,Support activities for mining,0.9,0.7,0.6,0.1,0.2
+213111,Private industry,Drilling oil and gas wells,1.3,1.0,0.7,0.3,0.3
+213112,Private industry,Support activities for oil and gas operations,0.8,0.6,0.6,0.0,0.2
+23,Private industry,Construction,2.2,1.3,0.9,0.4,0.9
+236,Private industry,Construction of buildings,2.2,1.3,0.9,0.4,0.9
+2361,Private industry,Residential building construction,2.5,1.4,1.0,0.4,1.1
+2362,Private industry,Nonresidential building construction,1.9,1.2,0.8,0.4,0.7
+237,Private industry,Heavy and civil engineering construction,1.8,1.0,0.6,0.4,0.7
+2371,Private industry,Utility system construction,1.4,0.8,0.4,0.4,0.6
+23711,Private industry,Water and sewer line and related structures construction,1.9,1.1,0.6,0.5,0.8
+23712,Private industry,Oil and gas pipeline and related structures construction,0.5,0.2,0.1,0.1,0.2
+23713,Private industry,Power and communication line and related structures construction,1.5,0.9,0.4,0.4,0.7
+2372,Private industry,Land subdivision,1.8,0.9,0.8,0.2,0.8
+2373,Private industry,"Highway, street, and bridge construction",2.5,1.5,0.8,0.6,1.0
+2379,Private industry,Other heavy and civil engineering construction,1.2,0.7,0.4,0.3,0.5
+238,Private industry,Specialty trade contractors,2.3,1.4,1.0,0.5,0.9
+2381,Private industry,"Foundation, structure, and building exterior contractors",2.6,1.8,1.2,0.6,0.8
+23811,Private industry,Poured concrete foundation and structure contractors,2.8,2.0,1.3,0.7,0.8
+23812,Private industry,Structural steel and precast concrete contractors,2.8,1.3,0.8,0.4,1.5
+23813,Private industry,Framing contractors,4.6,3.4,2.1,1.3,1.3
+23814,Private industry,Masonry contractors,1.9,1.5,1.2,0.4,0.4
+23815,Private industry,Glass and glazing contractors,2.7,1.5,0.7,0.8,1.2
+23816,Private industry,Roofing contractors,2.4,1.7,1.1,0.6,0.6
+23817,Private industry,Siding contractors,3.2,2.5,2.2,0.3,0.7
+2382,Private industry,Building equipment contractors,2.4,1.4,0.9,0.4,1.0
+23821,Private industry,Electrical contractors and other wiring installation contractors,1.8,1.1,0.7,0.3,0.8
+23822,Private industry,"Plumbing, heating, and air-conditioning contractors",3.0,1.7,1.1,0.6,1.4
+23829,Private industry,Other building equipment contractors,1.4,1.0,0.8,0.2,0.4
+2383,Private industry,Building finishing contractors,2.3,1.5,1.1,0.4,0.8
+23831,Private industry,Drywall and insulation contractors,2.9,2.0,1.2,0.8,0.9
+23832,Private industry,Painting and wall covering contractors,1.6,1.1,1.0,0.2,0.5
+23833,Private industry,Flooring contractors,2.0,0.7,0.6,0.1,1.4
+23834,Private industry,Tile and terrazzo contractors,2.4,1.6,1.2,0.4,0.8
+23835,Private industry,Finish carpentry contractors,1.8,1.3,1.0,0.3,0.5
+23839,Private industry,Other building finishing contractors,3.1,2.0,1.4,0.6,1.1
+2389,Private industry,Other specialty trade contractors,1.5,0.9,0.6,0.3,0.6
+23891,Private industry,Site preparation contractors,1.5,1.0,0.7,0.3,0.5
+23899,Private industry,All other specialty trade contractors,1.6,0.9,0.6,0.3,0.7
+31-33,Private industry,Manufacturing,2.7,1.7,0.8,0.8,1.0
+311,Private industry,Food manufacturing,3.3,2.3,1.1,1.2,1.0
+3111,Private industry,Animal food manufacturing,2.9,2.1,1.1,1.0,0.8
+31111,Private industry,Animal food manufacturing,2.9,2.1,1.1,1.0,0.8
+311111,Private industry,Dog and cat food manufacturing,2.3,1.5,0.9,0.7,0.7
+311119,Private industry,Other animal food manufacturing,3.5,2.7,1.4,1.3,0.8
+3112,Private industry,Grain and oilseed milling,2.9,1.9,1.1,0.9,1.0
+31121,Private industry,Flour milling and malt manufacturing,2.8,1.8,1.1,0.8,1.0
+311211,Private industry,Flour milling,3.1,2.2,1.3,0.9,1.0
+311213,Private industry,Malt manufacturing,3.6,,,,2.9
+31122,Private industry,Starch and vegetable fats and oils manufacturing,3.0,2.0,1.1,0.9,1.0
+311221,Private industry,Wet corn milling,2.2,1.1,0.4,0.6,1.1
+311224,Private industry,Soybean and other oilseed processing,4.0,2.7,1.5,1.3,1.2
+311225,Private industry,Fats and oils refining and blending,3.0,2.4,1.6,0.8,0.6
+31123,Private industry,Breakfast cereal manufacturing,2.8,1.8,0.9,0.9,1.1
+3113,Private industry,Sugar and confectionery product manufacturing,3.2,2.2,1.1,1.1,1.0
+31131,Private industry,Sugar manufacturing,4.9,3.3,1.3,2.0,1.6
+311313,Private industry,Beet sugar manufacturing,6.8,4.6,2.2,2.4,2.2
+31134,Private industry,Nonchocolate confectionery manufacturing,2.7,1.7,1.0,0.7,0.9
+31135,Private industry,Chocolate and confectionery manufacturing,2.9,2.1,1.0,1.1,0.8
+311352,Private industry,Confectionery manufacturing from purchased chocolate,2.9,2.1,1.1,1.0,0.7
+3114,Private industry,Fruit and vegetable preserving and specialty food manufacturing,3.3,2.3,1.3,1.0,1.0
+31141,Private industry,Frozen food manufacturing,3.4,2.3,1.3,1.1,1.0
+311411,Private industry,"Frozen fruit, juice, and vegetable manufacturing",4.5,3.2,2.0,1.2,1.3
+311412,Private industry,Frozen specialty food manufacturing,2.8,1.9,0.9,1.0,0.9
+31142,Private industry,"Fruit and vegetable canning, pickling, and drying",3.3,2.3,1.4,0.9,1.0
+311421,Private industry,Fruit and vegetable canning,3.2,2.2,1.3,0.9,1.0
+311422,Private industry,Specialty canning,2.8,1.7,0.9,0.8,1.1
+3115,Private industry,Dairy product manufacturing,4.2,3.0,1.6,1.4,1.2
+31151,Private industry,Dairy product (except frozen) manufacturing,4.2,3.0,1.6,1.4,1.2
+311511,Private industry,Fluid milk manufacturing,4.7,3.4,1.9,1.6,1.2
+311512,Private industry,Creamery butter manufacturing,4.8,3.8,1.8,2.0,1.0
+311513,Private industry,Cheese manufacturing,4.3,3.0,1.5,1.5,1.3
+311514,Private industry,"Dry, condensed, and evaporated dairy product manufacturing",2.5,1.6,0.9,0.7,0.9
+31152,Private industry,Ice cream and frozen dessert manufacturing,4.2,3.0,1.9,1.1,1.2
+3116,Private industry,Animal slaughtering and processing,3.2,2.2,0.7,1.4,1.1
+31161,Private industry,Animal slaughtering and processing,3.2,2.2,0.7,1.4,1.1
+311611,Private industry,Animal (except poultry) slaughtering,4.0,2.8,0.8,2.0,1.1
+311612,Private industry,Meat processed from carcasses,3.7,2.7,1.1,1.6,1.1
+311613,Private industry,Rendering and meat byproduct processing,3.8,2.5,1.3,1.2,1.3
+311615,Private industry,Poultry processing,2.4,1.4,0.5,0.9,1.0
+3117,Private industry,Seafood product preparation and packaging,5.0,3.6,2.3,1.3,1.4
+3118,Private industry,Bakeries and tortilla manufacturing,3.2,2.2,1.3,1.0,1.0
+31181,Private industry,Bread and bakery product manufacturing,3.2,2.1,1.2,0.9,1.1
+311811,Private industry,Retail bakeries,1.9,0.9,0.7,0.2,1.0
+311812,Private industry,Commercial bakeries,3.7,2.5,1.4,1.1,1.1
+31182,Private industry,"Cookie, cracker, and pasta manufacturing",3.1,2.3,1.2,1.1,0.8
+311821,Private industry,Cookie and cracker manufacturing,2.6,1.8,0.9,0.9,0.8
+31183,Private industry,Tortilla manufacturing,4.3,3.5,2.1,1.4,0.8
+3119,Private industry,Other food manufacturing,3.3,2.3,1.2,1.1,1.1
+31191,Private industry,Snack food manufacturing,3.0,1.9,0.8,1.1,1.1
+311911,Private industry,Roasted nuts and peanut butter manufacturing,3.0,1.3,0.7,0.6,1.7
+311919,Private industry,Other snack food manufacturing,3.1,2.1,0.8,1.3,0.9
+31192,Private industry,Coffee and tea manufacturing,4.6,2.4,1.9,0.5,2.2
+31193,Private industry,Flavoring syrup and concentrate manufacturing,1.0,0.7,0.3,0.4,0.3
+31194,Private industry,Seasoning and dressing manufacturing,2.9,2.2,1.1,1.1,0.7
+311941,Private industry,"Mayonnaise, dressing, and other prepared sauce manufacturing",2.3,1.4,0.7,0.7,0.8
+311942,Private industry,Spice and extract manufacturing,3.4,2.8,1.5,1.4,0.6
+31199,Private industry,All other food manufacturing,3.6,2.6,1.3,1.2,1.0
+311991,Private industry,Perishable prepared food manufacturing,4.1,2.9,1.4,1.5,1.2
+311999,Private industry,All other miscellaneous food manufacturing,2.8,2.0,1.2,0.8,0.8
+312,Private industry,Beverage and tobacco product manufacturing,3.7,2.6,1.2,1.4,1.1
+3121,Private industry,Beverage manufacturing,3.7,2.6,1.2,1.4,1.1
+31211,Private industry,Soft drink and ice manufacturing,5.0,4.0,1.6,2.4,0.9
+312111,Private industry,Soft drink manufacturing,5.7,4.7,1.8,2.9,1.1
+312112,Private industry,Bottled water manufacturing,2.7,2.0,1.1,0.9,0.7
+312113,Private industry,Ice manufacturing,2.1,2.0,0.7,1.3,
+31212,Private industry,Breweries,2.5,1.1,0.6,0.5,1.4
+31213,Private industry,Wineries,3.2,2.1,1.3,0.8,1.1
+31214,Private industry,Distilleries,2.4,1.7,1.1,0.5,0.7
+3122,Private industry,Tobacco manufacturing,2.8,1.6,1.1,0.5,1.1
+313,Private industry,Textile mills,2.5,1.6,0.6,1.0,0.9
+3131,Private industry,"Fiber, yarn, and thread mills",3.0,2.0,0.6,1.4,1.0
+3132,Private industry,Fabric mills,2.4,1.6,0.7,0.9,0.8
+31321,Private industry,Broadwoven fabric mills,2.9,2.0,0.9,1.2,0.8
+31322,Private industry,Narrow fabric mills and schiffli machine embroidery,2.0,0.8,,0.7,1.1
+31323,Private industry,Nonwoven fabric mills,2.2,1.5,0.6,0.9,0.7
+31324,Private industry,Knit fabric mills,1.8,0.9,0.4,,0.9
+3133,Private industry,Textile and fabric finishing and fabric coating mills,2.0,1.1,0.5,0.6,0.9
+31331,Private industry,Textile and fabric finishing mills,1.9,1.1,0.4,0.7,0.8
+31332,Private industry,Fabric coating mills,2.2,1.3,0.9,0.3,0.9
+314,Private industry,Textile product mills,2.1,1.3,0.7,0.6,0.8
+3141,Private industry,Textile furnishings mills,1.5,1.0,0.3,0.7,0.5
+31411,Private industry,Carpet and rug mills,1.5,1.0,0.1,0.9,0.5
+31412,Private industry,Curtain and linen mills,1.4,1.0,0.8,0.3,0.4
+3149,Private industry,Other textile product mills,2.5,1.5,1.0,0.5,1.0
+31491,Private industry,Textile bag and canvas mills,3.8,2.3,1.4,0.9,1.5
+31499,Private industry,All other textile product mills,1.6,0.9,0.7,0.2,0.7
+314994,Private industry,"Rope, cordage, twine, tire cord, and tire fabric mills",2.3,1.5,1.2,0.4,0.8
+314999,Private industry,All other miscellaneous textile product mills,1.5,0.8,0.6,0.2,0.7
+315,Private industry,Apparel manufacturing,1.9,1.2,0.8,0.4,0.7
+3151,Private industry,Apparel knitting mills,2.3,1.0,0.5,0.6,1.3
+31511,Private industry,Hosiery and sock mills,2.6,1.1,,0.7,1.5
+31519,Private industry,Other apparel knitting mills,1.7,1.0,,,
+3152,Private industry,Cut and sew apparel manufacturing,2.0,1.3,1.0,0.3,0.6
+31521,Private industry,Cut and sew apparel contractors,1.5,1.3,1.0,,0.2
+31522,Private industry,Men's and boys' cut and sew apparel manufacturing,2.6,1.4,1.1,,1.1
+31528,Private industry,Other cut and sew apparel manufacturing,0.9,0.5,0.4,,0.4
+3159,Private industry,Apparel accessories and other apparel manufacturing,1.1,0.7,,0.5,
+316,Private industry,Leather and allied product manufacturing,4.0,2.7,1.3,1.4,1.3
+3162,Private industry,Footwear manufacturing,3.3,2.0,1.3,0.7,1.3
+3169,Private industry,Other leather and allied product manufacturing,4.8,3.6,1.3,2.3,1.2
+31699,Private industry,Other leather and allied product manufacturing,4.8,3.6,1.3,2.3,1.2
+316998,Private industry,All other leather good and allied product manufacturing,4.9,3.7,1.3,2.4,1.2
+321,Private industry,Wood product manufacturing,4.2,2.7,1.5,1.2,1.6
+3211,Private industry,Sawmills and wood preservation,4.2,2.7,1.8,1.0,1.4
+32111,Private industry,Sawmills and wood preservation,4.2,2.7,1.8,1.0,1.4
+321113,Private industry,Sawmills,4.2,2.8,1.8,1.0,1.4
+321114,Private industry,Wood preservation,3.6,2.3,1.4,1.0,1.3
+3212,Private industry,"Veneer, plywood, and engineered wood product manufacturing",4.2,2.5,1.2,1.3,1.7
+32121,Private industry,"Veneer, plywood, and engineered wood product manufacturing",4.2,2.5,1.2,1.3,1.7
+321211,Private industry,Hardwood veneer and plywood manufacturing,4.0,2.0,1.2,0.8,2.0
+321212,Private industry,Softwood veneer and plywood manufacturing,4.5,2.7,1.4,1.3,1.8
+321213,Private industry,Engineered wood member (except truss) manufacturing,2.5,1.9,1.0,0.9,0.7
+321214,Private industry,Truss manufacturing,5.1,3.1,1.3,1.8,2.0
+321219,Private industry,Reconstituted wood product manufacturing,2.5,1.4,0.7,0.7,1.1
+3219,Private industry,Other wood product manufacturing,4.3,2.7,1.5,1.2,1.6
+32191,Private industry,Millwork,3.8,2.5,1.4,1.0,1.3
+321911,Private industry,Wood window and door manufacturing,3.3,2.1,1.0,1.2,1.2
+321912,Private industry,"Cut stock, resawing lumber, and planing",5.4,3.6,2.3,1.3,1.8
+321918,Private industry,Other millwork (including flooring),4.0,2.5,1.8,0.7,1.4
+32192,Private industry,Wood container and pallet manufacturing,3.9,2.6,1.3,1.3,1.3
+32199,Private industry,All other wood product manufacturing,5.4,3.2,1.7,1.4,2.2
+321991,Private industry,Manufactured home (mobile home) manufacturing,5.6,2.9,1.0,1.9,2.7
+321992,Private industry,Prefabricated wood building manufacturing,7.8,4.8,3.3,1.5,3.0
+321999,Private industry,All other miscellaneous wood product manufacturing,3.5,2.3,1.5,0.8,1.2
+322,Private industry,Paper manufacturing,2.4,1.6,0.9,0.7,0.8
+3221,Private industry,"Pulp, paper, and paperboard mills",2.5,1.7,0.9,0.7,0.8
+32211,Private industry,Pulp mills,1.3,1.0,0.9,,
+32212,Private industry,Paper mills,3.0,2.0,1.0,1.0,1.0
+322121,Private industry,Paper (except newsprint) mills,2.9,2.0,1.0,1.0,1.0
+322122,Private industry,Newsprint mills,3.1,1.8,1.1,0.8,1.3
+32213,Private industry,Paperboard mills,1.9,1.3,0.7,0.5,0.7
+3222,Private industry,Converted paper product manufacturing,2.4,1.6,0.9,0.7,0.8
+32221,Private industry,Paperboard container manufacturing,2.4,1.6,0.9,0.7,0.8
+322211,Private industry,Corrugated and solid fiber box manufacturing,2.5,1.7,1.0,0.7,0.8
+322212,Private industry,Folding paperboard box manufacturing,2.2,1.4,0.8,0.6,0.8
+322219,Private industry,Other paperboard container manufacturing,2.1,1.3,0.5,0.8,0.8
+32222,Private industry,Paper bag and coated and treated paper manufacturing,2.2,1.6,0.7,0.8,0.7
+32223,Private industry,Stationery product manufacturing,2.7,1.3,0.8,0.5,1.5
+32229,Private industry,Other converted paper product manufacturing,2.6,1.8,1.0,0.9,0.7
+322291,Private industry,Sanitary paper product manufacturing,2.6,1.9,0.9,1.0,0.8
+322299,Private industry,All other converted paper product manufacturing,2.5,1.8,1.1,0.7,0.7
+323,Private industry,Printing and related support activities,1.6,1.0,0.6,0.4,0.6
+3231,Private industry,Printing and related support activities,1.6,1.0,0.6,0.4,0.6
+32311,Private industry,Printing,1.6,1.0,0.6,0.4,0.6
+323111,Private industry,Commercial printing (except screen and books),1.7,1.0,0.7,0.4,0.7
+323113,Private industry,Commercial screen printing,1.2,0.8,0.4,0.4,0.4
+323117,Private industry,Books printing,1.9,1.1,0.4,0.7,0.8
+32312,Private industry,Support activities for printing,1.5,0.6,0.4,0.3,0.8
+324,Private industry,Petroleum and coal products manufacturing,1.0,0.6,0.4,0.2,0.4
+3241,Private industry,Petroleum and coal products manufacturing,1.0,0.6,0.4,0.2,0.4
+32411,Private industry,Petroleum refineries,0.4,0.2,0.1,0.1,0.1
+32412,Private industry,"Asphalt paving, roofing, and saturated materials manufacturing",2.1,1.3,0.9,0.4,0.8
+324121,Private industry,Asphalt paving mixture and block manufacturing,2.2,1.2,1.0,0.2,1.0
+324122,Private industry,Asphalt shingle and coating materials manufacturing,2.0,1.4,0.8,0.6,0.6
+32419,Private industry,Other petroleum and coal products manufacturing,1.7,1.2,0.7,0.5,0.5
+324191,Private industry,Petroleum lubricating oil and grease manufacturing,1.4,1.2,0.7,0.5,0.2
+324199,Private industry,All other petroleum and coal products manufacturing,2.4,1.3,0.7,0.6,1.2
+325,Private industry,Chemical manufacturing,1.6,1.0,0.5,0.5,0.6
+3251,Private industry,Basic chemical manufacturing,1.2,0.7,0.3,0.4,0.5
+32511,Private industry,Petrochemical manufacturing,0.5,0.3,,0.2,0.2
+32512,Private industry,Industrial gas manufacturing,0.2,0.1,,,0.1
+32513,Private industry,Synthetic dye and pigment manufacturing,1.8,1.6,0.4,1.2,0.2
+32518,Private industry,Other basic inorganic chemical manufacturing,1.2,0.7,0.5,0.3,0.4
+32519,Private industry,Other basic organic chemical manufacturing,1.8,1.0,0.5,0.6,0.8
+325193,Private industry,Ethyl alcohol manufacturing,3.9,2.1,0.3,1.8,1.8
+325194,Private industry,"Cyclic crude, intermediate, and gum and wood chemical manufacturing",0.8,0.7,,0.5,
+325199,Private industry,All other basic organic chemical manufacturing,1.4,0.8,0.6,0.3,0.6
+3252,Private industry,"Resin, synthetic rubber, and artificial and synthetic fibers and filaments manufacturing",1.8,1.1,0.7,0.3,0.7
+32521,Private industry,Resin and synthetic rubber manufacturing,1.9,1.1,0.8,0.3,0.8
+325211,Private industry,Plastics material and resin manufacturing,1.9,1.1,0.8,0.3,0.9
+325212,Private industry,Synthetic rubber manufacturing,1.8,1.4,1.1,0.3,0.4
+32522,Private industry,Artificial and synthetic fibers and filaments manufacturing,1.5,1.0,0.5,0.5,0.5
+3253,Private industry,"Pesticide, fertilizer, and other agricultural chemical manufacturing",1.9,1.4,0.9,0.5,0.5
+32531,Private industry,Fertilizer manufacturing,1.9,1.5,1.0,0.5,0.4
+325311,Private industry,Nitrogenous fertilizer manufacturing,2.3,2.1,1.5,0.6,0.2
+325314,Private industry,Fertilizer (mixing only) manufacturing,1.4,0.5,0.3,0.2,
+3254,Private industry,Pharmaceutical and medicine manufacturing,1.4,0.9,0.5,0.5,0.4
+32541,Private industry,Pharmaceutical and medicine manufacturing,1.4,0.9,0.5,0.5,0.4
+325411,Private industry,Medicinal and botanical manufacturing,1.4,1.0,0.7,0.3,0.4
+325412,Private industry,Pharmaceutical preparation manufacturing,1.4,0.9,0.4,0.5,0.4
+325413,Private industry,In-vitro diagnostic substance manufacturing,1.2,0.9,0.5,0.4,0.3
+325414,Private industry,Biological product (except diagnostic) manufacturing,1.5,0.9,0.5,0.4,0.6
+3255,Private industry,"Paint, coating, and adhesive manufacturing",2.4,1.5,0.7,0.8,0.9
+32551,Private industry,Paint and coating manufacturing,2.6,1.7,0.9,0.8,0.9
+3256,Private industry,"Soap, cleaning compound, and toilet preparation manufacturing",1.9,1.3,0.5,0.8,0.6
+32561,Private industry,Soap and cleaning compound manufacturing,1.8,1.1,0.6,0.5,0.7
+325611,Private industry,Soap and other detergent manufacturing,1.5,0.9,0.6,0.3,0.6
+325612,Private industry,Polish and other sanitation good manufacturing,2.2,1.2,0.5,0.7,1.0
+32562,Private industry,Toilet preparation manufacturing,1.9,1.5,0.4,1.1,0.4
+3259,Private industry,Other chemical product and preparation manufacturing,2.0,1.2,0.6,0.6,0.8
+32591,Private industry,Printing ink manufacturing,2.0,1.5,0.4,1.1,0.5
+32599,Private industry,All other chemical product and preparation manufacturing,2.1,1.2,0.7,0.5,0.9
+325991,Private industry,Custom compounding of purchased resins,4.0,2.2,1.4,0.8,1.8
+325992,Private industry,"Photographic film, paper, plate, and chemical manufacturing",0.9,0.8,,0.4,
+325998,Private industry,All other miscellaneous chemical product and preparation manufacturing,1.4,0.8,0.4,0.4,0.6
+326,Private industry,Plastics and rubber products manufacturing,2.8,1.8,0.9,0.9,1.0
+3261,Private industry,Plastics product manufacturing,2.8,1.8,0.9,0.9,1.0
+32611,Private industry,Plastics packaging materials and unlaminated film and sheet manufacturing,2.5,1.7,0.9,0.8,0.8
+326111,Private industry,Plastics bag and pouch manufacturing,2.9,2.1,1.2,0.9,0.8
+326112,Private industry,Plastics packaging film and sheet (including laminated) manufacturing,2.0,1.3,0.7,0.5,0.7
+326113,Private industry,Unlaminated plastics film and sheet (except packaging) manufacturing,2.4,1.5,0.8,0.8,0.9
+32612,Private industry,"Plastics pipe, pipe fitting, and unlaminated profile shape manufacturing",2.7,1.7,0.9,0.8,1.0
+326121,Private industry,Unlaminated plastics profile shape manufacturing,3.1,1.4,0.9,0.4,1.7
+326122,Private industry,Plastics pipe and pipe fitting manufacturing,2.4,1.9,0.9,1.0,0.5
+32613,Private industry,"Laminated plastics plate, sheet (except packaging), and shape manufacturing",3.5,1.9,0.9,1.0,1.6
+32614,Private industry,Polystyrene foam product manufacturing,3.0,1.5,0.8,0.7,1.5
+32615,Private industry,Urethane and other foam product (except polystyrene) manufacturing,3.1,2.0,0.9,1.1,1.1
+32616,Private industry,Plastics bottle manufacturing,1.9,1.1,0.6,0.6,0.8
+32619,Private industry,Other plastics product manufacturing,2.8,1.9,0.9,0.9,1.0
+326191,Private industry,Plastics plumbing fixture manufacturing,3.5,2.2,0.7,1.5,1.3
+326199,Private industry,All other plastics product manufacturing,2.8,1.8,0.9,0.9,1.0
+3262,Private industry,Rubber product manufacturing,2.8,1.8,0.8,0.9,1.0
+32621,Private industry,Tire manufacturing,3.2,2.3,1.0,1.3,0.9
+326211,Private industry,Tire manufacturing (except retreading),3.1,2.4,0.9,1.4,0.7
+326212,Private industry,Tire retreading,4.0,1.6,1.3,0.3,2.3
+32622,Private industry,Rubber and plastics hoses and belting manufacturing,2.6,1.3,0.5,0.7,1.4
+32629,Private industry,Other rubber product manufacturing,2.4,1.5,0.8,0.6,1.0
+326291,Private industry,Rubber product manufacturing for mechanical use,2.5,1.5,0.8,0.7,1.0
+326299,Private industry,All other rubber product manufacturing,2.4,1.4,0.9,0.5,0.9
+327,Private industry,Nonmetallic mineral product manufacturing,3.3,2.0,1.1,0.9,1.4
+3271,Private industry,Clay product and refractory manufacturing,3.7,2.9,1.2,1.7,0.8
+32711,Private industry,"Pottery, ceramics, and plumbing fixture manufacturing",2.9,2.3,0.8,1.5,0.6
+32712,Private industry,Clay building material and refractories manufacturing,4.2,3.3,1.4,1.9,0.9
+3272,Private industry,Glass and glass product manufacturing,3.5,2.2,1.1,1.1,1.3
+32721,Private industry,Glass and glass product manufacturing,3.5,2.2,1.1,1.1,1.3
+327211,Private industry,Flat glass manufacturing,4.5,3.3,1.5,1.8,1.2
+327212,Private industry,Other pressed and blown glass and glassware manufacturing,2.5,1.4,0.9,0.5,1.1
+327213,Private industry,Glass container manufacturing,4.1,2.8,1.0,1.8,1.3
+327215,Private industry,Glass product manufacturing made of purchased glass,3.4,1.9,1.1,0.9,1.4
+3273,Private industry,Cement and concrete product manufacturing,3.1,1.8,1.1,0.7,1.2
+32732,Private industry,Ready-mix concrete manufacturing,2.5,1.6,1.1,0.5,0.9
+32733,Private industry,"Concrete pipe, brick, and block manufacturing",2.3,1.5,0.7,0.7,0.9
+327332,Private industry,Concrete pipe manufacturing,2.2,1.3,0.6,,0.9
+32739,Private industry,Other concrete product manufacturing,4.9,2.8,1.6,1.2,2.1
+3274,Private industry,Lime and gypsum product manufacturing,2.2,1.6,0.7,0.9,0.5
+32742,Private industry,Gypsum product manufacturing,1.9,1.3,0.5,0.8,0.6
+3279,Private industry,Other nonmetallic mineral product manufacturing,4.0,1.9,0.9,1.0,2.1
+32791,Private industry,Abrasive product manufacturing,4.6,3.0,1.3,1.7,1.7
+32799,Private industry,All other nonmetallic mineral product manufacturing,3.9,1.7,0.8,0.9,2.1
+327991,Private industry,Cut stone and stone product manufacturing,6.2,2.5,1.2,1.3,3.7
+327992,Private industry,Ground or treated mineral and earth manufacturing,2.6,1.8,,1.3,0.7
+327993,Private industry,Mineral wool manufacturing,1.4,0.9,0.5,0.4,0.5
+327999,Private industry,All other miscellaneous nonmetallic mineral product manufacturing,1.7,0.8,0.2,0.6,0.9
+331,Private industry,Primary metal manufacturing,3.3,2.0,1.0,1.0,1.3
+3311,Private industry,Iron and steel mills and ferroalloy manufacturing,1.9,1.3,0.6,0.7,0.7
+3312,Private industry,Steel product manufacturing from purchased steel,3.2,1.9,1.2,0.7,1.4
+33121,Private industry,Iron and steel pipe and tube manufacturing from purchased steel,2.8,1.6,0.8,0.8,1.2
+33122,Private industry,Rolling and drawing of purchased steel,3.6,2.1,1.5,0.7,1.5
+331221,Private industry,Rolled steel shape manufacturing,3.3,1.8,1.2,0.6,1.6
+331222,Private industry,Steel wire drawing,4.3,2.9,2.1,0.8,1.4
+3313,Private industry,Alumina and aluminum production and processing,2.6,1.7,0.8,0.9,0.9
+33131,Private industry,Alumina and aluminum production and processing,2.6,1.7,0.8,0.9,0.9
+331313,Private industry,Alumina refining and primary aluminum production,2.1,1.3,0.6,0.7,0.8
+331314,Private industry,Secondary smelting and alloying of aluminum,2.9,2.0,1.0,0.9,0.9
+331315,Private industry,"Aluminum sheet, plate, and foil manufacturing",1.5,0.8,0.4,0.4,0.6
+331318,Private industry,"Other aluminum rolling, drawing, and extruding",3.4,2.4,1.1,1.2,1.0
+3314,Private industry,Nonferrous metal (except aluminum) production and processing,2.9,1.9,1.0,0.9,0.9
+33141,Private industry,Nonferrous metal (except aluminum) smelting and refining,2.3,1.5,0.4,1.1,0.7
+33142,Private industry,"Copper rolling, drawing, extruding, and alloying",2.8,2.0,1.1,1.0,0.8
+33149,Private industry,"Nonferrous metal (except copper and aluminum) rolling, drawing, extruding, and alloying",3.1,2.0,1.2,0.8,1.1
+331491,Private industry,"Nonferrous metal (except copper and aluminum) rolling, drawing, and extruding",3.2,1.9,1.2,0.7,1.3
+331492,Private industry,"Secondary smelting, refining, and alloying of nonferrous metal (except copper and aluminum)",3.0,2.1,1.1,1.0,0.9
+3315,Private industry,Foundries,5.1,2.9,1.4,1.5,2.2
+33151,Private industry,Ferrous metal foundries,5.6,3.0,1.4,1.6,2.6
+331511,Private industry,Iron foundries,5.5,3.0,1.5,1.5,2.4
+331512,Private industry,Steel investment foundries,4.0,2.4,1.1,1.3,1.5
+331513,Private industry,Steel foundries (except investment),7.7,3.6,1.2,2.3,4.1
+33152,Private industry,Nonferrous metal foundries,4.5,2.9,1.4,1.4,1.6
+331523,Private industry,Nonferrous metal die-casting foundries,3.5,2.1,1.0,1.0,1.5
+331524,Private industry,Aluminum foundries (except die-casting),5.2,3.9,1.7,2.1,1.4
+331529,Private industry,Other nonferrous metal foundries (except die-casting),5.2,3.0,1.8,1.2,2.2
+332,Private industry,Fabricated metal product manufacturing,3.2,1.8,0.9,0.9,1.4
+3321,Private industry,Forging and stamping,4.6,2.7,1.3,1.4,1.8
+33211,Private industry,Forging and stamping,4.6,2.7,1.3,1.4,1.8
+332111,Private industry,Iron and steel forging,5.4,3.3,1.7,1.6,2.1
+332112,Private industry,Nonferrous forging,5.7,3.7,1.4,2.2,2.0
+332114,Private industry,Custom roll forming,5.8,3.9,1.8,2.1,1.8
+332117,Private industry,Powder metallurgy part manufacturing,2.7,1.1,0.9,,1.7
+332119,Private industry,"Metal crown, closure, and other metal stamping (except automotive)",4.2,2.5,1.2,1.3,1.7
+3322,Private industry,Cutlery and handtool manufacturing,2.5,1.4,0.5,0.9,1.1
+33221,Private industry,Cutlery and handtool manufacturing,2.5,1.4,0.5,0.9,1.1
+332215,Private industry,"Metal kitchen cookware, utensil, cutlery, and flatware (except precious) manufacturing",3.6,2.2,0.5,1.7,1.4
+332216,Private industry,Saw blade and handtool manufacturing,2.0,1.1,0.5,0.6,0.9
+3323,Private industry,Architectural and structural metals manufacturing,3.5,1.9,1.0,0.9,1.6
+33231,Private industry,Plate work and fabricated structural product manufacturing,3.5,1.9,0.9,0.9,1.7
+332311,Private industry,Prefabricated metal building and component manufacturing,3.4,2.0,1.0,1.0,1.4
+332312,Private industry,Fabricated structural metal manufacturing,3.4,1.8,0.9,0.9,1.7
+332313,Private industry,Plate work manufacturing,3.8,1.9,0.9,1.1,1.9
+33232,Private industry,Ornamental and architectural metal products manufacturing,3.5,2.0,1.1,0.9,1.5
+332321,Private industry,Metal window and door manufacturing,3.4,1.9,0.8,1.1,1.5
+332322,Private industry,Sheet metal work manufacturing,3.3,1.9,1.2,0.7,1.4
+332323,Private industry,Ornamental and architectural metal work manufacturing,4.0,2.3,1.4,0.9,1.7
+3324,Private industry,"Boiler, tank, and shipping container manufacturing",3.4,1.9,1.0,0.9,1.5
+33241,Private industry,Power boiler and heat exchanger manufacturing,3.2,1.5,0.8,0.7,1.7
+33242,Private industry,Metal tank (heavy gauge) manufacturing,3.9,2.5,1.3,1.2,1.4
+33243,Private industry,"Metal can, box, and other metal container (light gauge) manufacturing",3.1,1.6,0.8,0.7,1.5
+332431,Private industry,Metal can manufacturing,1.9,0.9,0.4,0.5,1.0
+332439,Private industry,Other metal container manufacturing,5.0,2.6,1.5,1.1,2.3
+3325,Private industry,Hardware manufacturing,2.9,1.5,0.9,0.6,1.3
+3326,Private industry,Spring and wire product manufacturing,3.2,1.8,0.8,1.0,1.4
+33261,Private industry,Spring and wire product manufacturing,3.2,1.8,0.8,1.0,1.4
+332613,Private industry,Spring manufacturing,3.8,2.1,0.9,1.1,1.7
+3327,Private industry,"Machine shops; turned product; and screw, nut, and bolt manufacturing",2.9,1.5,0.7,0.8,1.4
+33271,Private industry,Machine shops,2.7,1.5,0.6,0.8,1.2
+33272,Private industry,"Turned product and screw, nut, and bolt manufacturing",3.4,1.4,0.8,0.6,2.0
+332721,Private industry,Precision turned product manufacturing,3.6,1.6,1.0,0.6,2.1
+332722,Private industry,"Bolt, nut, screw, rivet, and washer manufacturing",3.2,1.2,0.6,0.6,2.0
+3328,Private industry,"Coating, engraving, heat treating, and allied activities",4.0,2.7,1.5,1.3,1.3
+33281,Private industry,"Coating, engraving, heat treating, and allied activities",4.0,2.7,1.5,1.3,1.3
+332811,Private industry,Metal heat treating,3.3,2.6,1.8,0.9,0.7
+332812,Private industry,"Metal coating, engraving (except jewelry and silverware), and allied services to manufacturers",4.1,3.1,1.5,1.6,1.0
+332813,Private industry,"Electroplating, plating, polishing, anodizing, and coloring",4.1,2.3,1.3,1.0,1.8
+3329,Private industry,Other fabricated metal product manufacturing,2.2,1.2,0.6,0.7,0.9
+33291,Private industry,Metal valve manufacturing,1.9,1.2,0.6,0.6,0.7
+332911,Private industry,Industrial valve manufacturing,1.3,0.7,0.4,0.3,0.6
+332912,Private industry,Fluid power valve and hose fitting manufacturing,1.6,1.0,0.5,0.5,0.7
+332913,Private industry,Plumbing fixture fitting and trim manufacturing,1.9,1.3,0.7,0.6,0.6
+332919,Private industry,Other metal valve and pipe fitting manufacturing,3.5,2.7,1.4,1.3,0.8
+33299,Private industry,All other fabricated metal product manufacturing,2.3,1.2,0.6,0.7,1.1
+332991,Private industry,Ball and roller bearing manufacturing,2.4,0.9,0.3,0.6,1.5
+332992,Private industry,Small arms ammunition manufacturing,3.2,2.3,0.9,1.4,0.9
+332994,Private industry,"Small arms, ordnance, and ordnance accessories manufacturing",1.9,1.1,0.6,0.6,0.7
+332996,Private industry,Fabricated pipe and pipe fitting manufacturing,2.1,1.1,0.6,0.5,1.0
+332999,Private industry,All other miscellaneous fabricated metal product manufacturing,2.6,1.4,0.6,0.8,1.2
+333,Private industry,Machinery manufacturing,2.3,1.3,0.7,0.6,1.1
+3331,Private industry,"Agriculture, construction, and mining machinery manufacturing",2.7,1.6,0.8,0.8,1.2
+33311,Private industry,Agricultural implement manufacturing,3.9,2.3,1.0,1.3,1.7
+333111,Private industry,Farm machinery and equipment manufacturing,4.4,2.5,1.1,1.4,1.9
+333112,Private industry,Lawn and garden tractor and home lawn and garden equipment manufacturing,1.8,1.2,0.7,0.5,0.6
+33312,Private industry,Construction machinery manufacturing,2.8,1.6,0.8,0.8,1.2
+33313,Private industry,Mining and oil and gas field machinery manufacturing,1.0,0.5,0.4,0.1,0.5
+333131,Private industry,Mining machinery and equipment manufacturing,2.5,1.2,0.7,0.4,1.4
+333132,Private industry,Oil and gas field machinery and equipment manufacturing,0.7,0.4,0.3,,0.3
+3332,Private industry,Industrial machinery manufacturing,2.3,1.0,0.5,0.5,1.3
+33324,Private industry,Industrial machinery manufacturing,2.3,1.0,0.5,0.5,1.3
+333241,Private industry,Food product machinery manufacturing,2.3,0.9,0.5,0.4,1.4
+333243,Private industry,"Sawmill, woodworking, and paper machinery manufacturing",3.2,1.3,0.7,0.6,1.9
+333249,Private industry,Other industrial machinery manufacturing,2.4,1.1,0.5,0.6,1.3
+3333,Private industry,Commercial and service industry machinery manufacturing,2.2,1.1,0.7,0.4,1.1
+33331,Private industry,Commercial and service industry machinery manufacturing,2.2,1.1,0.7,0.4,1.1
+333314,Private industry,Optical instrument and lens manufacturing,1.4,0.5,0.3,0.1,1.0
+333316,Private industry,Photographic and photocopying equipment manufacturing,1.4,0.9,,0.6,
+333318,Private industry,Other commercial and service industry machinery manufacturing,2.5,1.3,0.8,0.5,1.2
+3334,Private industry,"Ventilation, heating, air-conditioning, and commercial refrigeration equipment manufacturing",2.4,1.3,0.6,0.7,1.1
+33341,Private industry,"Ventilation, heating, air-conditioning, and commercial refrigeration equipment manufacturing",2.4,1.3,0.6,0.7,1.1
+333413,Private industry,Industrial and commercial fan and blower and air purification equipment manufacturing,2.9,1.8,0.7,1.1,1.1
+333414,Private industry,Heating equipment (except warm air furnaces) manufacturing,3.2,1.2,0.5,0.8,1.9
+333415,Private industry,Air-conditioning and warm air heating equipment and commercial and industrial refrigeration equipment manufacturing,2.1,1.1,0.6,0.6,1.0
+3335,Private industry,Metalworking machinery manufacturing,2.5,1.3,0.9,0.4,1.2
+33351,Private industry,Metalworking machinery manufacturing,2.5,1.3,0.9,0.4,1.2
+333511,Private industry,Industrial mold manufacturing,3.1,1.6,0.8,0.8,1.5
+333514,Private industry,"Special die and tool, die set, jig, and fixture manufacturing",2.8,1.4,1.2,0.3,1.4
+333515,Private industry,Cutting tool and machine tool accessory manufacturing,1.2,0.5,0.4,0.2,0.6
+333517,Private industry,Machine tool manufacturing,2.3,1.2,0.9,0.3,1.0
+333519,Private industry,Rolling mill and other metalworking machinery manufacturing,2.6,1.6,1.4,,1.0
+3336,Private industry,"Engine, turbine, and power transmission equipment manufacturing",1.9,1.0,0.5,0.5,0.9
+33361,Private industry,"Engine, turbine, and power transmission equipment manufacturing",1.9,1.0,0.5,0.5,0.9
+333612,Private industry,"Speed changer, industrial high-speed drive, and gear manufacturing",1.4,0.7,0.4,0.3,0.7
+333613,Private industry,Mechanical power transmission equipment manufacturing,4.0,2.6,1.6,1.0,1.4
+333618,Private industry,Other engine equipment manufacturing,1.9,0.8,0.3,0.5,1.1
+3339,Private industry,Other general purpose machinery manufacturing,2.2,1.3,0.7,0.7,0.9
+33391,Private industry,Pump and compressor manufacturing,1.6,0.8,0.5,0.3,0.8
+333912,Private industry,Air and gas compressor manufacturing,1.5,0.7,0.6,0.1,
+333914,Private industry,"Measuring, dispensing, and other pumping equipment manufacturing",1.6,0.8,0.4,0.4,0.8
+33392,Private industry,Material handling equipment manufacturing,3.1,2.0,0.9,1.0,1.2
+333921,Private industry,Elevator and moving stairway manufacturing,1.1,0.8,0.5,0.3,0.3
+333922,Private industry,Conveyor and conveying equipment manufacturing,2.4,1.4,0.8,0.5,1.1
+333923,Private industry,"Overhead traveling crane, hoist, and monorail system manufacturing",4.3,3.0,1.0,2.0,1.2
+333924,Private industry,"Industrial truck, tractor, trailer, and stacker machinery manufacturing",4.3,2.7,1.2,1.5,1.6
+33399,Private industry,All other general purpose machinery manufacturing,1.7,1.1,0.5,0.5,0.7
+333991,Private industry,Power-driven handtool manufacturing,1.3,0.9,0.4,0.5,0.4
+333992,Private industry,Welding and soldering equipment manufacturing,1.1,0.8,0.2,0.6,0.4
+333993,Private industry,Packaging machinery manufacturing,1.0,0.5,0.2,0.4,0.5
+333994,Private industry,Industrial process furnace and oven manufacturing,2.6,1.2,0.6,0.6,1.4
+333995,Private industry,Fluid power cylinder and actuator manufacturing,2.2,1.4,0.8,0.6,0.9
+333996,Private industry,Fluid power pump and motor manufacturing,1.8,1.1,0.5,0.6,0.7
+333999,Private industry,All other miscellaneous general purpose machinery manufacturing,2.0,1.3,0.7,0.6,0.7
+334,Private industry,Computer and electronic product manufacturing,0.9,0.5,0.3,0.2,0.3
+3341,Private industry,Computer and peripheral equipment manufacturing,0.6,0.4,0.3,0.1,0.2
+33411,Private industry,Computer and peripheral equipment manufacturing,0.6,0.4,0.3,0.1,0.2
+334111,Private industry,Electronic computer manufacturing,0.5,0.3,0.2,0.1,0.1
+334112,Private industry,Computer storage device manufacturing,1.0,0.8,0.6,0.2,0.2
+334118,Private industry,Computer terminal and other computer peripheral equipment manufacturing,0.6,0.4,0.3,0.1,0.2
+3342,Private industry,Communications equipment manufacturing,0.7,0.4,0.3,0.1,0.3
+33422,Private industry,Radio and television broadcasting and wireless communications equipment manufacturing,0.4,0.2,0.1,0.1,0.1
+33429,Private industry,Other communications equipment manufacturing,1.6,1.0,0.9,,0.5
+3344,Private industry,Semiconductor and other electronic component manufacturing,0.9,0.6,0.3,0.2,0.4
+33441,Private industry,Semiconductor and other electronic component manufacturing,0.9,0.6,0.3,0.2,0.4
+334413,Private industry,Semiconductor and related device manufacturing,0.8,0.4,0.3,0.1,0.3
+334416,Private industry,"Capacitor, resistor, coil, transformer, and other inductor manufacturing",0.9,0.5,0.4,,0.4
+334418,Private industry,Printed circuit assembly (electronic assembly) manufacturing,0.9,0.6,0.4,0.2,0.4
+334419,Private industry,Other electronic component manufacturing,1.2,0.8,0.3,0.5,0.4
+3345,Private industry,"Navigational, measuring, electromedical, and control instruments manufacturing",0.9,0.5,0.3,0.2,0.3
+33451,Private industry,"Navigational, measuring, electromedical, and control instruments manufacturing",0.9,0.5,0.3,0.2,0.3
+334510,Private industry,Electromedical and electrotherapeutic apparatus manufacturing,0.8,0.4,0.2,0.2,0.4
+334511,Private industry,"Search, detection, navigation, guidance, aeronautical, and nautical system and instrument manufacturing",0.5,0.4,0.2,0.2,0.2
+334512,Private industry,"Automatic environmental control manufacturing for residential, commercial, and appliance use",0.6,0.4,,0.3,0.2
+334514,Private industry,Totalizing fluid meter and counting device manufacturing,0.9,0.6,,0.3,0.3
+334515,Private industry,Instrument manufacturing for measuring and testing electricity and electrical signals,0.9,0.7,0.5,0.2,0.2
+334516,Private industry,Analytical laboratory instrument manufacturing,1.2,0.5,0.3,0.2,0.6
+334517,Private industry,Irradiation apparatus manufacturing,1.3,1.2,0.8,0.4,0.2
+334519,Private industry,Other measuring and controlling device manufacturing,1.2,0.9,0.7,0.2,0.2
+3346,Private industry,Manufacturing and reproducing magnetic and optical media,0.6,0.6,0.2,0.4,
+33461,Private industry,Manufacturing and reproducing magnetic and optical media,0.6,0.6,0.2,0.4,
+335,Private industry,"Electrical equipment, appliance, and component manufacturing",2.0,1.2,0.6,0.6,0.8
+3351,Private industry,Electric lighting equipment manufacturing,2.1,1.2,0.5,0.7,0.9
+33512,Private industry,Lighting fixture manufacturing,2.3,1.3,0.5,0.8,1.0
+335121,Private industry,Residential electric lighting fixture manufacturing,3.1,1.5,,1.2,
+335122,Private industry,"Commercial, industrial, and institutional electric lighting fixture manufacturing",2.3,1.5,0.7,0.8,0.8
+335129,Private industry,Other lighting equipment manufacturing,1.5,0.6,0.3,0.4,0.8
+3352,Private industry,Household appliance manufacturing,2.1,1.3,0.5,0.8,0.8
+33521,Private industry,Small electrical appliance manufacturing,1.3,0.8,0.3,0.5,0.5
+33522,Private industry,Major household appliance manufacturing,2.3,1.4,0.6,0.9,0.8
+3353,Private industry,Electrical equipment manufacturing,1.8,1.1,0.6,0.5,0.7
+33531,Private industry,Electrical equipment manufacturing,1.8,1.1,0.6,0.5,0.7
+335311,Private industry,"Power, distribution, and specialty transformer manufacturing",3.0,2.4,1.2,1.1,0.6
+335312,Private industry,Motor and generator manufacturing,1.8,1.0,0.4,0.6,0.8
+335313,Private industry,Switchgear and switchboard apparatus manufacturing,1.7,0.7,0.4,0.3,0.9
+335314,Private industry,Relay and industrial control manufacturing,0.9,0.5,0.3,0.2,0.4
+3359,Private industry,Other electrical equipment and component manufacturing,2.0,1.2,0.7,0.6,0.8
+33591,Private industry,Battery manufacturing,2.7,1.7,1.0,0.7,0.9
+335911,Private industry,Storage battery manufacturing,2.8,1.8,1.1,0.7,1.0
+33592,Private industry,Communication and energy wire and cable manufacturing,1.2,0.9,0.5,0.4,0.3
+335921,Private industry,Fiber optic cable manufacturing,1.5,1.3,0.9,0.4,0.3
+335929,Private industry,Other communication and energy wire manufacturing,0.8,0.5,,0.4,
+33593,Private industry,Wiring device manufacturing,2.2,1.2,0.6,0.5,1.1
+335931,Private industry,Current-carrying wiring device manufacturing,2.5,1.3,0.7,0.6,1.2
+335932,Private industry,Noncurrent-carrying wiring device manufacturing,1.7,1.0,0.6,0.4,0.7
+33599,Private industry,All other electrical equipment and component manufacturing,1.5,0.8,0.3,0.5,0.7
+335991,Private industry,Carbon and graphite product manufacturing,1.8,1.2,0.5,0.7,0.7
+335999,Private industry,All other miscellaneous electrical equipment and component manufacturing,1.4,0.7,,0.4,0.7
+336,Private industry,Transportation equipment manufacturing,3.2,2.1,0.9,1.2,1.2
+3361,Private industry,Motor vehicle manufacturing,5.6,4.0,1.5,2.5,1.6
+33611,Private industry,Automobile and light duty motor vehicle manufacturing,5.8,4.2,1.5,2.7,1.6
+336111,Private industry,Automobile manufacturing,5.6,4.2,1.9,2.3,1.3
+336112,Private industry,Light truck and utility vehicle manufacturing,6.3,4.1,0.8,3.4,2.1
+33612,Private industry,Heavy duty truck manufacturing,4.1,2.5,1.1,1.3,1.7
+3362,Private industry,Motor vehicle body and trailer manufacturing,5.1,2.7,1.3,1.4,2.4
+33621,Private industry,Motor vehicle body and trailer manufacturing,5.1,2.7,1.3,1.4,2.4
+336211,Private industry,Motor vehicle body manufacturing,4.9,2.8,1.4,1.5,2.1
+336212,Private industry,Truck trailer manufacturing,4.9,2.8,1.3,1.5,2.1
+336214,Private industry,Travel trailer and camper manufacturing,6.0,2.7,1.3,1.5,3.3
+3363,Private industry,Motor vehicle parts manufacturing,2.9,1.8,0.8,1.0,1.1
+33631,Private industry,Motor vehicle gasoline engine and engine parts manufacturing,2.7,1.6,0.7,0.9,1.1
+33632,Private industry,Motor vehicle electrical and electronic equipment manufacturing,2.5,1.8,0.7,1.1,0.7
+33633,Private industry,Motor vehicle steering and suspension components (except spring) manufacturing,2.5,1.3,0.7,0.6,1.2
+33634,Private industry,Motor vehicle brake system manufacturing,3.1,2.5,1.7,0.8,0.6
+33635,Private industry,Motor vehicle transmission and power train parts manufacturing,2.4,1.6,0.7,0.9,0.8
+33636,Private industry,Motor vehicle seating and interior trim manufacturing,3.3,2.0,0.7,1.3,1.2
+33637,Private industry,Motor vehicle metal stamping,3.5,2.1,0.8,1.3,1.5
+33639,Private industry,Other motor vehicle parts manufacturing,3.0,1.9,0.9,1.0,1.1
+3364,Private industry,Aerospace product and parts manufacturing,1.6,1.0,0.5,0.6,0.6
+33641,Private industry,Aerospace product and parts manufacturing,1.6,1.0,0.5,0.6,0.6
+336411,Private industry,Aircraft manufacturing,2.0,1.4,0.6,0.8,0.6
+336412,Private industry,Aircraft engine and engine parts manufacturing,1.2,0.6,0.3,0.3,0.6
+336413,Private industry,Other aircraft parts and auxiliary equipment manufacturing,2.1,1.3,0.7,0.6,0.8
+336414,Private industry,Guided missile and space vehicle manufacturing,0.6,0.4,0.2,0.2,0.3
+336415,Private industry,Guided missile and space vehicle propulsion unit and propulsion unit parts manufacturing,1.3,0.9,0.6,0.3,0.4
+336419,Private industry,Other guided missile and space vehicle parts and auxiliary equipment manufacturing,1.3,0.8,,0.4,0.5
+3365,Private industry,Railroad rolling stock manufacturing,2.4,1.7,0.9,0.8,0.7
+3366,Private industry,Ship and boat building,4.2,2.7,1.7,1.0,1.6
+33661,Private industry,Ship and boat building,4.2,2.7,1.7,1.0,1.6
+336611,Private industry,Ship building and repairing,4.8,3.2,2.0,1.2,1.6
+336612,Private industry,Boat building,2.9,1.4,0.7,0.6,1.5
+3369,Private industry,Other transportation equipment manufacturing,2.4,1.4,0.7,0.8,0.9
+33699,Private industry,Other transportation equipment manufacturing,2.4,1.4,0.7,0.8,0.9
+336991,Private industry,"Motorcycle, bicycle, and parts manufacturing",2.0,0.8,0.2,0.7,1.2
+336992,Private industry,"Military armored vehicle, tank, and tank component manufacturing",2.9,1.8,0.9,0.9,1.1
+336999,Private industry,All other transportation equipment manufacturing,2.3,1.5,0.8,0.7,0.8
+337,Private industry,Furniture and related product manufacturing,3.5,2.1,1.1,1.0,1.4
+3371,Private industry,Household and institutional furniture and kitchen cabinet manufacturing,3.7,2.3,1.3,1.0,1.4
+33711,Private industry,Wood kitchen cabinet and countertop manufacturing,3.5,2.2,1.4,0.8,1.3
+33712,Private industry,Household and institutional furniture manufacturing,3.9,2.3,1.1,1.2,1.5
+337121,Private industry,Upholstered household furniture manufacturing,3.8,2.5,1.2,1.4,1.3
+337122,Private industry,Nonupholstered wood household furniture manufacturing,3.2,2.0,1.0,1.0,1.2
+337125,Private industry,Household furniture (except wood and metal) manufacturing,3.3,1.6,0.7,0.9,1.6
+337127,Private industry,Institutional furniture manufacturing,5.0,2.6,1.2,1.4,2.4
+3372,Private industry,Office furniture (including fixtures) manufacturing,3.5,1.9,0.9,1.0,1.6
+33721,Private industry,Office furniture (including fixtures) manufacturing,3.5,1.9,0.9,1.0,1.6
+337211,Private industry,Wood office furniture manufacturing,2.2,1.4,0.4,1.0,0.7
+337212,Private industry,Custom architectural woodwork and millwork manufacturing,2.9,1.5,1.1,0.3,1.4
+337214,Private industry,Office furniture (except wood) manufacturing,2.8,1.6,0.3,1.3,1.2
+337215,Private industry,"Showcase, partition, shelving, and locker manufacturing",4.7,2.5,1.2,1.3,2.2
+3379,Private industry,Other furniture related product manufacturing,2.1,1.6,0.8,0.7,0.5
+33791,Private industry,Mattress manufacturing,1.4,0.9,0.4,0.6,0.5
+33792,Private industry,Blind and shade manufacturing,3.7,3.1,1.9,1.2,
+339,Private industry,Miscellaneous manufacturing,1.7,0.9,0.4,0.5,0.8
+3391,Private industry,Medical equipment and supplies manufacturing,1.5,0.8,0.3,0.5,0.7
+33911,Private industry,Medical equipment and supplies manufacturing,1.5,0.8,0.3,0.5,0.7
+339112,Private industry,Surgical and medical instrument manufacturing,1.5,0.7,0.3,0.5,0.8
+339113,Private industry,Surgical appliance and supplies manufacturing,1.9,0.9,0.4,0.5,0.9
+339116,Private industry,Dental laboratories,0.8,0.5,0.2,0.3,0.3
+3399,Private industry,Other miscellaneous manufacturing,2.0,1.1,0.6,0.6,0.9
+33992,Private industry,Sporting and athletic goods manufacturing,2.8,1.4,0.9,0.5,1.3
+33993,Private industry,"Doll, toy, and game manufacturing",0.7,0.4,0.2,,0.3
+33994,Private industry,Office supplies (except paper) manufacturing,1.7,0.8,0.7,,0.9
+33995,Private industry,Sign manufacturing,1.8,0.8,0.4,0.4,1.1
+33999,Private industry,All other miscellaneous manufacturing,2.3,1.5,0.7,0.8,0.8
+339991,Private industry,"Gasket, packing, and sealing device manufacturing",1.8,1.2,0.6,0.6,0.6
+339992,Private industry,Musical instrument manufacturing,2.4,2.0,1.2,0.9,0.3
+339994,Private industry,"Broom, brush, and mop manufacturing",2.8,2.0,0.7,1.3,
+339999,Private industry,All other miscellaneous manufacturing,2.4,1.5,0.6,0.8,0.9
+42,Private industry,Wholesale trade,2.2,1.6,0.9,0.6,0.6
+423,Private industry,"Merchant wholesalers, durable goods",1.8,1.2,0.7,0.5,0.6
+4231,Private industry,Motor vehicle and motor vehicle parts and supplies merchant wholesalers,2.9,2.2,1.3,0.9,0.7
+4232,Private industry,Furniture and home furnishing merchant wholesalers,1.8,1.1,0.7,0.4,0.7
+4233,Private industry,Lumber and other construction materials merchant wholesalers,3.0,2.3,1.4,1.0,0.7
+4234,Private industry,Professional and commercial equipment and supplies merchant wholesalers,1.0,0.8,0.4,0.4,0.2
+4235,Private industry,Metal and mineral (except petroleum) merchant wholesalers,3.3,2.5,1.2,1.3,0.8
+4236,Private industry,Household appliances and electrical and electronic goods merchant wholesalers,1.2,0.6,0.3,0.3,0.5
+4237,Private industry,"Hardware, and plumbing and heating equipment and supplies merchant wholesalers",1.6,1.1,0.7,0.4,0.5
+4238,Private industry,"Machinery, equipment, and supplies merchant wholesalers",1.5,0.9,0.5,0.4,0.6
+4239,Private industry,Miscellaneous durable goods merchant wholesalers,2.2,1.3,0.8,0.5,0.8
+42391,Private industry,Sporting and recreational goods and supplies merchant wholesalers,1.8,1.3,1.0,0.3,0.5
+42392,Private industry,Toy and hobby goods and supplies merchant wholesalers,1.5,1.2,1.0,0.2,
+42393,Private industry,Recyclable material merchant wholesalers,3.7,2.1,1.3,0.7,1.6
+42399,Private industry,Other miscellaneous durable goods merchant wholesalers,1.3,0.9,0.2,0.7,0.4
+424,Private industry,"Merchant wholesalers, nondurable goods",3.1,2.4,1.4,1.0,0.8
+4241,Private industry,Paper and paper product merchant wholesalers,1.7,1.3,0.9,0.4,0.4
+4242,Private industry,Drugs and druggists' sundries merchant wholesalers,1.3,1.0,0.3,0.7,0.3
+4243,Private industry,"Apparel, piece goods, and notions merchant wholesalers",1.6,0.9,0.4,0.5,0.7
+4244,Private industry,Grocery and related product merchant wholesalers,4.2,3.4,2.1,1.3,0.8
+4245,Private industry,Farm product raw material merchant wholesalers,3.8,1.5,0.9,0.6,2.4
+4246,Private industry,Chemical and allied products merchant wholesalers,2.1,1.2,0.7,0.5,0.9
+4247,Private industry,Petroleum and petroleum products merchant wholesalers,2.0,0.9,0.6,0.3,1.1
+4248,Private industry,"Beer, wine, and distilled alcoholic beverage merchant wholesalers",5.4,4.4,2.5,1.9,1.0
+4249,Private industry,Miscellaneous nondurable goods merchant wholesalers,2.2,1.5,1.1,0.4,0.7
+425,Private industry,Wholesale electronic markets and agents and brokers,0.5,0.4,0.3,0.1,0.2
+44-45,Private industry,Retail trade,3.0,1.8,1.0,0.8,1.2
+441,Private industry,Motor vehicle and parts dealers,2.8,1.6,0.9,0.7,1.2
+4411,Private industry,Automobile dealers,2.5,1.2,0.8,0.4,1.3
+44111,Private industry,New car dealers,2.7,1.2,0.8,0.4,1.4
+44112,Private industry,Used car dealers,1.2,0.8,0.6,0.2,0.4
+4412,Private industry,Other motor vehicle dealers,2.9,1.5,1.1,0.4,1.4
+44121,Private industry,Recreational vehicle dealers,3.8,2.0,1.2,0.8,1.8
+44122,Private industry,"Motorcycle, boat, and other motor vehicle dealers",2.5,1.3,1.0,0.2,1.3
+4413,Private industry,"Automotive parts, accessories, and tire stores",3.5,2.6,1.1,1.5,0.9
+44131,Private industry,Automotive parts and accessories stores,2.6,2.0,0.8,1.2,0.6
+44132,Private industry,Tire dealers,5.1,3.8,1.6,2.1,1.3
+442,Private industry,Furniture and home furnishings stores,2.5,1.5,0.8,0.7,1.0
+4421,Private industry,Furniture stores,2.2,1.6,0.9,0.7,0.5
+4422,Private industry,Home furnishings stores,2.9,1.3,0.7,0.6,1.6
+44221,Private industry,Floor covering stores,0.6,0.5,0.4,0.1,
+44229,Private industry,Other home furnishings stores,4.7,2.0,1.0,1.0,2.8
+443,Private industry,Electronics and appliance stores,1.4,0.9,0.7,0.1,0.6
+4431,Private industry,Electronics and appliance stores,1.4,0.9,0.7,0.1,0.6
+44314,Private industry,Electronics and appliance stores,1.4,0.9,0.7,0.1,0.6
+443141,Private industry,Household appliance stores,2.5,1.6,1.4,0.2,0.9
+443142,Private industry,Electronics stores,1.3,0.8,0.7,0.1,0.5
+444,Private industry,Building material and garden equipment and supplies dealers,3.3,2.3,1.2,1.1,1.0
+4441,Private industry,Building material and supplies dealers,3.2,2.2,1.1,1.1,1.0
+44411,Private industry,Home centers,3.6,2.6,1.4,1.3,1.0
+44412,Private industry,Paint and wallpaper stores,2.4,2.4,0.5,1.9,
+44413,Private industry,Hardware stores,2.2,1.0,0.5,0.6,1.1
+44419,Private industry,Other building material dealers,3.1,2.0,1.0,1.0,1.1
+4442,Private industry,Lawn and garden equipment and supplies stores,3.6,2.5,1.8,0.7,1.1
+44421,Private industry,Outdoor power equipment stores,3.1,2.7,2.1,0.5,
+44422,Private industry,"Nursery, garden center, and farm supply stores",3.8,2.5,1.7,0.8,1.3
+445,Private industry,Food and beverage stores,3.7,2.4,1.3,1.1,1.3
+4451,Private industry,Grocery stores,4.0,2.6,1.4,1.2,1.4
+44511,Private industry,Supermarkets and other grocery (except convenience) stores,4.1,2.7,1.5,1.3,1.4
+44512,Private industry,Convenience stores,2.8,0.9,0.6,,1.8
+4452,Private industry,Specialty food stores,1.4,1.0,0.7,0.3,0.4
+44521,Private industry,Meat markets,2.0,1.5,1.0,0.5,
+44523,Private industry,Fruit and vegetable markets,1.5,0.8,,0.4,
+44529,Private industry,Other specialty food stores,1.1,0.8,0.6,0.1,
+4453,Private industry,"Beer, wine, and liquor stores",0.5,0.3,0.2,0.1,0.2
+446,Private industry,Health and personal care stores,1.8,1.0,0.6,0.4,0.8
+4461,Private industry,Health and personal care stores,1.8,1.0,0.6,0.4,0.8
+44611,Private industry,Pharmacies and drug stores,1.8,1.0,0.5,0.5,0.8
+44612,Private industry,"Cosmetics, beauty supplies, and perfume stores",2.3,1.3,1.0,0.3,1.0
+44619,Private industry,Other health and personal care stores,1.7,1.1,1.0,,0.6
+447,Private industry,Gasoline stations,1.9,1.0,0.6,0.3,0.9
+4471,Private industry,Gasoline stations,1.9,1.0,0.6,0.3,0.9
+44711,Private industry,Gasoline stations with convenience stores,1.7,0.9,0.6,0.3,0.9
+44719,Private industry,Other gasoline stations,3.3,1.8,1.2,0.6,1.5
+448,Private industry,Clothing and clothing accessories stores,1.5,0.6,0.5,0.2,0.9
+4481,Private industry,Clothing stores,1.8,0.8,0.6,0.2,1.0
+44811,Private industry,Men's clothing stores,1.5,1.5,1.3,,
+44812,Private industry,Women's clothing stores,1.1,0.5,0.4,0.2,0.6
+44813,Private industry,Children's and infants' clothing stores,4.0,4.0,4.0,,
+44814,Private industry,Family clothing stores,2.1,0.9,0.6,0.2,1.2
+44819,Private industry,Other clothing stores,0.7,0.5,0.3,0.2,
+4482,Private industry,Shoe stores,0.9,0.4,,,0.5
+451,Private industry,"Sporting goods, hobby, musical instrument, and book stores",1.8,1.0,0.6,0.5,0.8
+4511,Private industry,"Sporting goods, hobby, and musical instrument stores",1.9,1.1,0.6,0.6,0.8
+45111,Private industry,Sporting goods stores,1.6,0.9,0.5,0.4,0.7
+45112,Private industry,"Hobby, toy, and game stores",3.5,2.0,0.9,1.1,1.4
+4512,Private industry,Book stores and news dealers,1.2,0.5,0.5,,0.8
+45121,Private industry,Book stores and news dealers,1.2,0.5,0.5,,0.8
+452,Private industry,General merchandise stores,4.4,2.5,1.2,1.3,1.8
+4522,Private industry,Department stores,3.3,1.9,1.0,0.9,1.4
+4523,Private industry,"General merchandise stores, including warehouse clubs and supercenters",4.7,2.8,1.3,1.4,1.9
+45231,Private industry,"General merchandise stores, including warehouse clubs and supercenters",4.7,2.8,1.3,1.4,1.9
+452311,Private industry,Warehouse clubs and supercenters,5.0,2.9,1.4,1.6,2.1
+452319,Private industry,All other general merchandise stores,3.1,1.9,1.1,0.8,1.1
+453,Private industry,Miscellaneous store retailers,2.6,1.7,0.9,0.7,1.0
+4531,Private industry,Florists,0.9,0.5,,0.4,
+4532,Private industry,"Office supplies, stationery, and gift stores",1.4,0.5,0.4,0.2,0.8
+45321,Private industry,Office supplies and stationery stores,1.4,0.7,0.5,0.3,0.6
+45322,Private industry,"Gift, novelty, and souvenir stores",1.4,0.4,0.3,0.1,0.9
+4533,Private industry,Used merchandise stores,4.3,3.1,1.4,1.7,1.3
+4539,Private industry,Other miscellaneous store retailers,2.6,1.7,1.1,0.6,1.0
+45391,Private industry,Pet and pet supplies stores,6.3,3.5,1.9,1.6,2.8
+45392,Private industry,Art dealers,0.8,0.2,0.2,,0.6
+45399,Private industry,All other miscellaneous store retailers,1.4,1.1,0.9,0.2,0.3
+454,Private industry,Nonstore retailers,2.4,1.5,1.0,0.4,1.0
+4541,Private industry,Electronic shopping and mail-order houses,1.2,0.8,0.5,0.3,0.4
+4542,Private industry,Vending machine operators,3.7,3.0,1.7,1.3,0.7
+4543,Private industry,Direct selling establishments,4.6,2.3,1.9,0.4,2.3
+45431,Private industry,Fuel dealers,5.2,2.8,2.3,0.5,2.4
+48-49,Private industry,Transportation and warehousing,4.4,3.5,2.1,1.5,0.8
+481,Private industry,Air transportation,6.5,5.6,4.0,1.6,0.9
+4811,Private industry,Scheduled air transportation,7.3,6.3,4.5,1.8,1.0
+48111,Private industry,Scheduled air transportation,7.3,6.3,4.5,1.8,1.0
+481111,Private industry,Scheduled passenger air transportation,7.4,6.4,4.5,1.8,1.0
+4812,Private industry,Nonscheduled air transportation,1.0,0.7,0.4,0.3,0.2
+482,Private industry,Rail transportation,3.4,2.8,2.8,0.1,0.6
+483,Private industry,Water transportation,3.1,2.0,1.2,0.9,1.0
+4831,Private industry,"Deep sea, coastal, and great lakes water transportation",4.3,2.8,1.5,1.4,1.4
+48311,Private industry,"Deep sea, coastal, and great lakes water transportation",4.3,2.8,1.5,1.4,1.4
+483111,Private industry,Deep sea freight transportation,1.6,1.2,1.0,0.2,0.5
+483112,Private industry,Deep sea passenger transportation,5.1,2.7,2.7,,2.4
+483113,Private industry,Coastal and great lakes freight transportation,7.0,5.3,0.7,4.5,1.7
+483114,Private industry,Coastal and great lakes passenger transportation,1.7,1.3,1.2,,
+4832,Private industry,Inland water transportation,1.6,1.0,0.8,0.3,0.6
+48321,Private industry,Inland water transportation,1.6,1.0,0.8,0.3,0.6
+483211,Private industry,Inland water freight transportation,1.6,1.0,0.8,0.3,0.6
+483212,Private industry,Inland water passenger transportation,1.6,0.9,0.7,,
+484,Private industry,Truck transportation,2.9,2.2,1.6,0.7,0.7
+4841,Private industry,General freight trucking,3.1,2.4,1.6,0.7,0.7
+48411,Private industry,"General freight trucking, local",3.2,2.5,1.7,0.7,0.7
+48412,Private industry,"General freight trucking, long-distance",3.0,2.3,1.6,0.7,0.7
+4842,Private industry,Specialized freight trucking,2.7,2.0,1.5,0.5,0.7
+48421,Private industry,Used household and office goods moving,4.3,3.4,2.4,1.1,0.8
+48422,Private industry,"Specialized freight (except used goods) trucking, local",2.1,1.6,1.3,0.3,0.5
+48423,Private industry,"Specialized freight (except used goods) trucking, long-distance",2.7,1.8,1.3,0.4,0.9
+485,Private industry,Transit and ground passenger transportation,3.4,2.2,1.6,0.6,1.2
+4851,Private industry,Urban transit systems,6.1,4.7,3.2,1.5,1.3
+48532,Private industry,Limousine service,1.1,0.9,0.9,,
+4854,Private industry,School and employee bus transportation,3.3,1.9,1.3,0.6,1.4
+4855,Private industry,Charter bus industry,1.7,0.7,0.5,,1.0
+4859,Private industry,Other transit and ground passenger transportation,3.7,2.5,2.1,0.4,1.2
+4869,Private industry,Other pipeline transportation,1.3,1.3,,1.2,
+48691,Private industry,Pipeline transportation of refined petroleum products,1.3,1.3,,1.3,
+487,Private industry,Scenic and sightseeing transportation,3.5,2.1,1.4,0.8,1.3
+4871,Private industry,"Scenic and sightseeing transportation, land",2.2,1.7,1.4,0.3,0.5
+4872,Private industry,"Scenic and sightseeing transportation, water",4.1,2.3,1.3,1.0,1.8
+4879,Private industry,"Scenic and sightseeing transportation, other",4.0,2.6,2.0,,
+488,Private industry,Support activities for transportation,2.4,1.7,1.1,0.6,0.7
+4881,Private industry,Support activities for air transportation,4.1,2.7,1.7,1.0,1.4
+4882,Private industry,Support activities for rail transportation,2.5,2.0,1.5,0.5,0.6
+4883,Private industry,Support activities for water transportation,2.2,1.6,1.2,0.4,0.6
+48832,Private industry,Marine cargo handling,2.4,1.8,1.5,0.3,0.7
+48833,Private industry,Navigational services to shipping,1.2,1.0,0.8,0.2,0.2
+4884,Private industry,Support activities for road transportation,1.9,1.4,0.7,0.7,0.5
+48841,Private industry,Motor vehicle towing,2.3,1.5,0.7,0.9,0.7
+4885,Private industry,Freight transportation arrangement,1.2,0.8,0.6,0.2,0.3
+4889,Private industry,Other support activities for transportation,2.3,1.5,0.5,1.0,0.8
+492,Private industry,Couriers and messengers,8.0,6.6,4.2,2.4,1.4
+4921,Private industry,Couriers and express delivery services,7.9,6.5,4.1,2.5,1.4
+4922,Private industry,Local messengers and local delivery,8.5,6.9,4.9,2.0,1.7
+493,Private industry,Warehousing and storage,4.8,4.1,1.5,2.6,0.6
+4931,Private industry,Warehousing and storage,4.8,4.1,1.5,2.6,0.6
+49311,Private industry,General warehousing and storage,4.9,4.3,1.6,2.7,0.7
+49312,Private industry,Refrigerated warehousing and storage,3.4,2.9,1.6,1.3,0.4
+49319,Private industry,Other warehousing and storage,2.9,2.5,1.2,1.2,0.4
+22,Private industry,Utilities,1.9,1.2,0.8,0.4,0.8
+221,Private industry,Utilities,1.9,1.2,0.8,0.4,0.8
+2211,Private industry,"Electric power generation, transmission and distribution",1.9,1.2,0.8,0.3,0.8
+22111,Private industry,Electric power generation,1.7,1.1,0.9,0.2,0.6
+221112,Private industry,Fossil fuel electric power generation,2.3,1.4,1.1,0.3,0.9
+221113,Private industry,Nuclear electric power generation,0.2,0.1,0.1,,0.1
+221117,Private industry,Biomass electric power generation,4.1,1.5,1.5,,2.7
+221118,Private industry,Other electric power generation,7.0,6.5,6.5,,0.5
+22112,Private industry,"Electric power transmission, control, and distribution",2.1,1.2,0.8,0.4,0.8
+2212,Private industry,Natural gas distribution,1.9,1.2,0.8,0.3,0.8
+2213,Private industry,"Water, sewage and other systems",2.2,1.4,0.9,0.5,0.8
+22131,Private industry,Water supply and irrigation systems,2.3,1.5,0.9,0.5,0.8
+22132,Private industry,Sewage treatment facilities,1.7,1.3,1.1,,
+51,Private industry,Information,0.7,0.4,0.3,0.1,0.3
+511,Private industry,Publishing industries (except internet),0.2,0.1,0.1,0.0,0.1
+5111,Private industry,"Newspaper, periodical, book, and directory publishers",0.4,0.3,0.2,0.1,0.1
+51111,Private industry,Newspaper publishers,0.8,0.6,0.5,0.1,0.2
+51119,Private industry,Other publishers,0.3,,,,
+5112,Private industry,Software publishers,0.1,0.0,0.0,0.0,0.1
+512,Private industry,Motion picture and sound recording industries,1.5,0.4,0.3,0.1,1.0
+5121,Private industry,Motion picture and video industries,1.6,0.5,0.3,0.1,1.1
+51211,Private industry,Motion picture and video production,1.1,0.3,0.2,0.1,0.8
+51213,Private industry,Motion picture and video exhibition,3.4,1.0,0.6,0.4,2.4
+515,Private industry,Broadcasting (except internet),0.8,0.4,0.3,0.1,0.4
+5151,Private industry,Radio and television broadcasting,0.6,0.3,0.2,0.1,0.4
+51511,Private industry,Radio broadcasting,0.5,0.2,0.1,0.1,0.3
+51512,Private industry,Television broadcasting,0.7,0.3,0.2,0.1,0.4
+517,Private industry,Telecommunications,1.6,1.2,0.9,0.3,0.4
+5173,Private industry,Wired and wireless telecommunications carriers,1.6,1.2,1.0,0.3,0.4
+51731,Private industry,Wired and wireless telecommunications carriers,1.6,1.2,1.0,0.3,0.4
+517311,Private industry,Wired telecommunications carriers,1.8,1.3,1.1,0.3,0.5
+5179,Private industry,Other telecommunications,1.4,1.3,0.5,0.8,
+518,Private industry,"Data processing, hosting, and related services",0.3,0.1,0.1,,0.2
+519,Private industry,Other information services,0.2,0.1,0.0,0.0,0.2
+5191,Private industry,Other information services,0.2,0.1,0.0,0.0,0.2
+51912,Private industry,Libraries and archives,2.5,0.5,0.4,,1.9
+52,Private industry,Finance and insurance,0.3,0.1,,0.0,0.2
+522,Private industry,Credit intermediation and related activities,0.5,0.2,0.1,0.1,0.3
+5221,Private industry,Depository credit intermediation,0.5,0.2,0.2,0.0,0.3
+52211,Private industry,Commercial banking,0.4,0.2,0.1,0.0,0.2
+52212,Private industry,Savings institutions,0.4,0.0,,,0.4
+52213,Private industry,Credit unions,0.9,0.4,0.3,0.2,0.5
+5222,Private industry,Nondepository credit intermediation,0.5,0.3,0.1,0.2,0.2
+52221,Private industry,Credit card issuing,0.2,0.0,0.0,,0.2
+52229,Private industry,Other nondepository credit intermediation,0.5,0.3,0.2,0.2,0.2
+5223,Private industry,Activities related to credit intermediation,0.2,0.1,0.0,,0.1
+5239,Private industry,Other financial investment activities,0.1,0.0,0.0,,0.1
+52392,Private industry,Portfolio management,0.0,0.0,0.0,,0.0
+52393,Private industry,Investment advice,0.2,0.0,0.0,,0.1
+5241,Private industry,Insurance carriers,0.2,0.1,0.1,0.0,0.2
+52411,Private industry,"Direct life, health, and medical insurance carriers",0.2,0.1,0.1,0.0,0.1
+52412,Private industry,"Direct insurance (except life, health, and medical) carriers",0.3,0.1,0.1,0.0,0.2
+53,Private industry,Real estate and rental and leasing,1.6,1.0,0.6,0.3,0.6
+531,Private industry,Real estate,1.4,0.8,0.5,0.3,0.6
+5311,Private industry,Lessors of real estate,2.0,1.1,0.7,0.4,0.8
+53111,Private industry,Lessors of residential buildings and dwellings,2.4,1.4,0.9,0.5,
+53112,Private industry,Lessors of nonresidential buildings (except miniwarehouses),1.4,0.8,0.4,0.4,0.6
+53119,Private industry,Lessors of other real estate property,2.0,1.4,1.2,0.2,
+5312,Private industry,Offices of real estate agents and brokers,0.3,0.2,0.1,0.1,0.1
+5313,Private industry,Activities related to real estate,1.5,0.8,0.5,0.3,0.7
+53131,Private industry,Real estate property managers,1.8,1.0,0.6,0.4,0.8
+532,Private industry,Rental and leasing services,2.3,1.5,1.1,0.4,0.7
+5321,Private industry,Automotive equipment rental and leasing,2.8,1.8,1.2,0.5,1.0
+53211,Private industry,Passenger car rental and leasing,2.4,2.0,1.7,0.3,0.4
+53212,Private industry,"Truck, utility trailer, and RV (recreational vehicle) rental and leasing",3.3,1.5,0.7,0.8,1.8
+5322,Private industry,Consumer goods rental,2.7,1.7,1.1,0.6,1.0
+53228,Private industry,Other consumer goods rental,2.8,1.8,1.2,0.6,1.0
+532281,Private industry,Formal wear and costume rental,1.8,1.6,0.8,,
+532283,Private industry,Home health equipment rental,1.4,0.8,0.5,0.4,0.6
+532289,Private industry,All other consumer goods rental,4.4,2.9,1.9,1.0,1.5
+5324,Private industry,Commercial and industrial machinery and equipment rental and leasing,1.1,0.8,0.4,0.3,0.3
+53241,Private industry,"Construction, transportation, mining, and forestry machinery and equipment rental and leasing",0.9,0.5,0.4,,0.4
+53249,Private industry,Other commercial and industrial machinery and equipment rental and leasing,1.3,1.2,0.5,0.7,
+533,Private industry,Lessors of nonfinancial intangible assets (except copyrighted works),0.1,,,,0.1
+54,Private industry,"Professional, scientific, and technical services",0.7,0.2,0.2,0.1,0.5
+541,Private industry,"Professional, scientific, and technical services",0.7,0.2,0.2,0.1,0.5
+5411,Private industry,Legal services,0.1,0.1,0.1,,0.1
+5412,Private industry,"Accounting, tax preparation, bookkeeping, and payroll services",0.2,0.1,0.1,0.0,0.1
+54121,Private industry,"Accounting, tax preparation, bookkeeping, and payroll services",0.2,0.1,0.1,0.0,0.1
+541211,Private industry,Offices of certified public accountants,0.1,0.1,0.1,,0.0
+541219,Private industry,Other accounting services,0.3,0.0,0.0,,0.2
+5413,Private industry,"Architectural, engineering, and related services",0.6,0.3,0.2,0.1,0.3
+54131,Private industry,Architectural services,0.3,0.2,0.2,,0.1
+54133,Private industry,Engineering services,0.5,0.2,0.2,0.1,0.3
+54135,Private industry,Building inspection services,1.1,0.8,0.7,0.1,
+54138,Private industry,Testing laboratories,0.9,0.6,0.4,0.2,0.4
+5414,Private industry,Specialized design services,0.2,0.0,0.0,,
+5415,Private industry,Computer systems design and related services,0.2,0.1,0.1,0.0,
+54151,Private industry,Computer systems design and related services,0.2,0.1,0.1,0.0,
+541511,Private industry,Custom computer programming services,0.2,0.1,0.1,0.0,0.1
+5416,Private industry,"Management, scientific, and technical consulting services",0.3,0.2,0.1,0.0,0.1
+54161,Private industry,Management consulting services,0.2,0.1,0.1,0.0,0.1
+54169,Private industry,Other scientific and technical consulting services,0.6,0.3,,,0.3
+5417,Private industry,Scientific research and development services,0.6,0.3,0.1,0.1,0.4
+5418,Private industry,"Advertising, public relations, and related services",0.6,0.4,0.3,0.1,0.2
+5419,Private industry,"Other professional, scientific, and technical services",5.6,1.2,0.7,0.4,4.4
+54192,Private industry,Photographic services,0.6,0.3,0.3,0.1,0.3
+54194,Private industry,Veterinary services,11.1,2.1,1.2,0.9,9.0
+54199,Private industry,"All other professional, scientific, and technical services",0.4,0.3,0.3,,0.1
+55,Private industry,Management of companies and enterprises,0.5,0.3,0.2,0.1,0.3
+56,Private industry,Administrative and support and waste management and remediation services,1.8,1.2,0.8,0.4,0.6
+561,Private industry,Administrative and support services,1.6,1.0,0.7,0.3,0.6
+5611,Private industry,Office administrative services,0.6,0.2,0.1,0.1,0.3
+5612,Private industry,Facilities support services,2.1,1.2,0.7,0.5,1.0
+5613,Private industry,Employment services,0.6,0.2,0.2,0.1,0.3
+56131,Private industry,Employment placement agencies and executive search services,0.3,0.1,0.1,0.1,0.2
+56132,Private industry,Temporary help services,0.7,0.3,0.2,0.1,0.4
+56133,Private industry,Professional employer organizations,0.5,0.2,0.1,,0.2
+5614,Private industry,Business support services,0.5,0.3,0.2,0.1,0.2
+56141,Private industry,Document preparation services,0.3,0.2,0.2,,0.1
+56142,Private industry,Telephone call centers,0.4,0.2,0.1,0.1,0.2
+56144,Private industry,Collection agencies,0.3,0.2,0.1,,0.1
+56149,Private industry,Other business support services,1.1,0.9,0.5,0.4,0.2
+5615,Private industry,Travel arrangement and reservation services,0.7,0.3,0.3,0.0,0.4
+56159,Private industry,Other travel arrangement and reservation services,1.4,0.6,0.5,0.1,0.8
+5616,Private industry,Investigation and security services,1.5,1.0,0.7,0.3,0.5
+56161,Private industry,"Investigation, guard, and armored car services",1.5,1.0,0.7,0.3,0.5
+561611,Private industry,Investigation services,1.0,0.9,0.9,,0.1
+561612,Private industry,Security guards and patrol services,1.4,0.9,0.7,0.2,0.5
+561613,Private industry,Armored car services,4.4,3.1,1.2,1.9,1.3
+56162,Private industry,Security systems services,1.4,0.9,0.4,0.4,0.5
+5617,Private industry,Services to buildings and dwellings,2.6,1.8,1.3,0.5,0.8
+56171,Private industry,Exterminating and pest control services,2.2,1.5,1.1,0.5,0.6
+56172,Private industry,Janitorial services,2.5,1.7,1.2,0.5,0.7
+56173,Private industry,Landscaping services,3.0,2.0,1.4,0.6,1.0
+56174,Private industry,Carpet and upholstery cleaning services,5.6,4.8,3.9,0.9,0.9
+56179,Private industry,Other services to buildings and dwellings,1.0,0.8,0.7,,0.2
+5619,Private industry,Other support services,2.1,1.1,0.8,0.4,0.9
+562,Private industry,Waste management and remediation services,3.5,2.7,1.6,1.0,0.9
+5621,Private industry,Waste collection,4.7,3.7,2.2,1.5,1.1
+56211,Private industry,Waste collection,4.7,3.7,2.2,1.5,1.1
+562111,Private industry,Solid waste collection,5.0,4.0,2.4,1.6,1.0
+5622,Private industry,Waste treatment and disposal,2.5,1.7,0.9,0.9,0.7
+56221,Private industry,Waste treatment and disposal,2.5,1.7,0.9,0.9,0.7
+562211,Private industry,Hazardous waste treatment and disposal,1.9,1.3,0.7,0.5,0.7
+562212,Private industry,Solid waste landfill,2.9,2.1,0.8,1.3,0.8
+5629,Private industry,Remediation and other waste management services,2.7,2.0,1.5,0.6,0.7
+56291,Private industry,Remediation services,2.4,1.6,0.9,0.7,0.8
+56292,Private industry,Materials recovery facilities,5.9,4.8,4.0,0.8,1.1
+56299,Private industry,All other waste management services,1.8,1.5,1.2,0.3,0.3
+61,Private industry,Educational services,1.7,0.8,0.6,0.2,0.8
+611,Private industry,Educational services,1.7,0.8,0.6,0.2,0.8
+6111,Private industry,Elementary and secondary schools,2.4,1.2,0.8,0.4,1.2
+6112,Private industry,Junior colleges,1.1,0.4,0.3,,0.8
+6113,Private industry,"Colleges, universities, and professional schools",1.3,0.6,0.4,0.2,0.8
+6115,Private industry,Technical and trade schools,0.6,0.3,0.2,0.1,0.3
+61161,Private industry,Fine arts schools,0.5,0.3,0.3,,
+61169,Private industry,All other schools and instruction,1.2,0.5,0.5,,0.7
+6117,Private industry,Educational support services,0.8,0.5,0.2,0.2,0.4
+62,Private industry,Health care and social assistance,3.4,1.7,1.1,0.5,1.8
+621,Private industry,Ambulatory health care services,2.0,0.7,0.5,0.2,1.3
+6211,Private industry,Offices of physicians,1.8,0.4,0.3,0.1,1.3
+62111,Private industry,Offices of physicians,1.8,0.4,0.3,0.1,1.3
+621111,Private industry,Offices of physicians (except mental health specialists),1.8,0.4,0.3,0.1,1.3
+621112,Private industry,"Offices of physicians, mental health specialists",1.8,0.7,,,1.1
+6212,Private industry,Offices of dentists,1.4,0.2,0.2,0.0,1.2
+6213,Private industry,Offices of other health practitioners,1.3,0.7,0.5,0.2,0.6
+6214,Private industry,Outpatient care centers,3.5,1.1,0.8,0.3,2.4
+6215,Private industry,Medical and diagnostic laboratories,2.6,1.1,0.8,0.4,1.5
+6216,Private industry,Home health care services,1.6,1.0,0.8,0.2,0.6
+6219,Private industry,Other ambulatory health care services,4.2,2.4,1.7,0.7,1.8
+62191,Private industry,Ambulance services,5.9,3.7,2.8,1.0,2.2
+62199,Private industry,All other ambulatory health care services,2.7,1.3,0.7,0.5,1.4
+622,Private industry,Hospitals,5.1,2.1,1.3,0.8,3.0
+6221,Private industry,General medical and surgical hospitals,5.1,2.1,1.3,0.8,3.0
+6222,Private industry,Psychiatric and substance abuse hospitals,6.9,3.8,2.6,1.2,3.1
+6223,Private industry,Specialty (except psychiatric and substance abuse) hospitals,4.1,2.2,1.4,0.7,1.9
+623,Private industry,Nursing and residential care facilities,5.5,3.6,2.4,1.2,1.9
+6231,Private industry,Nursing care facilities (skilled nursing facilities),6.3,4.5,3.1,1.4,1.8
+6232,Private industry,"Residential intellectual and developmental disability, mental health, and substance abuse facilities",4.2,2.3,1.6,0.7,1.8
+6233,Private industry,Continuing care retirement communities and assisted living facilities for the elderly,5.5,3.4,2.0,1.4,2.1
+6239,Private industry,Other residential care facilities,4.8,2.9,2.1,0.9,1.8
+624,Private industry,Social assistance,2.3,1.4,1.0,0.4,0.9
+6241,Private industry,Individual and family services,2.2,1.3,1.0,0.3,0.9
+62411,Private industry,Child and youth services,2.5,1.4,0.8,0.5,1.1
+62412,Private industry,Services for the elderly and persons with disabilities,2.1,1.3,1.0,0.3,0.8
+62419,Private industry,Other individual and family services,2.2,1.2,0.9,0.3,1.0
+6242,Private industry,"Community food and housing, and emergency and other relief services",3.4,1.8,1.4,0.4,1.6
+62421,Private industry,Community food services,4.4,2.2,1.6,0.6,2.2
+62422,Private industry,Community housing services,3.1,1.6,1.2,0.3,1.5
+62423,Private industry,Emergency and other relief services,3.3,2.0,1.5,0.5,1.3
+6243,Private industry,Vocational rehabilitation services,4.0,2.4,1.5,0.9,1.5
+6244,Private industry,Child day care services,1.9,1.2,0.8,0.4,0.7
+71,Private industry,"Arts, entertainment, and recreation",3.9,2.2,1.2,1.1,1.7
+711,Private industry,"Performing arts, spectator sports, and related industries",5.9,3.3,1.6,1.8,2.5
+7112,Private industry,Spectator sports,12.0,7.9,3.0,4.9,4.1
+71121,Private industry,Spectator sports,12.0,7.9,3.0,4.9,4.1
+711211,Private industry,Sports teams and clubs,16.5,11.0,3.8,7.2,
+711212,Private industry,Racetracks,2.8,1.6,1.4,0.2,1.2
+711219,Private industry,Other spectator sports,2.2,1.1,1.0,0.1,1.1
+7113,Private industry,"Promoters of performing arts, sports, and similar events",4.1,2.1,1.6,0.4,2.0
+7115,Private industry,"Independent artists, writers, and performers",0.4,0.1,,,
+712,Private industry,"Museums, historical sites, and similar institutions",4.0,2.2,1.0,1.1,1.9
+713,Private industry,"Amusement, gambling, and recreation industries",3.3,1.9,1.1,0.8,1.4
+7131,Private industry,Amusement parks and arcades,5.7,4.3,1.4,2.9,1.4
+71311,Private industry,Amusement and theme parks,6.4,4.8,1.5,3.3,1.6
+71312,Private industry,Amusement arcades,1.3,0.5,,0.4,0.8
+7132,Private industry,Gambling industries,2.4,1.4,0.9,0.5,1.0
+7139,Private industry,Other amusement and recreation industries,3.1,1.6,1.0,0.5,1.5
+71391,Private industry,Golf courses and country clubs,3.3,1.5,1.1,0.4,1.8
+71392,Private industry,Skiing facilities,10.0,7.3,3.4,3.9,2.7
+71393,Private industry,Marinas,4.1,2.9,2.3,0.7,1.2
+71394,Private industry,Fitness and recreational sports centers,1.8,0.9,0.5,0.4,1.0
+71395,Private industry,Bowling centers,2.5,0.8,0.7,0.1,1.8
+71399,Private industry,All other amusement and recreation industries,3.7,2.0,1.5,0.5,1.7
+72,Private industry,Accommodation and food services,2.6,1.2,0.8,0.4,1.4
+721,Private industry,Accommodation,3.8,2.3,1.2,1.0,1.5
+7211,Private industry,Traveler accommodation,3.8,2.3,1.2,1.1,1.5
+72111,Private industry,Hotels (except casino hotels) and motels,3.9,2.3,1.3,1.0,1.6
+72112,Private industry,Casino hotels,3.5,2.4,1.1,1.3,1.1
+72119,Private industry,Other traveler accommodation,2.2,1.1,0.9,0.2,1.1
+7212,Private industry,RV (recreational vehicle) parks and recreational camps,4.3,1.8,1.3,0.4,2.6
+72121,Private industry,RV (recreational vehicle) parks and recreational camps,4.3,1.8,1.3,0.4,2.6
+721214,Private industry,Recreational and vacation camps (except campgrounds),7.0,3.1,2.3,0.8,3.9
+7213,Private industry,"Rooming and boarding houses, dormitories, and workers' camps",0.6,0.3,,,0.3
+722,Private industry,Food services and drinking places,2.4,1.0,0.7,0.3,1.4
+7223,Private industry,Special food services,3.1,2.0,1.2,0.8,1.1
+7224,Private industry,Drinking places (alcoholic beverages),1.3,0.6,0.6,,0.7
+7225,Private industry,Restaurants and other eating places,2.4,1.0,0.7,0.2,1.4
+72251,Private industry,Restaurants and other eating places,2.4,1.0,0.7,0.2,1.4
+722511,Private industry,Full-service restaurants,2.2,0.8,0.7,0.2,1.3
+722513,Private industry,Limited-service restaurants,2.6,1.0,0.8,0.3,1.6
+722514,Private industry,"Cafeterias, grill buffets, and buffets",1.4,0.5,0.4,0.1,0.9
+722515,Private industry,Snack and nonalcoholic beverage bars,2.7,1.3,0.8,0.5,1.3
+81,Private industry,Other services (except public administration),1.9,1.1,0.7,0.4,0.8
+811,Private industry,Repair and maintenance,2.0,1.3,0.9,0.4,0.7
+8111,Private industry,Automotive repair and maintenance,1.9,1.1,0.9,0.3,0.8
+8112,Private industry,Electronic and precision equipment repair and maintenance,1.7,1.3,1.1,,0.3
+8113,Private industry,Commercial and industrial machinery and equipment (except automotive and electronic) repair and maintenance,2.4,1.8,1.0,0.8,0.7
+8114,Private industry,Personal and household goods repair and maintenance,1.8,1.2,1.1,,0.6
+812,Private industry,Personal and laundry services,1.8,0.9,0.6,0.3,0.9
+8121,Private industry,Personal care services,0.4,0.1,0.1,,0.2
+8122,Private industry,Death care services,1.4,0.7,0.5,0.2,0.7
+8123,Private industry,Drycleaning and laundry services,2.5,1.6,0.8,0.8,1.0
+81232,Private industry,Drycleaning and laundry services (except coin-operated),1.3,0.6,0.4,0.2,0.7
+81233,Private industry,Linen and uniform supply,3.6,2.3,1.1,1.2,1.2
+812331,Private industry,Linen supply,4.2,3.2,1.5,1.6,1.1
+812332,Private industry,Industrial launderers,2.9,1.5,0.6,0.9,1.4
+8129,Private industry,Other personal services,3.9,1.8,1.3,0.4,2.1
+81291,Private industry,Pet care (except veterinary) services,5.8,2.0,1.5,0.5,3.8
+81293,Private industry,Parking lots and garages,3.1,1.7,1.0,0.7,1.4
+81299,Private industry,All other personal services,1.9,1.6,1.5,,
+813,Private industry,"Religious, grantmaking, civic, professional, and similar organizations",1.7,0.9,0.5,0.4,0.8
+,State government,State government,3.0,1.7,1.3,0.4,1.3
+61,State government,Educational services,1.5,0.7,0.4,0.3,0.8
+611,State government,Educational services,1.5,0.7,0.4,0.3,0.8
+6113,State government,"Colleges, universities, and professional schools",1.5,0.6,0.4,0.3,0.8
+62,State government,Health care and social assistance,6.0,3.5,2.9,0.6,2.5
+622,State government,Hospitals,6.9,3.8,3.0,0.8,3.1
+623,State government,Nursing and residential care facilities,8.3,6.1,5.5,0.7,2.2
+92,State government,Public administration,3.2,1.9,1.6,0.3,1.3
+922,State government,"Justice, public order, and safety activities",5.1,2.9,2.5,0.4,2.2
+9221,State government,"Justice, public order, and safety activities",5.1,2.9,2.5,0.4,2.2
+92212,State government,Police protection,4.8,2.7,2.1,0.6,2.1
+92214,State government,Correctional institutions,7.5,4.3,3.8,0.5,3.2
+,Local government,Local government,4.8,2.3,1.5,0.7,2.6
+22,Local government,Utilities,4.3,2.8,1.7,1.1,1.5
+221,Local government,Utilities,4.3,2.8,1.7,1.1,1.5
+2213,Local government,"Water, sewage and other systems",4.9,3.2,1.9,1.3,1.7
+61,Local government,Educational services,3.9,1.7,1.1,0.6,2.2
+611,Local government,Educational services,3.9,1.7,1.1,0.6,2.2
+6111,Local government,Elementary and secondary schools,4.0,1.7,1.1,0.6,2.3
+62,Local government,Health care and social assistance,4.4,1.7,1.2,0.5,2.6
+622,Local government,Hospitals,4.9,1.7,1.2,0.5,3.2
+623,Local government,Nursing and residential care facilities,4.6,3.0,2.0,1.0,1.7
+92,Local government,Public administration,6.4,3.1,2.2,0.9,3.3
