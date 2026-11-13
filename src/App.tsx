@@ -677,7 +677,7 @@ export default function App() {
                 Valued {fmtDay(V, "long")}. Incurred = paid + reserve. Loss year = year of the date of loss. Causes are grouped automatically; spot-check before external use.
                 <div className="mt-2" data-export-ignore>
                   {OFFLINE
-                    ? "Runs entirely in this browser. No AI runs inside this tool; findings come from fixed rules and math. "
+                    ? "Runs entirely in this browser. No AI runs inside this tool; findings come from fixed rules and math, and their guidance text summarizes the public sources linked on each card. "
                     : "Runs in this browser. AI is used only if you click Find colors under Brand. "}
                   For illustration only; not insurance, legal or safety advice. Built with open-source software: React, Recharts, Radix UI (MIT); SheetJS Community Edition (Apache 2.0); PptxGenJS, JSZip, html-to-image (MIT); Lucide icons (ISC); Figtree font (SIL OFL 1.1).
                 </div>
