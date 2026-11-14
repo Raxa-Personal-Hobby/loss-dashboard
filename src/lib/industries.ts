@@ -212,8 +212,8 @@ const restaurant: Industry = {
   bls: { default: "7225", options: ["7225", "722511", "722513", "722515", "private"], mix: "7225" },
   sample: {
     seed: 12,
-    company: "Sample Restaurant Group",
-    sourceName: "Sample Restaurant Group loss run (synthetic)",
+    company: "Acme Restaurant Group",
+    sourceName: "Acme Restaurant Group loss run (synthetic)",
     annualPerUnit: 8.2,
     trend: 1.04,
     units: [
@@ -403,8 +403,8 @@ const construction: Industry = {
   bls: { default: "23", options: ["23", "236", "238", "private"], mix: "23" },
   sample: {
     seed: 7,
-    company: "Sample Builders Group",
-    sourceName: "Sample Builders Group loss run (synthetic)",
+    company: "Acme Builders Group",
+    sourceName: "Acme Builders Group loss run (synthetic)",
     annualPerUnit: 11,
     trend: 1.03,
     units: [
@@ -604,8 +604,8 @@ const fleet: Industry = {
   bls: { default: "484", options: ["484", "4841", "4842", "private"], mix: "484" },
   sample: {
     seed: 20,
-    company: "Sample Freight Lines",
-    sourceName: "Sample Freight Lines loss run (synthetic)",
+    company: "Acme Freight Lines",
+    sourceName: "Acme Freight Lines loss run (synthetic)",
     annualPerUnit: 21,
     trend: 1.04,
     units: [
@@ -763,8 +763,8 @@ const realestate: Industry = {
   bls: { default: "531", options: ["531", "5311", "5313", "private"], mix: "531" },
   sample: {
     seed: 22,
-    company: "Sample Property Group",
-    sourceName: "Sample Property Group loss run (synthetic)",
+    company: "Acme Property Group",
+    sourceName: "Acme Property Group loss run (synthetic)",
     annualPerUnit: 9,
     trend: 1.04,
     units: [
@@ -936,8 +936,8 @@ const general: Industry = {
   bls: { default: "private", options: ["private", "31-33", "42", "44-45", "48-49", "56", "62", "71"], mix: "private" },
   sample: {
     seed: 31,
-    company: "Sample Company",
-    sourceName: "Sample Company loss run (synthetic)",
+    company: "Acme Company",
+    sourceName: "Acme Company loss run (synthetic)",
     annualPerUnit: 7.5,
     trend: 1.03,
     units: [
@@ -1066,7 +1066,11 @@ export function profileForNaics(code: string | null | undefined): IndustryId {
 
 export const INDUSTRIES: Industry[] = [restaurant, construction, fleet, realestate, general];
 export const getIndustry = (id: string | null | undefined): Industry => INDUSTRIES.find((i) => i.id === id) ?? restaurant;
-export const SAMPLE_COMPANIES = new Set(INDUSTRIES.map((i) => i.sample.company));
+// Name shown when a loaded loss run has no company name set under Brand.
+export const DEFAULT_COMPANY = "Acme";
+// Older versions named the samples "Sample ...". A brand name saved by one of them is still a sample name, not one the user typed.
+const LEGACY_SAMPLE_COMPANIES = ["Sample Restaurant Group", "Sample Builders Group", "Sample Freight Lines", "Sample Property Group", "Sample Company"];
+export const SAMPLE_COMPANIES = new Set([...INDUSTRIES.map((i) => i.sample.company), ...LEGACY_SAMPLE_COMPANIES, DEFAULT_COMPANY]);
 
 export function coverageLabel(ind: Industry, key: string) {
   return ind.coverages.find((c) => c.key === key)?.label ?? "Other";

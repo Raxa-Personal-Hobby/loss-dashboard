@@ -5,7 +5,7 @@ import { DEFAULT_THRESHOLDS, isDefault, mergeThresholds, type Thresholds } from 
 import { ThresholdsDialog } from "@/components/ThresholdsDialog";
 import type { Brand, Dataset, Filters, HoursRow, OshaRow, SafetyMerge } from "@/lib/types";
 import { EMPTY_FILTERS } from "@/lib/types";
-import { SAMPLE_COMPANIES, coverageLabel, getIndustry, type Industry } from "@/lib/industries";
+import { DEFAULT_COMPANY, SAMPLE_COMPANIES, coverageLabel, getIndustry, type Industry } from "@/lib/industries";
 import { autoMap, fieldsFor } from "@/lib/fields";
 import { buildClaims, detectHeaderRow, hoursFromTables } from "@/lib/parse";
 import { makeSampleHours, makeSampleTable, SAMPLE_VALUATION } from "@/lib/sample";
@@ -49,7 +49,9 @@ import { ColumnBars, CompareBars, MonthlyLines, RankBars, StackedBars, YearBars,
 import { BandKey, Findings, HeatGrid, KpiTile, LargeLosses, WatchList } from "@/components/sections";
 import { DataDialog } from "@/components/DataDialog";
 import { BrandDialog } from "@/components/BrandDialog";
-import { ExportDialog } from "@/components/ExportDialog";
+import { ExportDialog, ExportOptions } from "@/components/ExportDialog";
+import { WhatsNew } from "@/components/WhatsNew";
+import { APP_VERSION, notesSince } from "@/lib/version";
 
 const BRAND_KEY = "loss-dashboard.brand.v2";
 const TH_KEY = "loss-dashboard.thresholds.v1";
@@ -66,6 +68,21 @@ function loadChoice(ind: Industry): BenchChoice {
 const DEFAULT_BRAND: Brand = { companyName: "", website: "", primary: "#0f5e73", accent: "#d0822f", logo: null };
 // The start screen saves which template the user picked. A build can still preset one with window.LOSS_INDUSTRY.
 const START_KEY = "loss-dashboard.start.v1";
+const SEEN_KEY = "loss-dashboard.seen-version";
+const loadSeen = (): string | null => {
+  try {
+    return localStorage.getItem(SEEN_KEY);
+  } catch {
+    return null;
+  }
+};
+const markSeen = () => {
+  try {
+    localStorage.setItem(SEEN_KEY, APP_VERSION);
+  } catch {
+    /* storage off */
+  }
+};
 const PRESET = (window as any).LOSS_INDUSTRY as string | undefined;
 function loadStart(): { industry: string } | null {
   try {
@@ -116,6 +133,7 @@ const NAV = [
   { id: "safety", label: "Safety" },
   { id: "findings", label: "Findings" },
   { id: "large-losses", label: "Large losses" },
+  { id: "export", label: "Export" },
 ];
 
 const initials = (s: string) =>
@@ -151,6 +169,12 @@ export default function App() {
   const [choice, setChoiceState] = useState<BenchChoice>(() => loadChoice(START_INDUSTRY));
   const [showStart, setShowStart] = useState(!SAVED_START && !PRESET);
   const [startDone, setStartDone] = useState(!!SAVED_START || !!PRESET);
+  // Returning visitors see what changed since their last visit. First-time visitors start fresh.
+  const [newNotes, setNewNotes] = useState(() => (SAVED_START ? notesSince(loadSeen()) : []));
+  const [showNew, setShowNew] = useState(() => newNotes.length > 0);
+  useEffect(() => {
+    if (!SAVED_START) markSeen();
+  }, []);
   const setChoice = (c: BenchChoice, id = ind.id) => {
     setChoiceState(c);
     try {
@@ -280,7 +304,7 @@ export default function App() {
   const largest = useMemo(() => topClaims(filtered, 10), [filtered]);
   const scope = filterSummary(filters, allYears) || "All claims";
   const named = brand.companyName.trim() && !SAMPLE_COMPANIES.has(brand.companyName.trim()) ? brand.companyName.trim() : "";
-  const company = named || (dataset.isSample ? ind.sample.company : "Your company");
+  const company = named || (dataset.isSample ? ind.sample.company : DEFAULT_COMPANY);
   const labelW = wide ? 168 : 112;
 
   const vars = {
@@ -312,6 +336,16 @@ export default function App() {
     );
     els.forEach((e) => io.observe(e));
     return () => io.disconnect();
+  }, []);
+
+  // The first and last sections may never reach the highlight band, so mark them at the very top and bottom of the page.
+  useEffect(() => {
+    const onScroll = () => {
+      if (window.scrollY < 40) setActive(NAV[0].id);
+      else if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 8) setActive(NAV[NAV.length - 1].id);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const go = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -362,7 +396,7 @@ export default function App() {
     setShowStart(false);
     setStartDone(true);
     const t = getIndustry(p.industry);
-    toast.success(`${p.code} ${p.title}`, { description: `${t.id === "general" ? "General" : t.name} template. Safety numbers compare with BLS for this code. Load your loss run under Data.`, action: { label: "Load data", onClick: () => setDlg("data") } });
+    toast.success(`${p.code} ${p.title}`, { description: `${t.id === "general" ? "General" : t.name} template. Safety numbers compare with BLS for this code. Upload your loss run next.`, action: { label: "Upload data", onClick: () => setDlg("data") } });
   };
   const skipStart = () => {
     try {
@@ -377,13 +411,31 @@ export default function App() {
 
   const exportInput = () => ({ ind, brand: { ...brand, companyName: company }, theme, filters, allClaims: all, dims, filtered, valuationDay: V, kpis: k, locRows, concerns: found, sourceName: dataset.sourceName, isSample: dataset.isSample, largeAt, th, safety: osha ? { rows: sYears, locRows: sLocRows, bench, caseTypes } : undefined });
   const base = `${slug(company)}-loss-review`;
+  const exportHandlers = {
+    onPptx: async () => {
+      try {
+        const blob = await buildPptx(exportInput());
+        announceSave(await saveFile(`${base}.pptx`, blob), `${base}.pptx`);
+      } catch (e: any) {
+        toast.error(e?.message || "Could not build the slides.");
+      }
+    },
+    onPng: async () => {
+      setDlg(null);
+      await new Promise((r) => setTimeout(r, 350));
+      await savePng(dashRef.current, `${base}.png`, "#f5f6f8");
+    },
+    onXlsx: async () => {
+      announceSave(await saveFile(`${base}-claims.xlsx`, filteredClaimsXlsx(filtered, ind, merge?.links)), `${base}-claims.xlsx`);
+    },
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f6f8] font-sans text-[#1c2126] antialiased" style={vars}>
       <Toaster position="bottom-center" toastOptions={{ style: { fontFamily: "Figtree, system-ui, sans-serif", fontSize: 13 } }} />
       <div className="flex">
         {/* Sidebar */}
-        <aside className="sticky top-0 hidden h-screen w-[244px] shrink-0 flex-col text-white lg:flex" style={{ background: "var(--brand-deep)" }}>
+        <aside className="sticky top-0 hidden h-screen w-[244px] shrink-0 flex-col overflow-y-auto text-white lg:flex" style={{ background: "var(--brand-deep)", scrollbarWidth: "thin", scrollbarColor: "rgba(255,255,255,0.25) transparent" }}>
           <div className="px-5 pb-5 pt-6">
             {brand.logo ? (
               <div className="flex h-[64px] items-center justify-center rounded-xl bg-white px-3">
@@ -400,6 +452,14 @@ export default function App() {
                 </div>
               </div>
             )}
+            <button type="button" onClick={() => setShowStart(true)} title="Change industry" className="mt-4 block w-full rounded-lg bg-white/10 px-3 py-2.5 text-left text-[12px] leading-snug hover:bg-white/15">
+              <span className="flex items-center justify-between">
+                <span className="text-[10.5px] font-bold uppercase tracking-[0.12em] text-white/50">Industry</span>
+                <span className="text-[11.5px] font-bold text-white/80">Change</span>
+              </span>
+              <span className="mt-1 line-clamp-2 font-semibold text-white">{naicsChip}</span>
+              <span className="mt-0.5 block text-white/60">{ind.name} categories</span>
+            </button>
           </div>
           <nav className="flex-1 space-y-0.5 px-3">
             {NAV.map((n) => (
@@ -420,8 +480,13 @@ export default function App() {
             <div className="mt-1">
               {num(all.length)} claims · valued {fmtDay(V, "long")}
             </div>
+            {merge && (
+              <div className="mt-1 line-clamp-2">
+                + safety report: <span className="font-semibold text-white">{merge.report.sourceName}</span>
+              </div>
+            )}
             <button type="button" onClick={() => setDlg("data")} className="mt-2.5 inline-flex items-center gap-1.5 rounded-md bg-white px-2.5 py-1.5 text-[12px] font-bold" style={{ color: "var(--brand-deep)" }}>
-              <FileUp className="h-3.5 w-3.5" /> Load a loss run
+              <FileUp className="h-3.5 w-3.5" /> Upload source data
             </button>
           </div>
         </aside>
@@ -466,7 +531,7 @@ export default function App() {
                   <span className="rounded-full bg-white px-3 py-1.5 text-[12px] font-semibold text-[#3c434c] ring-1 ring-[#e3e6ea]">Valued {fmtDay(V, "long")}</span>
                   <div className="flex items-center gap-2" data-export-ignore>
                     <button type="button" onClick={() => setDlg("data")} className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-white px-3 text-[13px] font-semibold ring-1 ring-[#d8dce1] hover:ring-[#b7bcc4]">
-                      <FileUp className="h-4 w-4" /> <span>Data</span>
+                      <FileUp className="h-4 w-4" /> <span>Upload data</span>
                     </button>
                     <button type="button" onClick={() => setDlg("brand")} className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-white px-3 text-[13px] font-semibold ring-1 ring-[#d8dce1] hover:ring-[#b7bcc4]">
                       <Palette className="h-4 w-4" /> <span>Brand</span>
@@ -485,10 +550,10 @@ export default function App() {
                 <div className="mt-4 flex items-start gap-3 rounded-xl border border-[#e3e6ea] bg-white px-4 py-3 text-[13px]" data-export-ignore>
                   <Info className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--accent-ink)" }} />
                   <div className="flex-1 text-[#3c434c]">
-                    <b className="text-[#1c2126]">This is synthetic sample data.</b> Load your own loss run (Excel, CSV or Word table) and the whole dashboard rebuilds. Then set your name, logo and colors under Brand.
+                    <b className="text-[#1c2126]">This is synthetic sample data.</b> Upload your own loss run (Excel, CSV or Word table), plus a safety report if you have one, and the whole dashboard rebuilds. Then set your name, logo and colors under Brand.
                   </div>
                   <button type="button" onClick={() => setDlg("data")} className="shrink-0 rounded-md px-2.5 py-1 text-[12.5px] font-bold text-white" style={{ background: "var(--brand-deep)" }}>
-                    Load data
+                    Upload data
                   </button>
                   <button type="button" aria-label="Dismiss" onClick={() => setBanner(false)} className="shrink-0 text-[#8b929b] hover:text-[#1c2126]">
                     <X className="h-4 w-4" />
@@ -718,6 +783,14 @@ export default function App() {
                 <LargeLosses ind={ind} claims={largest} largeAt={largeAt} />
               </section>
 
+              {/* Export */}
+              <section className="space-y-4" data-export-ignore>
+                <SectionHead id="export" eyebrow="Export" title="Export reports" sub={`Download this view as slides, an image or a spreadsheet. Exports use what's on screen now: ${scope}.`} />
+                <div className="max-w-3xl rounded-xl border border-[#e3e6ea] bg-white p-4 sm:p-5">
+                  <ExportOptions {...exportHandlers} />
+                </div>
+              </section>
+
               <footer className="border-t border-[#e3e6ea] pt-5 text-[11.5px] leading-relaxed text-[#6c737d]">
                 {dataset.isSample ? `Synthetic sample data for a fictional ${ind.name.toLowerCase()} company. ` : `Source: ${dataset.sourceName}. `}
                 Valued {fmtDay(V, "long")}. Incurred = paid + reserve. Loss year = year of the date of loss. Causes are grouped automatically; spot-check before external use.
@@ -725,7 +798,10 @@ export default function App() {
                   {OFFLINE
                     ? "Runs entirely in this browser. No AI runs inside this tool; findings come from fixed rules and math, and their guidance text summarizes the public sources linked on each card. "
                     : "Runs in this browser. AI is used only if you click Find colors under Brand. "}
-                  For illustration only; not insurance, legal or safety advice. Built with open-source software: React, Recharts, Radix UI (MIT); SheetJS Community Edition (Apache 2.0); PptxGenJS, JSZip, html-to-image (MIT); Lucide icons (ISC); Figtree font (SIL OFL 1.1).
+                  <button type="button" onClick={() => { setNewNotes(notesSince(null)); setShowNew(true); }} className="font-semibold underline-offset-2 hover:underline">
+                    Version {APP_VERSION} · What's new
+                  </button>
+                  . For illustration only; not insurance, legal or safety advice. Built with open-source software: React, Recharts, Radix UI (MIT); SheetJS Community Edition (Apache 2.0); PptxGenJS, JSZip, html-to-image (MIT); Lucide icons (ISC); Figtree font (SIL OFL 1.1).
                 </div>
               </footer>
             </div>
@@ -733,30 +809,16 @@ export default function App() {
         </main>
       </div>
 
+      <WhatsNew open={showNew && !showStart} onOpenChange={(v) => { setShowNew(v); if (!v) markSeen(); }} notes={newNotes} />
       {showStart && <StartScreen onPick={pickStart} onSkip={skipStart} onClose={startDone ? () => setShowStart(false) : undefined} />}
-      <DataDialog open={dlg === "data"} onOpenChange={(v) => setDlg(v ? "data" : null)} onApply={applyData} onSample={() => { setDataset(sampleDataset(ind)); setFilters(EMPTY_FILTERS); }} largeAt={largeAt} setLargeAt={setLargeAt} ind={ind} onIndustry={switchIndustry} />
+      <DataDialog open={dlg === "data"} onOpenChange={(v) => setDlg(v ? "data" : null)} onApply={applyData} onSample={() => { setDataset(sampleDataset(ind)); setFilters(EMPTY_FILTERS); }} largeAt={largeAt} setLargeAt={setLargeAt} ind={ind} onIndustry={switchIndustry} safetyName={merge?.report.sourceName} onSafety={() => { setDlg(null); setSafetyDlg(merge ? { mode: "review", merge } : { mode: "add" }); }} />
       <ThresholdsDialog open={dlg === "levels"} onOpenChange={(v) => setDlg(v ? "levels" : null)} th={th} setTh={setTh} unitLabel={ind.unit.One} />
       <BrandDialog open={dlg === "brand"} onOpenChange={(v) => setDlg(v ? "brand" : null)} brand={brand} setBrand={setBrand} theme={theme} />
       <ExportDialog
         open={dlg === "export"}
         onOpenChange={(v) => setDlg(v ? "export" : null)}
         scope={scope}
-        onPptx={async () => {
-          try {
-            const blob = await buildPptx(exportInput());
-            announceSave(await saveFile(`${base}.pptx`, blob), `${base}.pptx`);
-          } catch (e: any) {
-            toast.error(e?.message || "Could not build the slides.");
-          }
-        }}
-        onPng={async () => {
-          setDlg(null);
-          await new Promise((r) => setTimeout(r, 350));
-          await savePng(dashRef.current, `${base}.png`, "#f5f6f8");
-        }}
-        onXlsx={async () => {
-          announceSave(await saveFile(`${base}-claims.xlsx`, filteredClaimsXlsx(filtered, ind, merge?.links)), `${base}-claims.xlsx`);
-        }}
+        {...exportHandlers}
       />
       {safetyDlg && (
         <SafetyReportDialog

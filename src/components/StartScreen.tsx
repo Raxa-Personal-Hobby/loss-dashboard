@@ -140,7 +140,7 @@ export function StartScreen({ onPick, onSkip, onClose }: { onPick: (p: StartPick
           </span>
         </div>
         <p className="mt-6 text-[11.5px] leading-relaxed text-[#8b929b]">
-          Industry names from the U.S. Census Bureau (2017 NAICS). Injury rates from the Bureau of Labor Statistics, {SOII_YEAR}. If BLS doesn't publish your exact code, the closest group above it is used, and the dashboard says which. Step 2 is loading your loss run, or exploring the sample.
+          Industry names from the U.S. Census Bureau (2017 NAICS). Injury rates from the Bureau of Labor Statistics, {SOII_YEAR}. If BLS doesn't publish your exact code, the closest group above it is used, and the dashboard says which. Step 2 is loading your loss run, or exploring the sample. You can add a safety report after that.
         </p>
       </div>
     </div>

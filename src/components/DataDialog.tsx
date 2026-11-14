@@ -1,5 +1,5 @@
 import { useMemo, useRef, useState } from "react";
-import { AlertTriangle, CheckCircle2, FileSpreadsheet, Loader2, Sparkles, Upload, X } from "lucide-react";
+import { AlertTriangle, CheckCircle2, ClipboardList, FileSpreadsheet, Loader2, Sparkles, Upload, X } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { autoMap, fieldsFor } from "@/lib/fields";
 import { INDUSTRIES, type Industry } from "@/lib/industries";
@@ -8,8 +8,8 @@ import type { Coverage, Dataset, FieldKey, Mapping } from "@/lib/types";
 import { fmtDay, parseDay, todayDay } from "@/lib/normalize";
 import { num } from "@/lib/metrics";
 import { saveFile } from "@/lib/claude";
-import { sampleXlsx, templateXlsx } from "@/lib/exporters";
-import { makeSampleTable } from "@/lib/sample";
+import { safetyTemplateXlsx, sampleXlsx, tableXlsx, templateXlsx } from "@/lib/exporters";
+import { makeSafetyTable, makeSampleTable } from "@/lib/sample";
 import { announceSave } from "./kit";
 
 const colName = (i: number) => {
@@ -32,9 +32,13 @@ interface Props {
   setLargeAt: (n: number) => void;
   ind: Industry;
   onIndustry: (id: string) => void;
+  /** Name of the safety report already combined, if any. */
+  safetyName?: string;
+  /** Opens the safety report steps (add, or review the matches of the one already combined). */
+  onSafety: () => void;
 }
 
-export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, setLargeAt, ind, onIndustry }: Props) {
+export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, setLargeAt, ind, onIndustry, safetyName, onSafety }: Props) {
   const FIELDS = useMemo(() => fieldsFor(ind), [ind]);
   const [fileName, setFileName] = useState("");
   const [tables, setTables] = useState<Table[]>([]);
@@ -131,9 +135,9 @@ export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, set
       <DialogContent className="max-h-[92vh] w-[calc(100vw-1.5rem)] max-w-3xl overflow-y-auto p-0">
         <div className="border-b border-[#e3e6ea] px-5 pb-4 pt-5 sm:px-6">
           <DialogHeader className="text-left">
-            <DialogTitle className="text-[19px] font-extrabold text-[#1c2126]">Load a loss run</DialogTitle>
+            <DialogTitle className="text-[19px] font-extrabold text-[#1c2126]">Upload source data</DialogTitle>
             <DialogDescription className="text-[13px] text-[#5d6570]">
-              Excel, CSV, or a Word table. Your file is read in this browser and isn't uploaded anywhere.
+              Your loss run first, then a safety report if you have one. Files are read in this browser and aren't uploaded anywhere.
             </DialogDescription>
           </DialogHeader>
         </div>
@@ -159,47 +163,75 @@ export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, set
           </label>
           {!mapping && (
             <>
-              <button
-                type="button"
-                onClick={() => inputRef.current?.click()}
-                onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
-                onDragLeave={() => setDrag(false)}
-                onDrop={(e) => { e.preventDefault(); setDrag(false); const f = e.dataTransfer.files?.[0]; if (f) onFile(f); }}
-                className={`flex w-full flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-10 text-center transition ${drag ? "border-[color:var(--brand)] bg-[color:var(--brand-tint)]" : "border-[#cdd1d7] bg-[#f7f8f9] hover:border-[#9aa0a8]"}`}
-              >
-                {loading ? <Loader2 className="h-7 w-7 animate-spin text-[#5d6570]" /> : <Upload className="h-7 w-7 text-[#5d6570]" />}
-                <div className="mt-3 text-[15px] font-bold text-[#1c2126]">Drop a loss run here, or tap to choose</div>
-                <div className="mt-1 text-[12.5px] text-[#5d6570]">.xlsx · .xls · .csv · .docx (table). Google Sheets or Docs: download as .xlsx or .docx first.</div>
-              </button>
-              <input ref={inputRef} type="file" accept={ACCEPT} className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); e.target.value = ""; }} />
-              {err && (
-                <div className="flex items-start gap-2 rounded-lg bg-[#fbe3e1] px-3 py-2.5 text-[13px] text-[#b42318]">
-                  <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" /> {err}
+              <section>
+                <h4 className="mb-2 text-[13px] font-bold text-[#1c2126]">
+                  1. Loss run <span className="font-normal text-[#8b929b]">Required</span>
+                </h4>
+                <button
+                  type="button"
+                  onClick={() => inputRef.current?.click()}
+                  onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
+                  onDragLeave={() => setDrag(false)}
+                  onDrop={(e) => { e.preventDefault(); setDrag(false); const f = e.dataTransfer.files?.[0]; if (f) onFile(f); }}
+                  className={`flex w-full flex-col items-center justify-center rounded-xl border-2 border-dashed px-6 py-8 text-center transition ${drag ? "border-[color:var(--brand)] bg-[color:var(--brand-tint)]" : "border-[#cdd1d7] bg-[#f7f8f9] hover:border-[#9aa0a8]"}`}
+                >
+                  {loading ? <Loader2 className="h-7 w-7 animate-spin text-[#5d6570]" /> : <Upload className="h-7 w-7 text-[#5d6570]" />}
+                  <div className="mt-3 text-[15px] font-bold text-[#1c2126]">Drop a loss run here, or tap to choose</div>
+                  <div className="mt-1 text-[12.5px] text-[#5d6570]">The claims list from your carrier, TPA or broker. .xlsx · .xls · .csv · .docx (table). Google Sheets or Docs: download as .xlsx or .docx first.</div>
+                </button>
+                <input ref={inputRef} type="file" accept={ACCEPT} className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) onFile(f); e.target.value = ""; }} />
+                {err && (
+                  <div className="mt-2 flex items-start gap-2 rounded-lg bg-[#fbe3e1] px-3 py-2.5 text-[13px] text-[#b42318]">
+                    <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" /> {err}
+                  </div>
+                )}
+              </section>
+
+              <section>
+                <h4 className="mb-2 text-[13px] font-bold text-[#1c2126]">
+                  2. Safety report <span className="font-normal text-[#8b929b]">Optional</span>
+                </h4>
+                <div className="flex flex-col gap-3 rounded-xl border border-[#e3e6ea] p-3.5 sm:flex-row sm:items-center">
+                  <ClipboardList className="hidden h-5 w-5 shrink-0 text-[#5d6570] sm:block" />
+                  <div className="min-w-0 flex-1 text-[12.5px] leading-relaxed text-[#5d6570]">
+                    {safetyName ? (
+                      <>
+                        <span className="font-semibold text-[#1c2126]">Added: {safetyName}</span>. Check or change how its locations are matched to the loss run.
+                      </>
+                    ) : (
+                      <>
+                        An OSHA 300 log, OSHA's injury tracking (ITA) CSV, or your own incident sheet. Its locations are matched to the loss run's, you confirm each match, and the safety rates and findings use both. Hours worked can be on the same sheet.
+                      </>
+                    )}
+                  </div>
+                  <button type="button" onClick={onSafety} className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-lg bg-white px-3 py-2 text-[12.5px] font-bold ring-1 ring-[#d8dce1] hover:ring-[#b7bcc4]" style={{ color: "var(--brand-deep)" }}>
+                    {safetyName ? "Review matches" : "Add a safety report"}
+                  </button>
                 </div>
-              )}
-              <div className="grid gap-2 sm:grid-cols-3">
-                <button type="button" onClick={async () => { const n = `${ind.id}-loss-run-template.xlsx`; announceSave(await saveFile(n, templateXlsx(ind)), n); }} className="flex items-start gap-2.5 rounded-lg border border-[#e3e6ea] p-3 text-left hover:border-[#cdd1d7]">
-                  <FileSpreadsheet className="mt-0.5 h-4 w-4 shrink-0 text-[#5d6570]" />
-                  <span>
-                    <span className="block text-[13px] font-bold text-[#1c2126]">Blank template</span>
-                    <span className="block text-[12px] text-[#5d6570]">Excel with the standard columns and a field guide</span>
-                  </span>
+              </section>
+
+              <section>
+                <h4 className="mb-2 text-[13px] font-bold text-[#1c2126]">Templates and samples</h4>
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {[
+                    { t: "Loss run template", d: "Blank Excel with the standard columns and a field guide", f: `${ind.id}-loss-run-template.xlsx`, b: () => templateXlsx(ind) },
+                    { t: "Safety report template", d: "Blank Excel with OSHA 300 style columns and a field guide", f: "safety-report-template.xlsx", b: () => safetyTemplateXlsx(ind) },
+                    { t: "Sample loss run", d: "Synthetic claims to see the format", f: `sample-${ind.id}-loss-run.xlsx`, b: () => sampleXlsx(makeSampleTable(ind), ind) },
+                    { t: "Sample safety report", d: "Synthetic cases that pair with the sample loss run", f: `sample-${ind.id}-safety-report.xlsx`, b: () => tableXlsx(makeSafetyTable(ind).table) },
+                  ].map((x) => (
+                    <button key={x.t} type="button" onClick={async () => announceSave(await saveFile(x.f, x.b()), x.f)} className="flex items-start gap-2.5 rounded-lg border border-[#e3e6ea] p-3 text-left hover:border-[#cdd1d7]">
+                      <FileSpreadsheet className="mt-0.5 h-4 w-4 shrink-0 text-[#5d6570]" />
+                      <span>
+                        <span className="block text-[13px] font-bold text-[#1c2126]">{x.t}</span>
+                        <span className="block text-[12px] text-[#5d6570]">{x.d}</span>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                <button type="button" onClick={() => { onSample(); onOpenChange(false); }} className="mt-3 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-[#5d6570] hover:text-[#1c2126]">
+                  <Sparkles className="h-3.5 w-3.5" /> Or reload the demo {ind.name.toLowerCase()} company
                 </button>
-                <button type="button" onClick={async () => { const n = `sample-${ind.id}-loss-run.xlsx`; announceSave(await saveFile(n, sampleXlsx(makeSampleTable(ind), ind)), n); }} className="flex items-start gap-2.5 rounded-lg border border-[#e3e6ea] p-3 text-left hover:border-[#cdd1d7]">
-                  <FileSpreadsheet className="mt-0.5 h-4 w-4 shrink-0 text-[#5d6570]" />
-                  <span>
-                    <span className="block text-[13px] font-bold text-[#1c2126]">Sample loss run</span>
-                    <span className="block text-[12px] text-[#5d6570]">Synthetic claims to see the format</span>
-                  </span>
-                </button>
-                <button type="button" onClick={() => { onSample(); onOpenChange(false); }} className="flex items-start gap-2.5 rounded-lg border border-[#e3e6ea] p-3 text-left hover:border-[#cdd1d7]">
-                  <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-[#5d6570]" />
-                  <span>
-                    <span className="block text-[13px] font-bold text-[#1c2126]">Use sample data</span>
-                    <span className="block text-[12px] text-[#5d6570]">Reload the demo {ind.name.toLowerCase()} company</span>
-                  </span>
-                </button>
-              </div>
+              </section>
             </>
           )}
 

@@ -6,9 +6,9 @@ import type { Thresholds } from "@/lib/thresholds";
 import type { Claim, HoursConflict, LocationLink, ParsedSafetyReport, SafetyMerge } from "@/lib/types";
 import { ACCEPT, hoursFromTables, readFile, type Table } from "@/lib/parse";
 import { matchLocations, type MatchResult, type Suggestion, type Tier } from "@/lib/locmatch";
-import { SAFETY_FIELDS, autoMapSafety, buildMerge, detectSafetyHeader, parseSafetyReport, safetyMappingProblems, type SafetyKey, type SafetyMapping } from "@/lib/safetyreport";
+import { SAFETY_FIELDS, autoMapSafety, buildMerge, detectSafetyHeader, parseSafetyReport, safetyMappingProblems, withCheckBoxCaseType, type SafetyKey, type SafetyMapping } from "@/lib/safetyreport";
 import { makeSafetyTable } from "@/lib/sample";
-import { tableXlsx } from "@/lib/exporters";
+import { safetyTemplateXlsx } from "@/lib/exporters";
 import { saveFile } from "@/lib/claude";
 import { num } from "@/lib/metrics";
 import { announceSave } from "./kit";
@@ -67,7 +67,8 @@ export function SafetyReportDialog({ open, onOpenChange, claims, ind, th, existi
   const headers = useMemo(() => (table ? (table.rows[headerRow] ?? []).map((h, i) => String(h ?? "").trim() || `Column ${i + 1}`) : []), [table, headerRow]);
   const problems = mapping ? safetyMappingProblems(mapping) : [];
 
-  const load = (t: Table[], name: string) => {
+  const load = (raw: Table[], name: string) => {
+    const t = raw.map(withCheckBoxCaseType);
     setTables(t);
     setFileName(name);
     // Pick the sheet that looks most like a safety log.
@@ -119,6 +120,11 @@ export function SafetyReportDialog({ open, onOpenChange, claims, ind, th, existi
     }
     if (!r.locations.length) {
       setErr("No rows had both a location and a year. Check the Location and Year columns or the header row.");
+      return;
+    }
+    // Case rows where no OSHA column could be read would count as zero recordables everywhere.
+    if (r.cases.length && !r.cases.some((c) => c.recordable != null)) {
+      setErr("The case rows were read, but none of them says whether the case is OSHA recordable. Check the OSHA recordable and OSHA case type columns above.");
       return;
     }
     const m = matchLocations(aNames, r.locations, th.match);
@@ -173,7 +179,7 @@ export function SafetyReportDialog({ open, onOpenChange, claims, ind, th, existi
           <DialogHeader className="text-left">
             <DialogTitle className="text-[19px] font-extrabold text-[#1c2126]">{existing ? "Review location matches" : "Add a safety report"}</DialogTitle>
             <DialogDescription className="text-[13px] text-[#5d6570]">
-              An OSHA 300 log export or your own safety sheet, joined to the loss run by location and year. Read in this browser only. Nothing is combined until you confirm every location.
+              An OSHA 300 log, OSHA's injury tracking (ITA) CSV, or your own safety sheet, joined to the loss run by location and year. Read in this browser only. Nothing is combined until you confirm every location.
             </DialogDescription>
           </DialogHeader>
           <ol className="mt-3 flex flex-wrap gap-2 text-[12px] font-semibold">
@@ -214,11 +220,11 @@ export function SafetyReportDialog({ open, onOpenChange, claims, ind, th, existi
                     <span className="block text-[12px] text-[#5d6570]">Synthetic, with location names deliberately written differently from the sample loss run</span>
                   </span>
                 </button>
-                <button type="button" onClick={async () => { const n = `sample-${ind.id}-safety-report.xlsx`; announceSave(await saveFile(n, tableXlsx(makeSafetyTable(ind).table)), n); }} className="flex items-start gap-2.5 rounded-lg border border-[#e3e6ea] p-3 text-left hover:border-[#cdd1d7]">
+                <button type="button" onClick={async () => { const n = "safety-report-template.xlsx"; announceSave(await saveFile(n, safetyTemplateXlsx(ind)), n); }} className="flex items-start gap-2.5 rounded-lg border border-[#e3e6ea] p-3 text-left hover:border-[#cdd1d7]">
                   <FileSpreadsheet className="mt-0.5 h-4 w-4 shrink-0 text-[#5d6570]" />
                   <span>
-                    <span className="block text-[13px] font-bold text-[#1c2126]">Download the sample safety report</span>
-                    <span className="block text-[12px] text-[#5d6570]">To see the format</span>
+                    <span className="block text-[13px] font-bold text-[#1c2126]">Download a blank template</span>
+                    <span className="block text-[12px] text-[#5d6570]">OSHA 300 style columns and a field guide</span>
                   </span>
                 </button>
               </div>

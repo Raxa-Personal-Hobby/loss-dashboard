@@ -15,7 +15,7 @@ pnpm test                   # tests, on synthetic data only
 
 ## Offline file
 
-`pnpm build:offline` (Vite, `scripts/build-offline-vite.mjs`) and `bash build-offline.sh` (Parcel) both write one self-contained file: `offline/Loss Dashboard (offline).html`. v1.2.0 was released with the Vite script; use it if Parcel's native SWC binary won't load on your machine.
+`pnpm build:offline` (Vite, `scripts/build-offline-vite.mjs`) and `bash build-offline.sh` (Parcel) both write one self-contained file: `offline/Loss Dashboard (offline).html`. Releases since v1.2.0 are built with the Vite script; use it if Parcel's native SWC binary won't load on your machine.
 
 - It swaps in `src/lib/claude.offline.ts`, so no AI or platform code is bundled.
 - It starts with a Content-Security-Policy tag that blocks every web request (`connect-src data: blob:`).

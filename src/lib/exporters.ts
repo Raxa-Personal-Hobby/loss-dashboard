@@ -5,11 +5,12 @@ import type { Brand, Claim, Filters, LocationLink } from "./types";
 import { BAND_LABEL } from "./types";
 import { fieldsFor } from "./fields";
 import type { Industry } from "./industries";
-import { coverageLabel } from "./industries";
+import { DEFAULT_COMPANY, coverageLabel } from "./industries";
 import { makeSampleHours, makeSampleTable } from "./sample";
 import { HOURS_HEADERS, fmtRate, type SafetyLocation, type SafetyYear } from "./safety";
 import { benchmarkLabel, type Benchmark } from "./bls";
 import { OSHA_CASE_LABEL } from "./types";
+import { SAFETY_TEMPLATE_HEADERS, safetyTemplateRows } from "./safetyreport";
 import { SOII_YEAR, getNaics } from "./naics";
 import { SOURCES, isDefault, type Thresholds } from "./thresholds";
 import { MONTH_LABELS, fmtDay, fromDay, dayNum } from "./normalize";
@@ -61,7 +62,7 @@ export async function buildPptx(x: ExportInput): Promise<Blob> {
   const primary = hx(x.brand.primary || x.theme.primary);
   const deep = hx(deepen(x.brand.primary || x.theme.primary));
   const series = x.theme.series.map(hx);
-  const company = x.brand.companyName || "Your company";
+  const company = x.brand.companyName || DEFAULT_COMPANY;
   const valued = fmtDay(x.valuationDay, "long");
   const years = yearsIn(x.filtered);
   const fsum = filterSummary(x.filters, yearsIn(x.allClaims)) || "All claims";
@@ -577,6 +578,33 @@ export function templateXlsx(ind: Industry) {
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "Loss Run");
   XLSX.utils.book_append_sheet(wb, hrs, "Hours Worked");
+  XLSX.utils.book_append_sheet(wb, wg, "Field Guide");
+  return wbBlob(wb);
+}
+
+/** A blank safety report: one row per injury or illness case, plus optional hours rows. */
+export function safetyTemplateXlsx(ind: Industry) {
+  const ws = XLSX.utils.aoa_to_sheet(safetyTemplateRows(ind));
+  ws["!cols"] = SAFETY_TEMPLATE_HEADERS.map((h) => ({ wch: Math.max(12, h.length + 3) }));
+  const guide = [
+    ["Column", "Needed?", "What it's for"],
+    ["Establishment", "Required", "The site. It doesn't have to be spelled the way the loss run spells it; the dashboard suggests matches and you confirm each one."],
+    ["Year", "Required (or Date of Injury)", "The OSHA log year."],
+    ["Date of Injury", "Optional", "Sets the year when there's no Year column."],
+    ["Classify the Case", "Recommended", "Days away from work, Job transfer or restriction, Other recordable, or Death. Not recordable / First aid for cases that aren't recordable."],
+    ["Days Away From Work", "Optional", "OSHA 300 column K. Used for the severity rate."],
+    ["Days on Job Transfer or Restriction", "Optional", "OSHA 300 column L."],
+    ["OSHA Recordable", "Recommended", "Yes or No."],
+    ["Hours Worked", "Optional", "Hours for that site and year. Put it on a row of its own (as in the example) or repeat it on every case row. Needed for TRIR and DART."],
+    [],
+    ["Other formats", "", "OSHA's injury tracking (ITA) case data CSV and an OSHA 300 log typed into Excel, with check marks in columns G to J, are read too. So is your own incident sheet; you match its columns on screen."],
+    ["", "", "Leave employee names out. The dashboard never reads them."],
+    ["", "", "The example rows are made up. Delete them before adding your own cases."],
+  ];
+  const wg = XLSX.utils.aoa_to_sheet(guide);
+  wg["!cols"] = [{ wch: 34 }, { wch: 26 }, { wch: 100 }];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Safety Report");
   XLSX.utils.book_append_sheet(wb, wg, "Field Guide");
   return wbBlob(wb);
 }

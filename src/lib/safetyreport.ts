@@ -30,13 +30,13 @@ export interface SafetyFieldDef {
 }
 
 export const SAFETY_FIELDS: SafetyFieldDef[] = [
-  { key: "location", label: "Location", required: true, synonyms: ["location", "locationname", "site", "sitename", "store", "storename", "storenumber", "establishment", "establishmentname", "facility", "branch", "project", "projectname", "jobsite", "terminal", "property", "propertyname", "unit", "plant", "department", "wheretheeventoccurred"], help: "Matched to the loss run's locations on the next screen." },
-  { key: "year", label: "Year", synonyms: ["year", "calendaryear", "logyear", "reportingyear", "yr", "fiscalyear", "planyear", "oshayear"], help: "The log year. Needed unless a date is given." },
+  { key: "location", label: "Location", required: true, synonyms: ["location", "locationname", "site", "sitename", "store", "storename", "storenumber", "establishment", "establishmentname", "facility", "branch", "project", "projectname", "jobsite", "terminal", "property", "propertyname", "unit", "plant", "department"], help: "Matched to the loss run's locations on the next screen." },
+  { key: "year", label: "Year", synonyms: ["year", "calendaryear", "logyear", "reportingyear", "yr", "fiscalyear", "planyear", "oshayear", "yearoffiling"], help: "The log year. Needed unless a date is given." },
   { key: "date", label: "Date of injury", synonyms: ["dateofinjury", "injurydate", "dateofinjuryoronsetofillness", "dateofincident", "incidentdate", "eventdate", "dateofevent", "accidentdate", "dateofaccident", "date", "dateofloss", "lossdate", "doi", "occurrencedate"], help: "Sets the year when there's no Year column." },
   { key: "recordable", label: "OSHA recordable", synonyms: ["osharecordable", "recordable", "oshareportable", "osha", "oshacase", "isrecordable", "recordableyn", "oshayn", "oshaflag", "recordablecase"], help: "Yes or No." },
-  { key: "caseType", label: "OSHA case type", synonyms: ["oshacasetype", "casetype", "caseclassification", "classification", "oshaclassification", "oshaclass", "classifythecase", "outcome", "caseoutcome", "recordabletype", "oshacategory"], help: "Days away, Job transfer or restriction, Other recordable." },
-  { key: "daysAway", label: "Days away from work", synonyms: ["daysaway", "daysawayfromwork", "awayfromwork", "lostdays", "lostworkdays", "dayslost", "losttimedays", "dafwdays", "columnk", "k"], help: "OSHA 300 column K." },
-  { key: "daysRestricted", label: "Days of job transfer or restriction", synonyms: ["daysrestricted", "restricteddays", "daysofrestriction", "onjobtransferorrestriction", "daysjobtransferorrestriction", "jobtransferdays", "restricteddutydays", "djtrdays", "columnl", "l"], help: "OSHA 300 column L." },
+  { key: "caseType", label: "OSHA case type", synonyms: ["oshacasetype", "casetype", "caseclassification", "classification", "oshaclassification", "oshaclass", "classifythecase", "outcome", "caseoutcome", "recordabletype", "oshacategory", "incidentoutcome"], help: "Days away, Job transfer or restriction, Other recordable." },
+  { key: "daysAway", label: "Days away from work", synonyms: ["daysaway", "daysawayfromwork", "awayfromwork", "lostdays", "lostworkdays", "dayslost", "losttimedays", "dafwdays", "dafwnumaway", "awayfromworkdays", "columnk", "k"], help: "OSHA 300 column K." },
+  { key: "daysRestricted", label: "Days of job transfer or restriction", synonyms: ["daysrestricted", "restricteddays", "daysofrestriction", "onjobtransferorrestriction", "daysjobtransferorrestriction", "jobtransferdays", "restricteddutydays", "djtrdays", "djtrnumtr", "onjobtransferorrestrictiondays", "columnl", "l"], help: "OSHA 300 column L." },
   { key: "hours", label: "Hours worked", synonyms: ["hoursworked", "totalhoursworked", "totalhours", "hours", "employeehours", "manhours", "workhours", "laborhours", "hrsworked", "exposurehours", "totalhoursworkedbyallemployees"], help: "For that location and year. Repeating it on every row is fine." },
   { key: "employees", label: "Average employees", synonyms: ["averageemployees", "avgemployees", "averagenumberofemployees", "annualaverageemployees", "employees", "headcount", "fte", "ftes", "employeecount"], help: "Used as 2,000 hours each when hours are missing." },
 ];
@@ -53,6 +53,8 @@ export function autoMapSafety(headers: unknown[]): SafetyMapping {
   hs.forEach((h, col) => {
     if (/name|employee|worker|claimant|person/.test(h) && !/location|site|store|establishment|facility|project|property/.test(h)) return;
     for (const f of SAFETY_FIELDS) {
+      // "Where the event occurred" / incident_location is a spot inside the site (a loading dock), not the site.
+      if (f.key === "location" && /incident|event/.test(h)) continue;
       // One-letter synonyms (OSHA column letters) only count as exact matches.
       const syn = f.synonyms.filter((s) => s.length > 1 || h === s);
       const { score } = scoreHeader(h, { synonyms: syn });
@@ -91,6 +93,21 @@ export function safetyMappingProblems(m: SafetyMapping): string[] {
   return out;
 }
 
+/** Column headers of the blank safety report template. Each one is auto-matched by the safety report reader. */
+export const SAFETY_TEMPLATE_HEADERS = ["Establishment", "Year", "Date of Injury", "Classify the Case", "Days Away From Work", "Days on Job Transfer or Restriction", "OSHA Recordable", "Hours Worked"];
+
+/** The rows of the blank safety report template (headers plus made-up examples). */
+export function safetyTemplateRows(ind: Industry): unknown[][] {
+  const site = ind.sample.units[0]?.name ?? "Location 1";
+  return [
+    SAFETY_TEMPLATE_HEADERS,
+    [site, 2025, "03/14/2025", "Days away from work", 6, 0, "Yes", ""],
+    [site, 2025, "07/02/2025", "Job transfer or restriction", 0, 12, "Yes", ""],
+    [site, 2025, "09/18/2025", "First aid only", "", "", "No", ""],
+    [site, 2025, "", "", "", "", "", 61000],
+  ];
+}
+
 /* ---------------- Reading rows ---------------- */
 
 const BLANK_LOC = "(blank location)";
@@ -108,8 +125,51 @@ interface Table {
   rows: unknown[][];
 }
 
+/** OSHA ITA case data CSV, incident_outcome: 1 death, 2 days away, 3 job transfer or restriction, 4 other recordable. */
+const ITA_OUTCOME: Record<string, string> = { "1": "Death", "2": "Days away from work", "3": "Job transfer or restriction", "4": "Other recordable" };
+
+const MARK = /^(x|✓|✔|☑|yes|y|true|checked)$/i;
+const CHECKS: { head: string; label: string; value: string }[] = [
+  { head: "death", label: "Box G (death)", value: "Death" },
+  { head: "daysawayfromwork", label: "Box H (away)", value: "Days away from work" },
+  { head: "jobtransferorrestriction", label: "Box I (transfer)", value: "Job transfer or restriction" },
+  { head: "otherrecordablecases", label: "Box J (other)", value: "Other recordable" },
+];
+
+/**
+ * OSHA Form 300 typed into a spreadsheet marks the case outcome with a check mark in one of four
+ * columns (G death, H days away, I job transfer or restriction, J other recordable). This turns those
+ * into one case type column, and renames the check columns so they aren't mistaken for the day
+ * counts in K and L. Tables without that layout come back unchanged.
+ */
+export function withCheckBoxCaseType(t: Table): Table {
+  for (let r = 0; r < Math.min(15, t.rows.length); r++) {
+    const hs = (t.rows[r] ?? []).map(norm);
+    const cols = CHECKS.map((c) => hs.indexOf(c.head));
+    if (cols.filter((c) => c >= 0).length < 3) continue;
+    const body = t.rows.slice(r + 1);
+    const marked = (c: number) => body.some((row) => MARK.test(String(row?.[c] ?? "").trim()));
+    const numeric = (c: number) => body.some((row) => /\d/.test(String(row?.[c] ?? "")));
+    // The check columns hold marks, not numbers. Otherwise these are something else.
+    if (!cols.some((c) => c >= 0 && marked(c)) || cols.some((c) => c >= 0 && numeric(c) && !marked(c))) return t;
+    const head = [...(t.rows[r] ?? [])];
+    cols.forEach((c, i) => c >= 0 && (head[c] = CHECKS[i].label));
+    head.push("OSHA case type (from check boxes)");
+    const rows = t.rows.map((row, i) => {
+      if (i < r) return row;
+      if (i === r) return head;
+      const hit = cols.findIndex((c) => c >= 0 && MARK.test(String(row?.[c] ?? "").trim()));
+      return [...(row ?? []), hit >= 0 ? CHECKS[hit].value : ""];
+    });
+    return { ...t, rows };
+  }
+  return t;
+}
+
 export function parseSafetyReport(table: Table, headerRow: number, m: SafetyMapping, sourceName: string): ParsedSafetyReport {
   const has = (k: SafetyKey) => m[k] >= 0;
+  // Numeric outcome codes are read only from OSHA's own incident_outcome column; an internal 1 to 4 column may mean something else.
+  const itaCodes = has("caseType") && norm(table.rows[headerRow]?.[m.caseType]) === "incidentoutcome";
   const cases: SafetyCase[] = [];
   const locations: string[] = [];
   const seen = new Set<string>();
@@ -165,7 +225,7 @@ export function parseSafetyReport(table: Table, headerRow: number, m: SafetyMapp
     if (caseCells) {
       const o = resolveOsha(
         { recordable: has("recordable"), caseType: has("caseType"), daysAway: has("daysAway"), daysRestricted: has("daysRestricted") },
-        { recordable: get("recordable"), caseType: get("caseType"), daysAway: get("daysAway"), daysRestricted: get("daysRestricted") },
+        { recordable: get("recordable"), caseType: itaCodes ? (ITA_OUTCOME[String(get("caseType") ?? "").trim()] ?? get("caseType")) : get("caseType"), daysAway: get("daysAway"), daysRestricted: get("daysRestricted") },
       );
       cases.push({ sourceLocation: location, year, ...o });
     }

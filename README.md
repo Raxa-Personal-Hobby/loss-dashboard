@@ -37,7 +37,7 @@ flowchart LR
 | Findings | Plain-language findings from fixed rules and math on your data. No AI writes them. |
 | Sourced guidance | Each finding links to public guidance from OSHA, NIOSH, CDC, FMCSA and other agencies. Full list in [GUIDANCE.md](GUIDANCE.md). |
 | Safety rates | Add OSHA columns and hours worked and it works out TRIR, DART, days-away and severity rates next to the BLS average. |
-| Safety report merge | Add an OSHA 300 log export. Locations are matched for you, and you confirm every pair before anything is combined. |
+| Safety report merge | Add an OSHA 300 log, OSHA's injury tracking (ITA) CSV or your own safety sheet. A blank template is included. Locations are matched for you, and you confirm every pair before anything is combined. |
 | Your branding | Add your logo and colors. Palettes are checked for color-blind readability. |
 | Exports | PowerPoint deck, PNG charts, and Excel with the filtered claims. |
 
@@ -51,7 +51,9 @@ It's general information, not legal, safety or insurance advice.
 
 ## What's new
 
-v1.2.0 (Nov 2026): combine a safety report with your loss run. Add an OSHA 300 log export or your own safety sheet, and it's joined to the loss run by location and year. Location names are matched even when the two reports write them differently, and four new findings compare both reports.
+v1.2.1 (Nov 2026): one Upload source data window for the loss run and a safety report, with blank templates for both. Reads OSHA's injury tracking (ITA) CSV and OSHA 300 logs typed into Excel, and stops with a message if a safety report's OSHA columns can't be read. Your industry and NAICS code now show in the sidebar, there's an Export reports section, and a short "What's new" note appears when you open a new version. Sample companies are now named Acme, and the Quick Start Guide is updated.
+
+v1.2.0 (Nov 2026): combine a safety report with your loss run. Add your own safety sheet, or an OSHA 300 log with a case type column, and it's joined to the loss run by location and year. Location names are matched even when the two reports write them differently, and four new findings compare both reports.
 
 v1.1.1: every finding shows a short summary of public guidance with a link to its source.
 
