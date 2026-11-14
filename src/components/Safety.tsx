@@ -1,10 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CheckCircle2, ChevronsUpDown, Circle, Search, Upload } from "lucide-react";
-import type { HoursRow } from "@/lib/types";
+import { CheckCircle2, ChevronsUpDown, Circle, Link2, Search, Upload } from "lucide-react";
+import type { HoursRow, SafetyMerge } from "@/lib/types";
+import type { CombinedLocation } from "@/lib/safetyreport";
 import type { Industry } from "@/lib/industries";
 import type { Thresholds } from "@/lib/thresholds";
 import type { Kpi } from "@/lib/metrics";
-import { num, pct } from "@/lib/metrics";
+import { money, num, pct } from "@/lib/metrics";
 import { benchmarkLabel, type BenchChoice, type Benchmark } from "@/lib/bls";
 import { SOII_NEXT, SOII_URL, SOII_YEAR, getNaics, type Ownership } from "@/lib/naics";
 import { findIndustries } from "@/lib/naics-titles";
@@ -337,6 +338,13 @@ export interface SafetyProps {
   scoped: boolean;
   onHours: (rows: HoursRow[], source: string, naics?: string) => void;
   onPick: (loc: string) => void;
+  /** Safety report combined with the loss run, if any. */
+  merge?: SafetyMerge;
+  combined?: CombinedLocation[];
+  regionFilter?: boolean;
+  onAddSafety: () => void;
+  onReviewSafety: () => void;
+  onRemoveSafety: () => void;
 }
 
 export function SafetySection(p: SafetyProps) {
@@ -379,6 +387,8 @@ export function SafetySection(p: SafetyProps) {
   return (
     <div className="space-y-4">
       <BenchmarkBox ind={ind} choice={p.choice} setChoice={p.setChoice} bench={bench} />
+
+      <SafetyReportCard merge={p.merge} ind={ind} onAdd={p.onAddSafety} onReview={p.onReviewSafety} onRemove={p.onRemoveSafety} />
 
       {kpis.length > 0 && (
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
@@ -454,14 +464,148 @@ export function SafetySection(p: SafetyProps) {
 
       {p.osha && hasHours && p.locRows.length > 0 && <LocationRates rows={p.locRows} ind={ind} bench={bench} onPick={p.onPick} />}
 
+      {p.merge && p.combined && p.combined.length > 0 && <CombinedTable rows={p.combined} ind={ind} onPick={p.onPick} />}
+
       {(!p.osha || !hasHours || (!p.caseTypes && !hasHours)) && <Unlock osha={p.osha} caseTypes={p.caseTypes} days={p.days} hasHours={hasHours} />}
 
-      <HoursEditor key={p.years.join() + (p.hoursSource ?? "")} years={p.years} hours={p.hours} source={p.hoursSource} onSave={p.onHours} />
+      {!(p.merge && p.merge.hours.length) && <HoursEditor key={p.years.join() + (p.hoursSource ?? "")} years={p.years} hours={p.hours} source={p.hoursSource} onSave={p.onHours} />}
 
       <p className="text-[11.5px] leading-relaxed text-[#6c737d]">
         Rate = cases x {num(BASE_HOURS)} / hours worked, the same formula OSHA and BLS use ({num(BASE_HOURS)} hours is 100 people working full time for a year). Safety rates use the {ind.unit.one}, region and year filters; cause and coverage filters don't apply.
-        {p.scoped ? " Hours follow the locations you picked." : ""} BLS rates are national averages for all employer sizes. {SOII_NEXT}
+        {p.scoped ? " Hours follow the locations you picked." : ""}
+        {p.merge && p.regionFilter ? " Locations only in the safety report have no region, so a region filter leaves them out." : ""} BLS rates are national averages for all employer sizes. {SOII_NEXT}
       </p>
     </div>
+  );
+}
+
+/* Add, review or remove the second report (an OSHA log export or an internal safety sheet). */
+function SafetyReportCard({ merge, ind, onAdd, onReview, onRemove }: { merge?: SafetyMerge; ind: Industry; onAdd: () => void; onReview: () => void; onRemove: () => void }) {
+  const matched = merge ? merge.links.filter((l) => l.a).length : 0;
+  return (
+    <div className="rounded-[14px] border border-[#e3e6ea] bg-white p-4 sm:p-5" data-export-ignore>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0 max-w-[68ch]">
+          <h3 className="flex items-center gap-1.5 text-[15px] font-bold text-[#1c2126]">
+            <Link2 className="h-4 w-4 text-[#5d6570]" /> {merge ? "Safety report combined" : "Safety report (optional)"}
+          </h3>
+          {merge ? (
+            <p className="mt-0.5 text-[12.5px] text-[#5d6570]">
+              <span className="font-semibold text-[#1c2126]">{merge.report.sourceName}</span>, joined by {ind.unit.one} and year.{" "}
+              {merge.report.cases.length
+                ? "Recordables, case types, days and hours now come from the safety report. The loss run's own OSHA columns aren't used for rates, so nothing is counted twice."
+                : "The safety report has hours only, so hours come from it and recordables still come from the loss run."}
+            </p>
+          ) : (
+            <p className="mt-0.5 text-[12.5px] text-[#5d6570]">Add an OSHA 300 log export or your own safety sheet. It's joined to this loss run by {ind.unit.one} and year. You confirm every {ind.unit.one} match before anything is combined.</p>
+          )}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {merge ? (
+            <>
+              <button type="button" onClick={onReview} className="rounded-lg bg-white px-3 py-1.5 text-[12.5px] font-semibold ring-1 ring-[#d8dce1] hover:ring-[#b7bcc4]">
+                Review {ind.unit.one} matches
+              </button>
+              <button type="button" onClick={onRemove} className="rounded-lg px-3 py-1.5 text-[12.5px] font-semibold text-[#5d6570] hover:text-[#1c2126]">
+                Remove
+              </button>
+            </>
+          ) : (
+            <button type="button" onClick={onAdd} className="inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[12.5px] font-bold text-white" style={{ background: "var(--brand-deep)" }}>
+              <Upload className="h-3.5 w-3.5" /> Add a safety report
+            </button>
+          )}
+        </div>
+      </div>
+      {merge && (
+        <dl className="mt-3 flex flex-wrap gap-x-8 gap-y-2">
+          {[
+            ["Matched", `${num(matched)} of ${num(merge.links.length)}`],
+            ["Loss run only", num(merge.onlyA.length)],
+            ["Safety report only", num(merge.onlyB.length)],
+            ["Safety report rows", num(merge.report.cases.length)],
+          ].map(([k, v]) => (
+            <div key={k}>
+              <dt className="text-[10.5px] font-bold uppercase tracking-[0.06em] text-[#5d6570]">{k}</dt>
+              <dd className="text-[17px] font-extrabold tabular-nums text-[#1c2126]">{v}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+    </div>
+  );
+}
+
+const SIDE: Record<CombinedLocation["side"], { label: string; cls: string }> = {
+  both: { label: "Both", cls: "bg-[#e4f3ea] text-[#18794e]" },
+  loss: { label: "Loss run only", cls: "bg-[#f1f3f5] text-[#5d6570]" },
+  safety: { label: "Safety report only", cls: "bg-[#eaf1f7] text-[#285b84]" },
+};
+const SIDE_ORDER = { both: 0, safety: 1, loss: 2 } as const;
+
+/* Every location from either report, side by side. Nothing is dropped. */
+function CombinedTable({ rows, ind, onPick }: { rows: CombinedLocation[]; ind: Industry; onPick: (loc: string) => void }) {
+  const [all, setAll] = useState(false);
+  const sorted = useMemo(() => [...rows].sort((a, b) => SIDE_ORDER[a.side] - SIDE_ORDER[b.side] || a.location.localeCompare(b.location, undefined, { numeric: true })), [rows]);
+  const shown = all ? sorted : sorted.slice(0, 12);
+  const dash = <span className="text-[#b7bcc4]">–</span>;
+  const th = "border-b border-[#e3e6ea] px-3 py-2.5";
+  return (
+    <ChartCard
+      title={`Both reports by ${ind.unit.one}`}
+      subtitle={`Every ${ind.unit.one} from either report. For matched ${ind.unit.many}, claims count only in years the safety report covers, so the two sides line up. Tap a row to filter.`}
+      file="combined-by-location"
+      table={{
+        cols: [
+          { key: "location", label: ind.unit.One },
+          { key: "side", label: "In", fmt: (v) => SIDE[v as CombinedLocation["side"]].label },
+          { key: "claims", label: "Claims", align: "right" },
+          { key: "wcClaims", label: "Comp claims", align: "right" },
+          { key: "wcIncurred", label: "Comp incurred", align: "right", fmt: (v) => money(v) },
+          { key: "recordable", label: "Recordables", align: "right" },
+          { key: "hours", label: "Hours", align: "right", fmt: (v) => (v == null ? "–" : num(v)) },
+          { key: "trir", label: "TRIR", align: "right", fmt: fmtRate },
+        ],
+        rows: sorted,
+      }}
+    >
+      <div className="-mx-4 overflow-x-auto sm:-mx-5">
+        <table className="w-full min-w-[720px] text-[13px]">
+          <thead>
+            <tr className="text-[11.5px] font-semibold text-[#5d6570]">
+              <th className={`${th} text-left`}>{ind.unit.One}</th>
+              <th className={`${th} text-left`}>In</th>
+              <th className={`${th} text-right`}>Claims</th>
+              <th className={`${th} text-right`}>Comp claims</th>
+              <th className={`${th} text-right`}>Comp incurred</th>
+              <th className={`${th} text-right`}>Recordables</th>
+              <th className={`${th} text-right`}>Hours</th>
+              <th className={`${th} text-right`}>TRIR</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shown.map((r) => (
+              <tr key={r.location} className="cursor-pointer border-b border-[#f0f1f3] hover:bg-[#f7f8f9]" onClick={() => onPick(r.location)}>
+                <td className="px-3 py-2 font-semibold text-[#1c2126]">{r.location}</td>
+                <td className="px-3 py-2">
+                  <span className={`whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-bold ${SIDE[r.side].cls}`}>{SIDE[r.side].label}</span>
+                </td>
+                <td className="px-3 py-2 text-right tabular-nums">{r.side === "safety" ? dash : num(r.claims)}</td>
+                <td className="px-3 py-2 text-right tabular-nums">{r.side === "safety" ? dash : num(r.wcClaims)}</td>
+                <td className="px-3 py-2 text-right tabular-nums">{r.side === "safety" ? dash : money(r.wcIncurred)}</td>
+                <td className="px-3 py-2 text-right tabular-nums">{r.side === "loss" ? dash : num(r.recordable)}</td>
+                <td className="px-3 py-2 text-right tabular-nums text-[#5d6570]">{r.hours == null ? dash : num(r.hours)}</td>
+                <td className="px-3 py-2 text-right font-semibold tabular-nums">{r.trir == null ? dash : fmtRate(r.trir)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {rows.length > 12 && (
+        <button type="button" className="mt-2 text-[12.5px] font-semibold" style={{ color: "var(--brand-deep)" }} onClick={() => setAll(!all)} data-export-ignore>
+          {all ? "Show first 12" : `Show all ${rows.length}`}
+        </button>
+      )}
+    </ChartCard>
   );
 }

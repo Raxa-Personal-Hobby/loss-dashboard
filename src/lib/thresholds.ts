@@ -30,7 +30,11 @@ export interface Thresholds {
     agingDays: number; agingMin: number; agingHigh: number;
     otherShare: number;
     rateMinCases: number; rateRisePct: number; locRateX: number; locMinCases: number;
+    // Combined findings (loss run + safety report)
+    recMinClaims: number; recLowShare: number; recExtraMin: number; sevX: number;
   };
+  /** Location matching between a loss run and a safety report (see locmatch.ts). */
+  match: { high: number; medium: number; margin: number };
 }
 
 export const DEFAULT_THRESHOLDS: Thresholds = {
@@ -60,7 +64,9 @@ export const DEFAULT_THRESHOLDS: Thresholds = {
     agingDays: 365, agingMin: 3, agingHigh: 10,
     otherShare: 20,
     rateMinCases: 5, rateRisePct: 15, locRateX: 2, locMinCases: 3,
+    recMinClaims: 5, recLowShare: 50, recExtraMin: 2, sevX: 2,
   },
+  match: { high: 85, medium: 60, margin: 10 },
 };
 
 /** Band from a value and 4 ascending cut points (value at or below a cut lands in that band). */
@@ -165,6 +171,16 @@ export const GROUPS: Group[] = [
       { label: "Claims with no clear cause, % of total", keys: [{ path: "find.otherShare", unit: "%" }], source: ["template"] },
       { label: "Safety rates: need N recordable cases; flag a rise of P%", keys: [{ path: "find.rateMinCases", unit: "N" }, { path: "find.rateRisePct", unit: "%" }], source: ["template"] },
       { label: "Location TRIR at X times the industry, with at least N cases", keys: [{ path: "find.locRateX", unit: "x", step: 0.25 }, { path: "find.locMinCases", unit: "N" }], source: ["bls", "template"] },
+      { label: "Safety report: fewer recordables than P% of paid comp claims, at locations with N or more", help: "Only when a safety report is added. Compares the two reports for the same locations and years.", keys: [{ path: "find.recLowShare", unit: "%" }, { path: "find.recMinClaims", unit: "N" }], source: ["template"] },
+      { label: "Safety report: at least M more recordables than comp claims", keys: [{ path: "find.recExtraMin", unit: "M" }], source: ["template"] },
+      { label: "Safety report: days-away rate at X times the company's, with low comp cost", keys: [{ path: "find.sevX", unit: "x", step: 0.25 }], source: ["template"] },
+    ],
+  },
+  {
+    title: "Location matching",
+    sub: "Only used when a safety report is added. Scores run 0 to 100. Every pair is still shown to you to confirm before the reports are combined.",
+    rows: [
+      { label: "Pre-check at score S, suggest at score M, and a pre-checked pair must beat the next best by G points", help: "Set from synthetic test reports, not real exports. Raise S if you see wrong pre-checked pairs.", keys: [{ path: "match.high", unit: "S" }, { path: "match.medium", unit: "M" }, { path: "match.margin", unit: "G" }], source: ["template"] },
     ],
   },
 ];

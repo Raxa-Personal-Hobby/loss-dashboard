@@ -169,3 +169,29 @@ export function parseDays(v: unknown): { n: number | null; flag: boolean } {
   const yn = parseYesNo(s);
   return { n: null, flag: yn === true };
 }
+
+/**
+ * Works out recordable and case type from whatever OSHA columns a row had.
+ * Shared by the loss run and the safety report so both read the columns the same way.
+ */
+export function resolveOsha(
+  given: { recordable: boolean; caseType: boolean; daysAway: boolean; daysRestricted: boolean },
+  raw: { recordable: unknown; caseType: unknown; daysAway: unknown; daysRestricted: unknown },
+): { recordable: boolean | null; caseType: "DAFW" | "DJTR" | "Other" | null; daysAway: number | null; daysRestricted: number | null } {
+  const ct = given.caseType ? parseCaseType(raw.caseType) : null;
+  const da = given.daysAway ? parseDays(raw.daysAway) : { n: null, flag: false };
+  const dr = given.daysRestricted ? parseDays(raw.daysRestricted) : { n: null, flag: false };
+  let recordable: boolean | null = given.recordable ? parseYesNo(raw.recordable) : null;
+  let caseType: "DAFW" | "DJTR" | "Other" | null = ct === "DAFW" || ct === "DJTR" || ct === "Other" ? ct : null;
+  if (!caseType && ct !== "None" && recordable !== false) {
+    if (da.flag) caseType = "DAFW";
+    else if (dr.flag) caseType = "DJTR";
+  }
+  if (recordable == null) {
+    if (ct === "None") recordable = false;
+    else if (caseType || ct === "Recordable") recordable = true;
+  }
+  if (recordable === true && !caseType && ct !== "Recordable" && (given.caseType || given.daysAway || given.daysRestricted)) caseType = "Other";
+  if (recordable === false) caseType = null;
+  return { recordable, caseType, daysAway: recordable === false ? null : da.n, daysRestricted: recordable === false ? null : dr.n };
+}

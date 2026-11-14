@@ -87,6 +87,77 @@ export interface Dataset {
   hoursSource?: string;
   /** NAICS code found in the hours sheet, if the user filled one in. */
   naics?: string;
+  /** A second report joined on Location + Year. Absent in the single-report flow. */
+  safety?: SafetyMerge;
+}
+
+/** One row of a safety report (OSHA log or internal safety sheet), after column matching. */
+export interface SafetyCase {
+  /** Location name exactly as the safety report wrote it. */
+  sourceLocation: string;
+  year: number;
+  recordable: boolean | null;
+  caseType: OshaCase | null;
+  daysAway: number | null;
+  daysRestricted: number | null;
+}
+
+/** The record shape the safety rates read. Loss run claims fit it, and so do merged safety report cases. */
+export interface OshaRow {
+  location: string;
+  region: string;
+  state: string;
+  lossYear: number;
+  recordable: boolean | null;
+  caseType: OshaCase | null;
+  daysAway: number | null;
+  daysRestricted: number | null;
+  category: string;
+}
+
+/** Hours that disagreed across rows for one location and year. No rate is worked out until the user picks. */
+export interface HoursConflict {
+  location: string;
+  year: number;
+  values: number[];
+  pick: "skip" | "max" | "sum";
+}
+
+/** A safety report read from a file, before any location matching. */
+export interface ParsedSafetyReport {
+  sourceName: string;
+  cases: SafetyCase[];
+  hours: HoursRow[];
+  hoursConflicts: HoursConflict[];
+  /** Every distinct location name in the report, in first-seen order. */
+  locations: string[];
+  rowsRead: number;
+  rowsSkipped: number;
+  hasCaseTypes: boolean;
+  hasDays: boolean;
+}
+
+/** One confirmed decision: a safety report name and the loss run name it joins, or null for "no match". */
+export interface LocationLink {
+  b: string;
+  a: string | null;
+  tier: "high" | "medium" | "low";
+  score: number;
+  reasons: string[];
+}
+
+/** A safety report joined to the loss run on Location + Year, after the user confirmed every pair. */
+export interface SafetyMerge {
+  report: ParsedSafetyReport;
+  links: LocationLink[];
+  /** Safety report cases with the confirmed location names, ready for the safety rates. */
+  rows: OshaRow[];
+  /** Hours with the confirmed location names. */
+  hours: HoursRow[];
+  /** Loss run locations with no safety report data. */
+  onlyA: string[];
+  /** Safety report locations with no loss run match (display names). */
+  onlyB: string[];
 }
 
 export interface Brand {

@@ -258,6 +258,11 @@
       "agency": "The Hartford claim lag study, as cited by Gallagher on the PRIMA blog",
       "title": "A New Approach to Controlling Lag Time",
       "url": "https://primacentral.org/education/podcasts-blog/a-new-approach-to-controlling-lag-time/"
+    },
+    "osha-rk-forms": {
+      "agency": "OSHA",
+      "title": "Forms for Recording Work-Related Injuries and Illnesses (Forms 300, 300A and 301, with instructions)",
+      "url": "https://www.osha.gov/recordkeeping/forms"
     }
   },
   "guides": {
@@ -752,6 +757,27 @@
       "sources": [
         "osha-recprac"
       ]
+    },
+    "safety-rec-gap": {
+      "kind": "public",
+      "text": "OSHA's recordkeeping forms package explains that a work-related case goes on the log when it leads to days away, restricted work or a job transfer, medical treatment beyond first aid, loss of consciousness or death, and that the employer has 7 calendar days after learning of a case to decide whether it's recordable. It also notes that a case on the log isn't necessarily eligible for workers' comp, so the two reports won't match exactly.",
+      "sources": [
+        "osha-rk-forms"
+      ]
+    },
+    "safety-rec-extra": {
+      "kind": "review",
+      "text": "The carrier or TPA can check whether these injuries were reported as claims, or were filed under another location name. OSHA's recordkeeping forms package notes that a case on the log isn't necessarily eligible for workers' comp, so some gap is normal.",
+      "sources": [
+        "osha-rk-forms"
+      ]
+    },
+    "safety-days-cost": {
+      "kind": "review",
+      "text": "The carrier or TPA can check whether lost-time claims at these locations were filed and reserved. OSHA's recordkeeping forms package explains how the log counts days: calendar days away or on restriction, starting the day after the injury, and up to 180 days per case.",
+      "sources": [
+        "osha-rk-forms"
+      ]
     }
   },
   "causes": {
@@ -859,6 +885,9 @@
     "dataQuality": "other",
     "dart": "safety-dart",
     "rateRise": "safety-rise",
-    "hotLocations": "safety-locations"
+    "hotLocations": "safety-locations",
+    "recGap": "safety-rec-gap",
+    "recExtra": "safety-rec-extra",
+    "daysCost": "safety-days-cost"
   }
 }

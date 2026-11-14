@@ -1,7 +1,7 @@
 // OSHA incidence rates. Same formula BLS and OSHA use:
 //   rate = cases x 200,000 / hours worked
 // 200,000 hours = 100 full-time workers x 40 hours x 50 weeks.
-import type { Band, Claim, Filters, HoursRow } from "./types";
+import type { Band, Filters, HoursRow, OshaRow } from "./types";
 import type { Industry } from "./industries";
 import { benchmarkSource, type Benchmark } from "./bls";
 import { bandOf, type Thresholds } from "./thresholds";
@@ -15,19 +15,19 @@ export const rateOf = (cases: number, hours: number | null) => (hours && hours >
 export const fmtRate = (r: number | null | undefined) => (r == null || !isFinite(r) ? "–" : r.toFixed(r >= 10 ? 1 : 2));
 
 /** True when the loss run carried any OSHA recordkeeping detail. */
-export function hasOsha(claims: Claim[]) {
+export function hasOsha(claims: OshaRow[]) {
   return claims.some((c) => c.recordable != null || c.caseType != null);
 }
-export function hasCaseTypes(claims: Claim[]) {
+export function hasCaseTypes(claims: OshaRow[]) {
   return claims.some((c) => c.caseType != null);
 }
-export function hasDays(claims: Claim[]) {
+export function hasDays(claims: OshaRow[]) {
   return claims.some((c) => (c.daysAway ?? 0) > 0 || (c.daysRestricted ?? 0) > 0);
 }
 
 /** Claims the safety rates use: location, region and year filters only.
  *  Rates count every recordable case for the chosen sites, so cause and coverage filters don't apply. */
-export function safetyScope(all: Claim[], f: Filters) {
+export function safetyScope<T extends OshaRow>(all: T[], f: Filters): T[] {
   const locs = new Set(f.locations);
   const regs = new Set(f.regions);
   return all.filter(
@@ -40,7 +40,7 @@ export function safetyScope(all: Claim[], f: Filters) {
 }
 
 /** Locations that hours should be summed for, or null for the whole company. */
-export function scopeLocations(all: Claim[], f: Filters): Set<string> | null {
+export function scopeLocations(all: OshaRow[], f: Filters): Set<string> | null {
   if (f.locations.length) return new Set(f.locations);
   if (f.regions.length) {
     const regs = new Set(f.regions);
@@ -62,7 +62,12 @@ export function sameLocation(a: string, b: string) {
   return !!ca && ca === cb;
 }
 
-export function hoursFor(hours: HoursRow[] | undefined, year: number, locs: Set<string> | null): { hours: number; estimated: boolean } | null {
+/** How two location names are compared. The single-report flow uses sameLocation; a merged
+ *  safety report uses exact names, because the user already confirmed every pair. */
+export type LocationMatcher = (a: string, b: string) => boolean;
+export const exactLocation: LocationMatcher = (a, b) => a === b;
+
+export function hoursFor(hours: HoursRow[] | undefined, year: number, locs: Set<string> | null, same: LocationMatcher = sameLocation): { hours: number; estimated: boolean } | null {
   if (!hours?.length) return null;
   const rows = hours.filter((h) => h.year === year);
   if (!rows.length) return null;
@@ -72,7 +77,7 @@ export function hoursFor(hours: HoursRow[] | undefined, year: number, locs: Set<
     return { hours: use.reduce((s, h) => s + h.hours, 0), estimated: use.some((h) => h.estimated) };
   }
   const locList = [...locs];
-  const use = rows.filter((h) => h.location && locList.some((l) => sameLocation(h.location, l)));
+  const use = rows.filter((h) => h.location && locList.some((l) => same(h.location, l)));
   if (!use.length) return null;
   return { hours: use.reduce((s, h) => s + h.hours, 0), estimated: use.some((h) => h.estimated) };
 }
@@ -96,7 +101,7 @@ export interface SafetyYear {
   severity: number | null; // days away per 200,000 hours
 }
 
-export function safetyYears(claims: Claim[], years: number[], hours: HoursRow[] | undefined, locs: Set<string> | null, V: number): SafetyYear[] {
+export function safetyYears(claims: OshaRow[], years: number[], hours: HoursRow[] | undefined, locs: Set<string> | null, V: number, same: LocationMatcher = sameLocation): SafetyYear[] {
   const vy = fromDay(V).y;
   return years.map((year) => {
     const cs = claims.filter((c) => c.lossYear === year && c.recordable === true);
@@ -105,7 +110,7 @@ export function safetyYears(claims: Claim[], years: number[], hours: HoursRow[] 
     const other = cs.filter((c) => c.caseType === "Other").length;
     const daysAway = cs.reduce((s, c) => s + (c.daysAway ?? 0), 0);
     const daysRestricted = cs.reduce((s, c) => s + (c.daysRestricted ?? 0), 0);
-    const h = hoursFor(hours, year, locs);
+    const h = hoursFor(hours, year, locs, same);
     const hrs = h?.hours ?? null;
     return {
       year,
@@ -139,7 +144,7 @@ export interface SafetyLocation {
 }
 
 /** Rates by location across the years in view. Only locations with their own hours rows can get a rate. */
-export function safetyLocations(claims: Claim[], years: number[], hours: HoursRow[] | undefined, bench: Benchmark, th: Thresholds): SafetyLocation[] {
+export function safetyLocations(claims: OshaRow[], years: number[], hours: HoursRow[] | undefined, bench: Benchmark, th: Thresholds, same: LocationMatcher = sameLocation): SafetyLocation[] {
   if (!hours?.some((h) => h.location)) return [];
   const yset = new Set(years);
   const names = [...new Set(hours.filter((h) => h.location && yset.has(h.year)).map((h) => h.location))];
@@ -147,10 +152,10 @@ export function safetyLocations(claims: Claim[], years: number[], hours: HoursRo
   for (const name of names) {
     const hrs = hours.filter((h) => h.location === name && yset.has(h.year)).reduce((s, h) => s + h.hours, 0);
     if (!(hrs > 0)) continue;
-    const cs = claims.filter((c) => yset.has(c.lossYear) && c.recordable === true && sameLocation(c.location, name));
+    const cs = claims.filter((c) => yset.has(c.lossYear) && c.recordable === true && same(c.location, name));
     const dart = cs.filter((c) => c.caseType === "DAFW" || c.caseType === "DJTR").length;
     const trir = rateOf(cs.length, hrs)!;
-    const match = claims.find((c) => sameLocation(c.location, name));
+    const match = claims.find((c) => same(c.location, name));
     out.push({ location: match?.location ?? name, recordable: cs.length, dart, hours: hrs, trir, dartRate: rateOf(dart, hrs)!, band: bandOf(trir / bench.trc, th.rateBands) });
   }
   return out.sort((a, b) => b.trir - a.trir);
@@ -160,7 +165,7 @@ export function safetyLocations(claims: Claim[], years: number[], hours: HoursRo
 export const rateBand = (rate: number | null, benchRate: number, th: Thresholds): Band | null => (rate == null || !(benchRate > 0) ? null : bandOf(rate / benchRate, th.rateBands));
 
 /** Findings from the safety rates. Uses the most recent year in view that has hours. */
-export function safetyConcerns(rows: SafetyYear[], locs: SafetyLocation[], scoped: Claim[], bench: Benchmark, ind: Industry, th: Thresholds): Concern[] {
+export function safetyConcerns(rows: SafetyYear[], locs: SafetyLocation[], scoped: OshaRow[], bench: Benchmark, ind: Industry, th: Thresholds): Concern[] {
   const out: Concern[] = [];
   const T = th.find;
   const withRates = rows.filter((r) => r.trir != null);
@@ -168,7 +173,7 @@ export function safetyConcerns(rows: SafetyYear[], locs: SafetyLocation[], scope
   const tip = (cat: string) => asFinding(guideForCause(ind.id, cat));
   const topCause = (year: number) => {
     const m = new Map<string, number>();
-    scoped.filter((c) => c.lossYear === year && c.recordable === true).forEach((c) => m.set(c.category, (m.get(c.category) ?? 0) + 1));
+    scoped.filter((c) => c.lossYear === year && c.recordable === true && c.category).forEach((c) => m.set(c.category, (m.get(c.category) ?? 0) + 1));
     return [...m.entries()].sort((a, b) => b[1] - a[1])[0];
   };
   const src = benchmarkSource(bench);

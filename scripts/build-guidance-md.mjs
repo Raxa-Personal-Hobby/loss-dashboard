@@ -24,7 +24,10 @@ const FINDINGS = [
   ["dataQuality", "Claims with no clear cause"],
   ["dart", "DART rate above the benchmark"],
   ["rateRise", "TRIR up vs the prior year"],
-  ["hotLocations", "Locations at 2x the benchmark TRIR"],
+  ["hotLocations", "Locations at 2x the benchmark TRIR (also: above the benchmark and top quarter for comp cost per hour, with a safety report)"],
+  ["recGap", "Far fewer OSHA recordables than paid comp claims (with a safety report)"],
+  ["recExtra", "More OSHA recordables than comp claims (with a safety report)"],
+  ["daysCost", "Many days away but low comp cost (with a safety report)"],
 ];
 
 const cell = (t) => String(t).replace(/\|/g, "\\|").replace(/\n/g, " ");

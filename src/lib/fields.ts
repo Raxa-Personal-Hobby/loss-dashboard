@@ -197,7 +197,8 @@ export function emptyMapping() {
   return Object.fromEntries(FIELDS.map((f) => [f.key, [] as number[]])) as Record<FieldKey, number[]>;
 }
 
-function scoreHeader(h: string, f: FieldDef): { score: number; part: boolean } {
+/** How well a normalized header matches a field's synonyms. Also used by the safety report column matcher. */
+export function scoreHeader(h: string, f: Pick<FieldDef, "synonyms" | "parts">): { score: number; part: boolean } {
   if (!h) return { score: 0, part: false };
   if (f.synonyms.includes(h)) return { score: 100, part: false };
   if (f.parts?.includes(h)) return { score: 88, part: true };

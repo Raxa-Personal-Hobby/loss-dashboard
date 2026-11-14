@@ -5,3 +5,4 @@ bundle.html
 offline/
 *.log
 .DS_Store
+dist-offline/

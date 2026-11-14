@@ -39,7 +39,10 @@ type FindingKey =
   | "dataQuality"
   | "dart"
   | "rateRise"
-  | "hotLocations";
+  | "hotLocations"
+  | "recGap"
+  | "recExtra"
+  | "daysCost";
 
 interface RawGuide {
   kind: string;

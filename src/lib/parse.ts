@@ -2,8 +2,8 @@ import * as XLSX from "xlsx";
 import JSZip from "jszip";
 import { FIELDS, headerRowScore, type FieldDef } from "./fields";
 import type { Industry } from "./industries";
-import type { Claim, Coverage, FieldKey, HoursRow, Mapping, OshaCase } from "./types";
-import { categorize, clean, normCoverage, normLitigated, normStatus, parseCaseType, parseDay, parseDays, parseMoney, parseYesNo, todayDay, fromDay } from "./normalize";
+import type { Claim, Coverage, FieldKey, HoursRow, Mapping } from "./types";
+import { categorize, clean, normCoverage, normLitigated, normStatus, parseDay, parseMoney, resolveOsha, todayDay, fromDay } from "./normalize";
 import { norm } from "./fields";
 
 export interface Table {
@@ -142,21 +142,10 @@ export function buildClaims(table: Table, headerRow: number, mapping: Mapping, d
     const { y, m } = fromDay(lossDay);
     const id = clean(get("claimNumber"));
     // OSHA recordkeeping: work out the case type from whatever columns were given.
-    const ct = has("caseType") ? parseCaseType(get("caseType")) : null;
-    const da = has("daysAway") ? parseDays(get("daysAway")) : { n: null, flag: false };
-    const dr = has("daysRestricted") ? parseDays(get("daysRestricted")) : { n: null, flag: false };
-    let recordable: boolean | null = has("recordable") ? parseYesNo(get("recordable")) : null;
-    let caseType: OshaCase | null = ct === "DAFW" || ct === "DJTR" || ct === "Other" ? ct : null;
-    if (!caseType && ct !== "None" && recordable !== false) {
-      if (da.flag) caseType = "DAFW";
-      else if (dr.flag) caseType = "DJTR";
-    }
-    if (recordable == null) {
-      if (ct === "None") recordable = false;
-      else if (caseType || ct === "Recordable") recordable = true;
-    }
-    if (recordable === true && !caseType && ct !== "Recordable" && (has("caseType") || has("daysAway") || has("daysRestricted"))) caseType = "Other";
-    if (recordable === false) caseType = null;
+    const osha = resolveOsha(
+      { recordable: has("recordable"), caseType: has("caseType"), daysAway: has("daysAway"), daysRestricted: has("daysRestricted") },
+      { recordable: get("recordable"), caseType: get("caseType"), daysAway: get("daysAway"), daysRestricted: get("daysRestricted") },
+    );
     const claim: Claim = {
       id: id || `Row ${headerRow + i + 2}`,
       location: clean(get("location")) || "Unassigned",
@@ -182,10 +171,10 @@ export function buildClaims(table: Table, headerRow: number, mapping: Mapping, d
       incurred,
       litigated: normLitigated(get("litigated")),
       description,
-      recordable,
-      caseType,
-      daysAway: recordable === false ? null : da.n,
-      daysRestricted: recordable === false ? null : dr.n,
+      recordable: osha.recordable,
+      caseType: osha.caseType,
+      daysAway: osha.daysAway,
+      daysRestricted: osha.daysRestricted,
     };
     maxDay = Math.max(maxDay ?? 0, lossDay, reportDay ?? 0);
     // Feature-level loss runs repeat a claim on several rows (BI + PD, med + indemnity). Merge them.

@@ -3,15 +3,17 @@ import { Toaster, toast } from "sonner";
 import { Download, FileUp, Gauge, Info, Lock, Palette, X } from "lucide-react";
 import { DEFAULT_THRESHOLDS, isDefault, mergeThresholds, type Thresholds } from "@/lib/thresholds";
 import { ThresholdsDialog } from "@/components/ThresholdsDialog";
-import type { Brand, Dataset, Filters, HoursRow } from "@/lib/types";
+import type { Brand, Dataset, Filters, HoursRow, OshaRow, SafetyMerge } from "@/lib/types";
 import { EMPTY_FILTERS } from "@/lib/types";
 import { SAMPLE_COMPANIES, coverageLabel, getIndustry, type Industry } from "@/lib/industries";
 import { autoMap, fieldsFor } from "@/lib/fields";
 import { buildClaims, detectHeaderRow, hoursFromTables } from "@/lib/parse";
 import { makeSampleHours, makeSampleTable, SAMPLE_VALUATION } from "@/lib/sample";
 import { defaultChoice, resolveBenchmark, type BenchChoice } from "@/lib/bls";
-import { hasCaseTypes, hasDays, hasOsha, hoursFor, safetyConcerns, safetyLocations, safetyScope, safetyYears, scopeLocations } from "@/lib/safety";
+import { exactLocation, hasCaseTypes, hasDays, hasOsha, hoursFor, sameLocation, safetyConcerns, safetyLocations, safetyScope, safetyYears, scopeLocations } from "@/lib/safety";
+import { combinedConcerns, combinedLocations } from "@/lib/safetyreport";
 import { SafetySection } from "@/components/Safety";
+import { SafetyReportDialog } from "@/components/SafetyReportDialog";
 import { StartScreen, naicsChipLabel, type StartPick } from "@/components/StartScreen";
 import { fmtDay } from "@/lib/normalize";
 import {
@@ -161,6 +163,8 @@ export default function App() {
   const largeAt = th.largeLoss;
   const setLargeAt = (n: number) => setTh({ ...th, largeLoss: n });
   const [dlg, setDlg] = useState<null | "data" | "brand" | "export" | "levels">(null);
+  /** Safety report dialog: add a new one, or review the matches of the one already combined (or held while a new loss run is re-matched). */
+  const [safetyDlg, setSafetyDlg] = useState<null | { mode: "add" } | { mode: "review"; merge: SafetyMerge }>(null);
   const [trendMetric, setTrendMetric] = useState<"count" | "incurred">("count");
   const [cumulative, setCumulative] = useState(true);
   const [covMetric, setCovMetric] = useState<"count" | "incurred">("incurred");
@@ -202,7 +206,8 @@ export default function App() {
     const lm = count("location", { ...filters, locations: [] });
     const rm = count("region", { ...filters, regions: [] });
     const cm = count("category", { ...filters, categories: [] });
-    const allLocs = [...new Set(all.map((c) => c.location))].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+    // Locations only in a combined safety report are listed too (they have no claims, so their count is 0).
+    const allLocs = [...new Set([...all.map((c) => c.location), ...(dataset.safety?.onlyB ?? [])])].sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
     const allRegs = [...new Set(all.map((c) => c.region || c.state).filter(Boolean))].sort();
     const allCats = [...new Set(all.map((c) => c.category))].sort((a, b) => (cm.get(b) ?? 0) - (cm.get(a) ?? 0));
     return {
@@ -212,7 +217,7 @@ export default function App() {
       categories: allCats.map((v) => ({ value: v, count: cm.get(v) ?? 0 })),
       coverages: [...ind.coverages.map((c) => c.key), "Other"].filter((cv) => all.some((c) => c.coverage === cv)),
     };
-  }, [all, filters, allYears, ind]);
+  }, [all, filters, allYears, ind, dataset.safety]);
 
   const k = useMemo(() => buildKpis(filtered, dims, V, th), [filtered, dims, V, th]);
   const yr = useMemo(() => byYear(filtered, years, V), [filtered, years, V]);
@@ -234,19 +239,44 @@ export default function App() {
   const byLoc = useMemo(() => topCounts(filtered, "location", 15), [filtered]);
   const grid = useMemo(() => heatGrid(filtered, 12, 8), [filtered]);
   // Safety rates: location, region and year filters only.
-  const sScope = useMemo(() => safetyScope(all, filters), [all, filters]);
+  // With a safety report combined, the OSHA cases come from it (joined by confirmed location
+  // names) and its hours are matched by exact name. Without one, nothing here changes.
+  const merge = dataset.safety;
+  // A safety report with only hours (no case rows) keeps the loss run's OSHA columns for cases.
+  const mergeCases = !!merge && hasOsha(merge.rows);
+  const safetyRows: OshaRow[] = merge && mergeCases ? merge.rows : all;
+  const hoursIn = merge && merge.hours.length ? merge.hours : dataset.hours;
+  // Merged: confirmed names join exactly. If hours still come from the loss run's own hours sheet,
+  // that sheet keeps its usual matching for loss run names, but a safety-report-only name never fuzzy-joins.
+  const same = useMemo(() => {
+    if (!merge) return undefined;
+    if (merge.hours.length) return exactLocation;
+    const onlyB = new Set(merge.onlyB);
+    return (a: string, b: string) => (onlyB.has(a) || onlyB.has(b) ? a === b : sameLocation(a, b));
+  }, [merge]);
+  // Years the safety rates cover: the loss run's years plus any year only the safety report has.
+  const sYearList = useMemo(() => {
+    if (!merge) return years;
+    const extra = [...merge.rows.map((r) => r.lossYear), ...merge.hours.map((h) => h.year)].filter((y) => (filters.yearFrom == null || y >= filters.yearFrom) && (filters.yearTo == null || y <= filters.yearTo));
+    return [...new Set([...years, ...extra])].sort((a, b) => a - b);
+  }, [merge, years, filters.yearFrom, filters.yearTo]);
+  const cScope = useMemo(() => safetyScope(all, filters), [all, filters]);
+  const sScope = useMemo(() => (mergeCases ? safetyScope(safetyRows, filters) : cScope), [mergeCases, safetyRows, filters, cScope]);
   const sLocs = useMemo(() => scopeLocations(all, filters), [all, filters]);
-  const osha = useMemo(() => hasOsha(all), [all]);
-  const caseTypes = useMemo(() => hasCaseTypes(all), [all]);
-  const oshaDays = useMemo(() => hasDays(all), [all]);
-  const sYears = useMemo(() => safetyYears(sScope, years, dataset.hours, sLocs, V), [sScope, years, dataset.hours, sLocs, V]);
-  const sLocRows = useMemo(() => (sLocs ? [] : safetyLocations(sScope, years, dataset.hours, bench, th)), [sScope, sLocs, years, dataset.hours, bench, th]);
+  const osha = useMemo(() => hasOsha(safetyRows), [safetyRows]);
+  const caseTypes = useMemo(() => hasCaseTypes(safetyRows), [safetyRows]);
+  const oshaDays = useMemo(() => hasDays(safetyRows), [safetyRows]);
+  const sYears = useMemo(() => safetyYears(sScope, sYearList, hoursIn, sLocs, V, same), [sScope, sYearList, hoursIn, sLocs, V, same]);
+  const sLocRows = useMemo(() => (sLocs ? [] : safetyLocations(sScope, sYearList, hoursIn, bench, th, same)), [sScope, sLocs, sYearList, hoursIn, bench, th, same]);
   const wcByYear = useMemo(
-    () => sYears.map((r) => ({ year: r.year, label: r.label, partial: r.partial, claims: sScope.filter((c) => c.lossYear === r.year && c.coverage === "WC").length, hours: hoursFor(dataset.hours, r.year, sLocs)?.hours ?? null })),
-    [sYears, sScope, dataset.hours, sLocs],
+    () => sYears.map((r) => ({ year: r.year, label: r.label, partial: r.partial, claims: cScope.filter((c) => c.lossYear === r.year && c.coverage === "WC").length, hours: hoursFor(hoursIn, r.year, sLocs, same)?.hours ?? null })),
+    [sYears, cScope, hoursIn, sLocs, same],
   );
-  const sFound = useMemo(() => (osha ? safetyConcerns(sYears, sLocRows, sScope, bench, ind, th) : []), [osha, sYears, sLocRows, sScope, bench, ind, th]);
-  const found = useMemo(() => [...findConcerns(dims, V, locRows, ind, th), ...sFound].sort((a, b) => b.band - a.band || b.weight - a.weight), [dims, V, locRows, ind, th, sFound]);
+  // The top recordable cause comes from the loss run's categories (the safety report has none).
+  const sFound = useMemo(() => (osha ? safetyConcerns(sYears, sLocRows, cScope, bench, ind, th) : []), [osha, sYears, sLocRows, cScope, bench, ind, th]);
+  const combined = useMemo(() => (merge ? combinedLocations(cScope, merge, sScope, sYearList) : []), [merge, cScope, sScope, sYearList]);
+  const cFound = useMemo(() => (merge ? combinedConcerns(combined, bench, ind, th) : []), [merge, combined, bench, ind, th]);
+  const found = useMemo(() => [...findConcerns(dims, V, locRows, ind, th), ...sFound, ...cFound].sort((a, b) => b.band - a.band || b.weight - a.weight), [dims, V, locRows, ind, th, sFound, cFound]);
   const largest = useMemo(() => topClaims(filtered, 10), [filtered]);
   const scope = filterSummary(filters, allYears) || "All claims";
   const named = brand.companyName.trim() && !SAMPLE_COMPANIES.has(brand.companyName.trim()) ? brand.companyName.trim() : "";
@@ -289,6 +319,12 @@ export default function App() {
 
   const applyData = (d: Dataset) => {
     setDataset(d);
+    // A new loss run means the location pairs need another look. Keep the safety report and
+    // reopen the match review with the earlier decisions; nothing is combined until confirmed.
+    if (dataset.safety && !d.isSample) {
+      setSafetyDlg({ mode: "review", merge: dataset.safety });
+      toast.message("Check the location matches for your safety report", { description: "Your earlier decisions are filled in." });
+    }
     if (d.naics) {
       setChoice({ ...choice, naics: d.naics, custom: false });
       toast.message(`Benchmark set to NAICS ${d.naics} from your hours sheet`);
@@ -627,7 +663,7 @@ export default function App() {
                   id="safety"
                   eyebrow="Safety"
                   title="Safety rates"
-                  sub={osha ? "OSHA recordables from the loss run, turned into rates with hours worked and compared with your industry." : "Add OSHA columns and hours worked to see TRIR and DART next to your industry. Optional."}
+                  sub={merge ? "OSHA recordables from your safety report, joined to the loss run by location and year, turned into rates with hours worked and compared with your industry." : osha ? "OSHA recordables from the loss run, turned into rates with hours worked and compared with your industry." : "Add OSHA columns and hours worked, or a separate safety report, to see TRIR and DART next to your industry. Optional."}
                 />
                 <SafetySection
                   ind={ind}
@@ -643,9 +679,19 @@ export default function App() {
                   rows={sYears}
                   wcByYear={wcByYear}
                   locRows={sLocRows}
-                  hours={dataset.hours}
-                  hoursSource={dataset.hoursSource}
+                  hours={hoursIn}
+                  hoursSource={merge && merge.hours.length ? merge.report.sourceName : dataset.hoursSource}
+                  merge={merge}
+                  combined={combined}
+                  onAddSafety={() => setSafetyDlg({ mode: "add" })}
+                  onReviewSafety={() => merge && setSafetyDlg({ mode: "review", merge })}
+                  onRemoveSafety={() => {
+                    setDataset((d) => ({ ...d, safety: undefined }));
+                    setFilters(EMPTY_FILTERS);
+                    toast.message("Safety report removed", { description: "Safety rates come from the loss run again." });
+                  }}
                   years={years}
+                  regionFilter={filters.regions.length > 0}
                   scoped={!!sLocs}
                   onHours={(rows: HoursRow[], source: string, naics?: string) => {
                     setDataset({ ...dataset, hours: rows, hoursSource: source });
@@ -709,9 +755,25 @@ export default function App() {
           await savePng(dashRef.current, `${base}.png`, "#f5f6f8");
         }}
         onXlsx={async () => {
-          announceSave(await saveFile(`${base}-claims.xlsx`, filteredClaimsXlsx(filtered, ind)), `${base}-claims.xlsx`);
+          announceSave(await saveFile(`${base}-claims.xlsx`, filteredClaimsXlsx(filtered, ind, merge?.links)), `${base}-claims.xlsx`);
         }}
       />
+      {safetyDlg && (
+        <SafetyReportDialog
+          key={safetyDlg.mode === "review" ? `review-${all.length}` : "add"}
+          open
+          onOpenChange={(v) => !v && setSafetyDlg(null)}
+          claims={all}
+          ind={ind}
+          th={th}
+          existing={safetyDlg.mode === "review" ? safetyDlg.merge : undefined}
+          onApply={(m) => {
+            setDataset((d) => ({ ...d, safety: m }));
+            setFilters(EMPTY_FILTERS);
+            toast.success("Safety report combined", { description: `${num(m.links.filter((l) => l.a).length)} locations matched · ${num(m.onlyA.length)} loss run only · ${num(m.onlyB.length)} safety report only` });
+          }}
+        />
+      )}
     </div>
   );
 }

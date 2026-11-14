@@ -16,13 +16,24 @@ Click a link and the file downloads. Nothing to install and no sign-up.
 
 Free and open source under the MIT license, so anyone can use, share or change it. Your files stay on your computer. The dashboard has no server and doesn't upload anything. It's general information, not legal, safety or insurance advice.
 
+## What's new
+
+**v1.2.0 (Nov 2026): combine a safety report with your loss run**
+
+- Add an OSHA 300 log export or your own safety sheet in the Safety section. It's joined to the loss run by location and year.
+- Location names are matched for you even when the two reports write them differently ("#401 Las Vegas Strip", "Store 401", "Las Vegas - Strip"). Each suggested pair says why it was suggested, and you confirm every one before anything is combined. Locations in only one report are kept, never dropped.
+- Safety rates (TRIR, DART, days-away and severity) use the safety report's cases and hours. Four new findings compare both reports, such as far fewer OSHA recordables than paid comp claims.
+- Still fully offline: no AI, nothing sent anywhere. Try it with the built-in synthetic sample safety report.
+
+**v1.1.1:** every finding shows a short summary of public guidance (OSHA, NIOSH, CDC, FMCSA and others) with a link to its source.
+
 ## What it does
 
 Drop in a loss run (Excel, CSV or a Word table), check the auto-matched columns, brand it, filter it, and export to PowerPoint, PNG or Excel. Everything runs in the browser. Files are never uploaded.
 
 One file covers every industry. The start screen asks what the company does: type a NAICS code or plain words ("commercial fishing", "roofing", "senior living") and it finds the closest NAICS industries, picks the template that fits, and sets the BLS safety benchmark. Templates: restaurant, construction, fleet, real estate, and a general one for everything else.
 
-Optional safety rates: add OSHA columns and hours worked and the Safety section works out TRIR, DART, days-away rate and severity rate, then compares them with the BLS average for any NAICS code.
+Optional safety rates: add OSHA columns and hours worked, or a separate safety report, and the Safety section works out TRIR, DART, days-away rate and severity rate, then compares them with the BLS average for any NAICS code.
 
 Each finding comes with a short piece of loss prevention guidance and a link to its public source (OSHA, NIOSH, CDC, FDA, EPA, FMCSA and other government agencies). The full list is in `GUIDANCE.md`. It's general information, not advice.
 
@@ -35,13 +46,15 @@ You don't need this to use the dashboard. Use the download links above.
 ```
 pnpm install
 pnpm dev                    # local dev at http://localhost:5173
-bash build-offline.sh       # one offline file in ./offline (no AI, no network)
+pnpm build:offline          # one offline file in ./offline with Vite (no AI, no network)
+bash build-offline.sh       # the same offline file with Parcel
 bash bundle.sh              # one bundle.html for claude.ai (optional AI color lookup)
+pnpm test                   # tests, on synthetic data only
 ```
 
 ## Offline file
 
-`build-offline.sh` writes one self-contained file: `offline/Loss Dashboard (offline).html`.
+`pnpm build:offline` (Vite, `scripts/build-offline-vite.mjs`) and `bash build-offline.sh` (Parcel) both write one self-contained file: `offline/Loss Dashboard (offline).html`. v1.2.0 was released with the Vite script; use it if Parcel's native SWC binary won't load on your machine.
 
 - It swaps in `src/lib/claude.offline.ts`, so no AI or platform code is bundled.
 - It starts with a Content-Security-Policy tag that blocks every web request (`connect-src data: blob:`).
@@ -81,6 +94,23 @@ Everything here is optional. Each piece of data you add turns on more charts.
 - Rate = cases x 200,000 / hours worked, the same formula OSHA and BLS use.
 - Hours can be a company total (blank Location) or per location. Average employees count as 2,000 hours each when hours are missing.
 - No OSHA columns but hours given: the app shows comp claims per 200,000 hours as a stand-in and says it isn't TRIR.
+
+## Combining a safety report with the loss run
+
+Optional. In the Safety section, **Add a safety report** takes a second file (an OSHA 300 log export or your own safety sheet) and joins it to the loss run by location and year.
+
+| Step | What happens |
+|---|---|
+| Columns | Auto-matched like the loss run columns: location, year or date of injury, OSHA recordable, case type, days away, days restricted, hours worked or average employees. Employee names are never read |
+| Locations | `src/lib/locmatch.ts` compares the two reports' location names with string rules only (no AI, no network): case, punctuation, common abbreviations and filler words set aside, store or site numbers pulled out, word overlap plus Levenshtein similarity. Every pair shows why it was suggested |
+| Confidence | High (pre-checked), Suggested (you accept or reject each one) or no match. Different numbers or directions (East vs West) are never suggested. Ties, one location matched to several names, and look-alike names inside one report are flagged, never guessed |
+| Confirm | Nothing is combined until every pair has a decision. Locations in only one report are kept and shown as such |
+| Merge | Recordables, case types, days and hours come from the safety report, so nothing is counted twice. Names are joined only through the pairs you confirmed |
+| Findings | Four more findings compare the two reports for the same locations and years: far fewer recordables than paid comp claims, more recordables than comp claims, above the benchmark TRIR with top-quarter comp cost per hour, and many days away with low comp cost |
+
+The match cut-offs (pre-check at 85, suggest at 60, a 10-point lead over the next best) are template starting points set on synthetic test reports, editable under Risk levels. The Excel export adds a "Location matches" sheet listing every decision.
+
+Tests: `pnpm test` runs `tests/*.test.ts` with Node's built-in test runner (no extra packages). They use only the synthetic sample reports.
 
 Benchmark: The Safety section has a "Compare against" box:
 

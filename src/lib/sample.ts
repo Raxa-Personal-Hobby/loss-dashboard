@@ -215,3 +215,162 @@ export function makeSampleHours(ind: Industry, seed = ind.sample.seed + 7): Tabl
   });
   return { name: "Hours Worked", rows };
 }
+
+/* ---------------- Paired safety report (synthetic) ---------------- */
+
+/** Abbreviation swaps another system might use. */
+const SWAPS: [RegExp, string][] = [
+  [/\bAve\b/, "Avenue"], [/\bCenter\b/, "Ctr"], [/\bPoint\b/, "Pt."], [/\bApartments\b/, "Apts"], [/\bOffice\b/, "Ofc"], [/\bPlaza\b/, "Plz"],
+  [/\bStreet\b/, "St"], [/\bNorth/, "N."], [/\bMedical\b/, "Med"], [/\bSenior Living\b/, "Sr Living"], [/\bDowntown\b/, "Dwntwn"], [/\bTownhomes\b/, "Townhouses"],
+];
+
+function splitCode(name: string): { code: string; num: string; rest: string } {
+  const m = name.match(/^#?\s*([A-Z]?-?(\d{2,}))\s+(.*)$/);
+  return m ? { code: m[1], num: m[2], rest: m[3] } : { code: "", num: "", rest: name };
+}
+
+/** Swap two letters in the middle of the longest word. */
+function typo(s: string): string {
+  const words = s.split(" ");
+  let wi = -1;
+  words.forEach((w, i) => {
+    if (/^[A-Za-z]{6,}$/.test(w) && (wi < 0 || w.length > words[wi].length)) wi = i;
+  });
+  if (wi < 0) return s.toUpperCase();
+  const w = words[wi];
+  const k = Math.floor(w.length / 2);
+  words[wi] = w.slice(0, k) + w[k + 1] + w[k] + w.slice(k + 2);
+  return words.join(" ");
+}
+
+/** A messy version of a location name, the way another system might write it. Deterministic by position. */
+export function messyName(name: string, i: number, unitWord: string): string {
+  const { code, num, rest } = splitCode(name);
+  const noState = rest.replace(/,\s*[A-Z]{2}\b/, "");
+  switch (i % 6) {
+    case 0: {
+      // Number dropped, dash before the last word: "Las Vegas - Strip"
+      const w = rest.split(" ");
+      return w.length > 1 ? `${w.slice(0, -1).join(" ")} - ${w[w.length - 1]}` : rest.toUpperCase();
+    }
+    case 1:
+      // Number only: "Store 401". Names without a number get abbreviations instead.
+      return num ? `${unitWord} ${num}` : messyName(name, 2, unitWord);
+    case 2: {
+      let s = noState;
+      for (const [re, to] of SWAPS) s = s.replace(re, to);
+      if (s === noState) s = `${noState} Location`;
+      return (code ? `${s} (${code.replace(/^#/, "")})` : s).toLowerCase();
+    }
+    case 3:
+      // One typo, number moved to the end.
+      return code ? `${typo(rest)} #${num}` : typo(rest);
+    case 4:
+      return code ? `${rest} ${unitWord} #${num}` : `${noState} Site`;
+    default:
+      // System-export style: state dropped, underscores, number glued to a prefix.
+      return (code ? `${unitWord.slice(0, 2)}${num}_${noState}` : noState).replace(/\s+/g, "_").toUpperCase();
+  }
+}
+
+export const SAFETY_SAMPLE_HEADERS = ["Establishment", "Employee ID", "Year", "Date of Injury", "Classify the Case", "Days Away From Work", "Days on Job Transfer or Restriction", "Recordable", "Hours Worked"];
+
+/**
+ * A synthetic safety report that pairs with the sample loss run. Location names are deliberately
+ * messy versions of the loss run's, plus decoys, so the matching can be shown and tested:
+ * - every name is rewritten (number dropped, number only, abbreviations, a typo, extra words, punctuation)
+ * - one location is split across two spellings (one-to-many)
+ * - one decoy that looks like a real location but isn't (a different number, or an extra word)
+ * - one location only in the safety report, one only in the loss run
+ * - one location logs far fewer recordables than its comp claims, one logs extra recordables
+ * - one location-year has hours that disagree across rows
+ * `truth` maps each safety report name to the loss run name it really is (null = no match).
+ * Tests use it; it isn't written into the file.
+ */
+export function makeSafetyTable(ind: Industry, seed = ind.sample.seed + 13): { table: Table; truth: Record<string, string | null> } {
+  const S = ind.sample;
+  const r = rng(seed);
+  const loss = makeSampleTable(ind);
+  const hoursT = makeSampleHours(ind);
+  const col = Object.fromEntries(fieldsFor(ind).map((f, i) => [f.key, i])) as Record<string, number>;
+  const unitWord = ({ restaurant: "Store", construction: "Proj", fleet: "Terminal", realestate: "Property" } as Record<string, string>)[ind.id] ?? "Site";
+  const units = S.units.map((u) => u.name);
+  const truth: Record<string, string | null> = {};
+  const name = new Map<string, string>();
+  units.forEach((u, i) => {
+    const m = messyName(u, i, unitWord);
+    name.set(u, m);
+    truth[m] = u;
+  });
+  const onlyLoss = units[units.length - 1];
+  const split = units[1];
+  const splitAlt = `${split.toUpperCase().replace(/^#\s*/, "NO. ")}`;
+  truth[splitAlt] = split;
+  // The two busiest comp locations (other than the ones used above) carry the planted mismatches.
+  const isCompRow = (row: unknown[]) => /comp|wc|work/i.test(String(row[col.coverage] ?? ""));
+  const wcCount = (u: string) => loss.rows.slice(1).filter((row) => row[col.location] === u && isCompRow(row)).length;
+  const [fewer, extra] = units.filter((u, i) => i > 1 && u !== onlyLoss).sort((x, z) => wcCount(z) - wcCount(x) || x.localeCompare(z));
+  const conflictUnit = units.find((u, i) => i > 1 && u !== fewer && u !== extra && u !== onlyLoss) ?? units[2];
+  const onlySafety = "Regional Training Center";
+  truth[onlySafety] = null;
+  const d0 = splitCode(units[0]);
+  const decoy = d0.num ? `#${Number(d0.num) + 50} ${d0.rest}` : `${units[0]} East`;
+  truth[decoy] = null;
+
+  const hours = new Map<string, number>();
+  hoursT.rows.slice(1).forEach((row) => hours.set(`${row[0]}|${row[1]}`, Number(row[2])));
+  const rows: unknown[][] = [SAFETY_SAMPLE_HEADERS];
+  const used = new Set<string>();
+  const ee = () => `EE-${10000 + Math.floor(r() * 89999)}`;
+  const push = (loc: string, year: number, date: string, caseText: string, away: unknown, restricted: unknown, rec: string, hrs: number | "") => {
+    rows.push([loc, ee(), year, date, caseText, away, restricted, rec, hrs]);
+    used.add(`${loc}|${year}`);
+  };
+  const isComp = isCompRow;
+
+  let splitToggle = 0;
+  let fewerSeen = 0;
+  let conflictDone = false;
+  for (const row of loss.rows.slice(1)) {
+    const u = String(row[col.location]);
+    if (u === onlyLoss || !isComp(row)) continue;
+    const rec = String(row[col.recordable] ?? "");
+    if (!rec) continue;
+    const date = String(row[col.lossDate]);
+    const year = Number(date.slice(-4));
+    if (u === fewer && rec === "Yes" && fewerSeen++ % 4 !== 0) continue; // this log keeps only 1 in 4
+    const loc = u === split && splitToggle++ % 2 ? splitAlt : name.get(u)!;
+    let hrs: number | "" = hours.get(`${u}|${year}`) ?? "";
+    if (u === conflictUnit && year === 2024 && !conflictDone && hrs !== "") {
+      conflictDone = true;
+      hrs = Math.round(hrs * 1.2);
+    }
+    push(loc, year, date, rec === "Yes" ? String(row[col.caseType] ?? "") : "Not recordable (first aid)", row[col.daysAway] ?? "", row[col.daysRestricted] ?? "", rec, hrs);
+  }
+
+  // Extra recordables at one location that never became comp claims.
+  const nExtra = Math.max(4, Math.ceil(wcCount(extra) * 0.5) + 3);
+  for (let i = 0; i < nExtra; i++) {
+    const year = 2023 + (i % 3);
+    const day = dayNum(year, 1 + Math.floor(r() * 12), 1 + Math.floor(r() * 27));
+    push(name.get(extra)!, year, fmt(day), "Other recordable", "", "", "Yes", hours.get(`${extra}|${year}`) ?? "");
+  }
+
+  // A location only in the safety report, and the decoy.
+  for (const [loc, n] of [[onlySafety, 3], [decoy, 2]] as [string, number][]) {
+    for (let i = 0; i < n; i++) {
+      const year = 2024 + (i % 2);
+      push(loc, year, fmt(dayNum(year, 3 + i * 2, 10 + i)), i % 2 ? "Job transfer or restriction" : "Days away from work", i % 2 ? "" : 4 + i, i % 2 ? 6 : "", "Yes", 42000 + i * 1500);
+    }
+  }
+
+  // Hours-only rows for location-years with no cases, so every site still has hours.
+  for (const [key, h] of hours) {
+    const [u, y] = key.split("|");
+    if (u === onlyLoss) continue;
+    const loc = name.get(u)!;
+    if (used.has(`${loc}|${y}`) || (u === split && used.has(`${splitAlt}|${y}`))) continue;
+    rows.push([loc, "", Number(y), "", "", "", "", "", h]);
+  }
+  return { table: { name: "Safety Log", rows }, truth };
+}

@@ -1,7 +1,7 @@
 import PptxGenJS from "pptxgenjs";
 import * as XLSX from "xlsx";
 import { toBlob } from "html-to-image";
-import type { Brand, Claim, Filters } from "./types";
+import type { Brand, Claim, Filters, LocationLink } from "./types";
 import { BAND_LABEL } from "./types";
 import { fieldsFor } from "./fields";
 import type { Industry } from "./industries";
@@ -481,7 +481,8 @@ const toDate = (n: number | null) => {
   return new Date(y, m - 1, d);
 };
 
-export function filteredClaimsXlsx(claims: Claim[], ind: Industry) {
+/** The filtered claims. With a safety report combined, adds a sheet listing every location decision, for the record. */
+export function filteredClaimsXlsx(claims: Claim[], ind: Industry, links?: LocationLink[]) {
   const F = fieldsFor(ind);
   const lab = (k: string) => F.find((f) => f.key === k)?.header ?? k;
   const rows = claims.map((c) => ({
@@ -512,6 +513,22 @@ export function filteredClaimsXlsx(claims: Claim[], ind: Industry) {
   ws["!cols"] = [14, 26, 10, 6, 8, 12, 12, 8, 8, 24, 30, 12, 16, 12, 12, 12, 8, 50, 10, 22, 10, 12].map((w) => ({ wch: w }));
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "Claims");
+  if (links?.length) {
+    const lm = XLSX.utils.json_to_sheet(
+      links.map((l) => ({ "Safety report location": l.b, "Loss run location": l.a ?? "(no match, kept separate)", Confidence: l.a ? (l.tier === "high" ? "High" : l.tier === "medium" ? "Suggested" : "Picked") : "", Score: l.score || "", Why: l.reasons.join("; "), Decision: "Confirmed by user" })),
+    );
+    lm["!cols"] = [34, 34, 12, 8, 60, 18].map((w) => ({ wch: w }));
+    XLSX.utils.book_append_sheet(wb, lm, "Location matches");
+  }
+  return wbBlob(wb);
+}
+
+/** Any table as a one-sheet workbook (used for the sample safety report). */
+export function tableXlsx(t: Table) {
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.aoa_to_sheet(t.rows);
+  ws["!cols"] = (t.rows[0] ?? []).map((h) => ({ wch: Math.max(10, Math.min(36, String(h).length + 4)) }));
+  XLSX.utils.book_append_sheet(wb, ws, t.name.slice(0, 31));
   return wbBlob(wb);
 }
 
