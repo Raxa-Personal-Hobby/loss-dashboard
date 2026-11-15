@@ -11,6 +11,8 @@ https://github.com/user-attachments/assets/51d1eb1e-33a6-48a0-933a-5353ef67526d
 
 A 60-second introduction to Loss Dashboard. Everything shown is synthetic sample data.
 
+[Download the dashboard](#download) · [Watch the tutorials](#video-tutorials)
+
 ## Download
 
 No GitHub account, install or sign-up needed. Click a link and the file downloads.
@@ -20,6 +22,28 @@ No GitHub account, install or sign-up needed. Click a link and the file download
 | [Loss Dashboard (offline).html](https://github.com/Raxa-Personal-Hobby/loss-dashboard/releases/latest/download/Loss-Dashboard-offline.html) | The dashboard. Save it anywhere, then double-click to open it in Chrome or Edge. Works with Wi-Fi off. |
 | [Quick Start Guide (PDF)](https://github.com/Raxa-Personal-Hobby/loss-dashboard/releases/latest/download/Loss-Dashboard-Quick-Start-Guide.pdf) | How to use it, step by step. Ready to print. |
 | [Both in one zip](https://github.com/Raxa-Personal-Hobby/loss-dashboard/releases/latest/download/Loss-Dashboard-offline.zip) | The dashboard and the guide together. On Windows, right-click the zip and pick Extract All first. |
+
+## Video tutorials
+
+Watch these step-by-step guides here, or download the MP4 files to watch offline. Everything shown is synthetic sample data.
+
+### 1. Upload your reports
+
+https://github.com/user-attachments/assets/3e90c550-f8fc-4ec7-b621-bea2a589135e
+
+[Download the upload tutorial (MP4)](https://github.com/Raxa-Personal-Hobby/loss-dashboard/releases/download/v1.2.1/Loss-Dashboard-howto-upload.mp4)
+
+### 2. Add a safety report
+
+https://github.com/user-attachments/assets/02de6aec-57a5-4583-b1a2-fc55d33edff2
+
+[Download the safety report tutorial (MP4)](https://github.com/Raxa-Personal-Hobby/loss-dashboard/releases/download/v1.2.1/Loss-Dashboard-howto-safety-report.mp4)
+
+### 3. Export your results
+
+https://github.com/user-attachments/assets/6485868a-1d92-4092-8e48-d39f567f524e
+
+[Download the export tutorial (MP4)](https://github.com/Raxa-Personal-Hobby/loss-dashboard/releases/download/v1.2.1/Loss-Dashboard-howto-export.mp4)
 
 ## How it works
 
