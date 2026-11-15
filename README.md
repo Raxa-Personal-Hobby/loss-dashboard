@@ -7,9 +7,9 @@ Free loss run dashboard for risk and safety teams. Drop in a loss run, get chart
 ![Works offline](https://img.shields.io/badge/works-offline-0f766e)
 ![No sign-up](https://img.shields.io/badge/no-sign--up-64748b)
 
-https://github.com/user-attachments/assets/064c8119-6c20-4382-b5a8-569a9f6cd001
+https://github.com/user-attachments/assets/51d1eb1e-33a6-48a0-933a-5353ef67526d
 
-A 90 second walkthrough. Everything shown is synthetic sample data.
+A 60-second introduction to Loss Dashboard. Everything shown is synthetic sample data.
 
 ## Download
 
