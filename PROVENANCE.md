@@ -46,16 +46,17 @@ The sample is still made up, but its shape follows national BLS statistics so it
 | Comp cause mix | SOII 2023-2024, Table R4 (DART cases by event or exposure) | Weights for falls, overexertion, struck-by, transportation and so on, per industry |
 | Body part | SOII 2023-2024, Table R2 (DART cases by part of body) | Weights for picking a body part within each cause |
 | Nature of injury | SOII 2023-2024, Table R1 (DART cases by nature) | Weights for sprain, cut, burn, fracture and so on within each cause |
-| Case type odds | SOII 2024, Table 1 (DAFW, DJTR and other recordable rates) | Days away vs restricted vs other recordable, tilted by how long that injury usually keeps people out |
+| Case type odds | SOII 2025, Table 1 (DAFW, DJTR and other recordable rates) | Days away vs restricted vs other recordable, tilted by how long that injury usually keeps people out |
 | Days away and restricted | SOII 2023-2024, Tables R65 and R67 (median days) | Median days by industry and by nature, with spread around the median |
-| Hours worked | SOII 2024, Table 1 (TRC rate) | Hours are set so the sample company runs about 10% above its industry rate |
+| Hours worked | SOII 2025, Table 1 (TRC rate) | Hours are set so the sample company runs about 10% above its industry rate |
 
 Template assumptions (not from BLS, chosen for the sample): 82% of comp claims with a payment are recordable; lost-time claims cost about 1.75 times the category median, restricted 1.15 times, other recordable 0.62 times, and non-recordable 0.3 times; offices log 2.5 times the hours per injury of field sites; heat vs electrical exposure in construction is split evenly. These only shape the demo data. They don't touch the math on a user's own loss run.
 
 ## Benchmark data
 
-- `src/lib/naics.ts` and `data/bls-soii-2024-table1-rates.csv` hold BLS SOII Table 1, "Incidence rates of nonfatal occupational injuries and illnesses by industry and case types, 2024": every row BLS published with a total recordable rate (1,009 private industry codes, plus the totals and the state and local government rows). Blank cells mean BLS didn't publish that number. Footnote marks were removed. Copied Nov 13, 2026 from https://www.bls.gov/iif/nonfatal-injuries-and-illnesses-tables/table-1-injury-and-illness-rates-by-industry-2024-national.htm
-- The copy was checked against the BLS page with a checksum of the whole table.
+- `src/lib/naics.ts` and `data/bls-soii-2025-table1-rates.csv` hold BLS SOII Table 1, "Incidence rates of nonfatal occupational injuries and illnesses by industry and case types, 2025": every row BLS published with a total recordable rate (914 private industry codes, plus the totals and the state and local government rows). Blank cells mean BLS didn't publish that number. Footnote marks were removed. Copied Nov 20, 2026 from https://www.bls.gov/iif/nonfatal-injuries-and-illnesses-tables/table-1-injury-and-illness-rates-by-industry-2025-national.xlsx
+- BLS switched this table from 2017 NAICS to 2022 NAICS with the 2025 release, so industry codes are not directly comparable to the 2024 table this replaced.
+- The copy was generated from the official BLS spreadsheet and checked against it: row counts, the ownership totals, and the rate arithmetic (total recordable = DART + other recordable; DART = days away + job transfer) for every row.
 - BLS data is a U.S. government work and in the public domain.
 - `src/lib/naics-titles.ts` holds the 2,196 titles of the 2017 North American Industry Classification System from the U.S. Census Bureau, plus up to 22 keywords per 6-digit industry taken from the Census descriptions (filler words and cross-references removed). The Census file was read from the `naics` npm package, version 1.2.1 (MIT license, Nathan Dalbec), which ships the Census "2017_NAICS_Descriptions" data. Only the data was used, not the package code. Census data is in the public domain.
 - The General template's comp cause mix is the average of the four BLS industry mixes (restaurants, construction, trucking, real estate), by share. Its body part and nature weights add those four industries together.

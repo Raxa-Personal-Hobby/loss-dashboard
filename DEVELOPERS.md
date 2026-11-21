@@ -64,7 +64,7 @@ Benchmark: The Safety section has a "Compare against" box:
 - A "NAICS Code" column in the hours sheet sets the benchmark when the file loads.
 - The choice is saved in the browser, per industry.
 
-Reuse it elsewhere: `src/lib/naics.ts` has no imports, so the file can be copied into another project as is. Add `src/lib/naics-titles.ts` too for the plain-words search. It exports `lookupNaics(code, ownership)`, `searchNaics(words)`, `getNaics(code)`, `allNaics()` and `ownershipTotal()`. The same table is in `data/bls-soii-2024-table1-rates.csv` (1,034 rows: NAICS code, ownership, industry, TRC, DART, DAFW, DJTR, other recordable).
+Reuse it elsewhere: `src/lib/naics.ts` has no imports, so the file can be copied into another project as is. Add `src/lib/naics-titles.ts` too for the plain-words search. It exports `lookupNaics(code, ownership)`, `searchNaics(words)`, `getNaics(code)`, `allNaics()` and `ownershipTotal()`. The same table is in `data/bls-soii-2025-table1-rates.csv` (939 rows: NAICS code, ownership, industry, TRC, DART, DAFW, DJTR, other recordable).
 
 Updating to a new BLS year: BLS plans to publish 2025 rates on Nov 18, 2026. Replace `SOII_YEAR`, `SOII_URL` and the `DATA` block in `src/lib/naics.ts` with the new Table 1, and regenerate the CSV.
 
@@ -114,14 +114,14 @@ To change the guidance, edit the JSON, run `node scripts/build-guidance-md.mjs`,
 | `src/lib/color.ts` | Brand palette builder with color-blind checks, logo color pull |
 | `src/lib/exporters.ts` | PPTX (pptxgenjs), PNG (html-to-image), Excel template and filtered claims |
 | `src/lib/sample.ts` | Synthetic sample generator (seeded), including OSHA columns and hours worked |
-| `src/lib/naics.ts` | BLS 2024 injury rates for every published NAICS code, plus lookup and search. Self-contained |
+| `src/lib/naics.ts` | BLS 2025 injury rates for every published NAICS code, plus lookup and search. Self-contained |
 | `src/lib/naics-titles.ts` | All 2017 NAICS titles with description keywords, and the plain-words search |
 | `src/components/StartScreen.tsx` | The "What does your company do?" screen |
 | `src/lib/bls.ts` | BLS case mixes used to build the sample, and the benchmark the user picked |
 | `src/lib/safety.ts` | TRIR, DART, days-away and severity rates, rates by location, safety findings |
 | `src/lib/locmatch.ts` | Location name matching between the loss run and a safety report (string rules only) |
 | `src/components/Safety.tsx` | Safety section: benchmark box, rate tiles and charts, hours entry |
-| `data/bls-soii-2024-table1-rates.csv` | The BLS table as a CSV, for spreadsheets or other tools |
+| `data/bls-soii-2025-table1-rates.csv` | The BLS table as a CSV, for spreadsheets or other tools |
 | `src/lib/claude.ts` / `claude.offline.ts` | claude.ai capabilities (online) and the no-op offline swap |
 | `src/components/ThresholdsDialog.tsx` | Risk levels window |
 
