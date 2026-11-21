@@ -1,6 +1,6 @@
 // Public benchmark data from the U.S. Bureau of Labor Statistics (BLS),
 // Survey of Occupational Injuries and Illnesses (SOII). Public domain.
-// Pulled Nov 13, 2026. Each block says which table it came from.
+// Pulled Nov 20, 2026. Each block says which table it came from.
 
 import { SOII_YEAR, getNaics, lookupNaics, naicsLabel, ownershipTotal, type Ownership } from "./naics";
 
@@ -8,12 +8,12 @@ export const BLS_RATE_YEAR = SOII_YEAR;
 export const BLS_MIX_YEARS = "2023-2024";
 
 export const BLS_LINKS = {
-  rates: "https://www.bls.gov/iif/nonfatal-injuries-and-illnesses-tables/table-1-injury-and-illness-rates-by-industry-2024-national.htm",
+  rates: "https://www.bls.gov/iif/nonfatal-injuries-and-illnesses-tables/table-1-injury-and-illness-rates-by-industry-2025-national.xlsx",
   mixes: "https://www.bls.gov/iif/nonfatal-injuries-and-illnesses-tables/soii-case-and-demographic-characteristics-historical-data/2023-2024.htm",
   calculator: "https://www.bls.gov/iif/",
 };
 
-/** Rates for any NAICS code come from ./naics (BLS SOII Table 1, 2024). This file keeps the
+/** Rates for any NAICS code come from ./naics (BLS SOII Table 1, 2025). This file keeps the
  *  case mixes used to build the sample data and the benchmark the user picked. */
 export interface Benchmark {
   code: string; // NAICS code, "" for a total, "custom" for the user's own numbers
