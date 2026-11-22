@@ -75,6 +75,10 @@ It's general information, not legal, safety or insurance advice.
 
 ## What's new
 
+v1.2.3 (Nov 2026): retail and information NAICS codes now find the right 2025 benchmark. BLS moved to 2022 NAICS codes this year, so older 2017 codes (446110 for a pharmacy) are matched to the new ones (456110).
+
+v1.2.2 (Nov 2026): safety benchmarks are the BLS 2025 rates, published November 18, 2026.
+
 v1.2.1 (Nov 2026): one Upload source data window for the loss run and a safety report, with blank templates for both. Reads OSHA's injury tracking (ITA) CSV and OSHA 300 logs typed into Excel, and stops with a message if a safety report's OSHA columns can't be read. Your industry and NAICS code now show in the sidebar, there's an Export reports section, and a short "What's new" note appears when you open a new version. Sample companies are now named Acme, and the Quick Start Guide is updated.
 
 v1.2.0 (Nov 2026): combine a safety report with your loss run. Add your own safety sheet, or an OSHA 300 log with a case type column, and it's joined to the loss run by location and year. Location names are matched even when the two reports write them differently, and four new findings compare both reports.

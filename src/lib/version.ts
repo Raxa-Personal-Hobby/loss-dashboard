@@ -1,5 +1,5 @@
 // The app version and the notes shown in the "What's new" window. Newest first.
-export const APP_VERSION = "1.2.1";
+export const APP_VERSION = "1.2.3";
 
 export interface ReleaseNote {
   version: string;
@@ -8,6 +8,15 @@ export interface ReleaseNote {
 }
 
 export const RELEASE_NOTES: ReleaseNote[] = [
+  {
+    version: "1.2.3",
+    date: "November 2026",
+    items: [
+      { tag: "New", text: "Safety benchmarks are the BLS 2025 rates, published November 18, 2026 (added in 1.2.2)." },
+      { tag: "Fixed", text: "Retail and information codes now find the right 2025 benchmark. BLS moved to 2022 NAICS codes this year, and older 2017 codes are matched to the new ones." },
+      { tag: "Fixed", text: "The BLS source note under Thresholds named the 2024 table. It now names 2025." },
+    ],
+  },
   {
     version: "1.2.1",
     date: "November 2026",

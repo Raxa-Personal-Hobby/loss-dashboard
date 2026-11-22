@@ -59,6 +59,7 @@ Everything here is optional. Each piece of data you add turns on more charts.
 Benchmark: The Safety section has a "Compare against" box:
 
 - Type any NAICS code (2 to 6 digits) or words like "roofing". If BLS doesn't publish that exact code, it walks up to the closest parent (722512 → 72251) and says which one it used.
+- BLS rates use 2022 NAICS. A 2017 code that 2022 NAICS dropped (most of retail and information) is moved to its 2022 code first (447110 → 457110), using the Census 2017-to-2022 concordance in `src/lib/naics.ts`.
 - Pick private, state government or local government.
 - Or switch to "My own numbers" and type a TRIR and DART target (a carrier goal, a company goal).
 - A "NAICS Code" column in the hours sheet sets the benchmark when the file loads.
@@ -66,7 +67,7 @@ Benchmark: The Safety section has a "Compare against" box:
 
 Reuse it elsewhere: `src/lib/naics.ts` has no imports, so the file can be copied into another project as is. Add `src/lib/naics-titles.ts` too for the plain-words search. It exports `lookupNaics(code, ownership)`, `searchNaics(words)`, `getNaics(code)`, `allNaics()` and `ownershipTotal()`. The same table is in `data/bls-soii-2025-table1-rates.csv` (939 rows: NAICS code, ownership, industry, TRC, DART, DAFW, DJTR, other recordable).
 
-Updating to a new BLS year: BLS plans to publish 2025 rates on Nov 18, 2026. Replace `SOII_YEAR`, `SOII_URL` and the `DATA` block in `src/lib/naics.ts` with the new Table 1, and regenerate the CSV.
+Updating to a new BLS year: BLS plans to publish 2026 rates in November 2027. Replace `SOII_YEAR`, `SOII_URL` and the `DATA` block in `src/lib/naics.ts` with the new Table 1, and regenerate the CSV.
 
 ## Combining a safety report with the loss run
 
