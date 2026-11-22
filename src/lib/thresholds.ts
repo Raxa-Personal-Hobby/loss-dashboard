@@ -2,6 +2,7 @@
 // their own. Defaults are starting points. Where a default comes from published research
 // the source is named; everything else is marked as a template starting point.
 import type { Band } from "./types";
+import { SOII_URL, SOII_YEAR } from "./naics";
 
 export interface Thresholds {
   largeLoss: number;
@@ -110,9 +111,9 @@ export const SOURCES: Record<string, SourceRef> = {
 
 SOURCES.bls = {
   id: "bls",
-  short: "BLS SOII, 2024",
-  text: "U.S. Bureau of Labor Statistics, Survey of Occupational Injuries and Illnesses, Table 1: incidence rates of nonfatal occupational injuries and illnesses by industry and case types, 2024. Rates are per 100 full-time workers (200,000 hours). The industry average is the BLS figure; the cut points around it are a template starting point.",
-  url: "https://www.bls.gov/iif/nonfatal-injuries-and-illnesses-tables/table-1-injury-and-illness-rates-by-industry-2024-national.htm",
+  short: `BLS SOII, ${SOII_YEAR}`,
+  text: `U.S. Bureau of Labor Statistics, Survey of Occupational Injuries and Illnesses, Table 1: incidence rates of nonfatal occupational injuries and illnesses by industry and case types, ${SOII_YEAR}. Rates are per 100 full-time workers (200,000 hours). The industry average is the BLS figure; the cut points around it are a template starting point.`,
+  url: SOII_URL,
 };
 
 export interface Row {
