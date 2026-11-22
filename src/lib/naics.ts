@@ -993,15 +993,44 @@ const PREFIX: Record<Ownership, string> = { private: "", state: "S", local: "L" 
 const TOTAL: Record<Ownership, string> = { private: "private", state: "S", local: "L" };
 // BLS prints these sectors as ranges.
 const SECTOR: Record<string, string> = { "31": "31-33", "32": "31-33", "33": "31-33", "44": "44-45", "45": "44-45", "48": "48-49", "49": "48-49" };
-// 2022 NAICS retail codes BLS still reports under their 2017 codes.
-const NAICS_2022: [string, string, string][] = [
-  ["4551", "4522", "Department stores"],
-  ["4552", "4523", "Warehouse clubs, supercenters and other general merchandise"],
-  ["455", "452", "General merchandise"],
-  ["456", "446", "Health and personal care"],
-  ["457", "447", "Gasoline stations"],
-  ["458", "448", "Clothing and accessories"],
-];
+// 2017 NAICS codes that 2022 NAICS dropped, and where each one went ("old>new").
+// BLS moved to 2022 NAICS with the 2025 table, but loss runs, OSHA logs and the industry
+// search in ./naics-titles still carry 2017 codes, mostly in retail and information.
+// Source: U.S. Census Bureau, "2017 NAICS U.S. Matched to 2022 NAICS U.S. (Full Concordance)",
+// https://www.census.gov/naics/concordances/2017_to_2022_NAICS.xlsx. Public domain. Copied Nov 22, 2026.
+// Every 2017 code missing from 2022 is listed, at every level (3 to 6 digits). Each points to
+// the longest 2022 code that covers all of its pieces, so an industry that was split up points
+// to the group or sector its pieces share (454110 Electronic shopping > 44, retail trade).
+const NAICS_2017 = new Map(
+  `212111>212114 212112>212115 212113>21211 212221>212220 212222>212220 212291>212290 212299>212290 212324>212323 212325>212323 212391>212390
+212392>212390 212393>212390 212399>212390 31511>315120 315110>315120 31519>315120 315190>315120 31522>315250 315220>315250 31524>315250
+315240>315250 31528>315250 315280>315250 316992>316990 316998>316990 321213>321215 321214>321215 322121>322120 322122>322120 333244>333248
+333249>333248 333314>333310 333316>333310 333318>333310 333997>333998 333999>333998 334613>334610 334614>334610 33511>335139 335110>335139
+33512>33513 335121>335131 335122>335132 335129>335139 335911>335910 335912>335910 336111>336110 336112>336110 337124>337126 337125>337126
+42432>424350 424320>424350 42433>424350 424330>424350 42511>425120 425110>425120 441228>441227 44131>441330 441310>441330 44132>441340
+441320>441340 442>4491 4421>449110 44211>449110 442110>449110 4422>44912 44221>449121 442210>449121 44229>44912 442291>449122
+442299>449129 443>449210 4431>449210 44314>449210 443141>449210 443142>449210 44413>444140 444130>444140 44419>444180 444190>444180
+44421>444230 444210>444230 44422>444240 444220>444240 44512>445131 445120>445131 44521>445240 445210>445240 44522>445250 445220>445250
+445299>445298 44531>445320 445310>445320 446>4561 4461>4561 44611>456110 446110>456110 44612>456120 446120>456120 44613>456130
+446130>456130 44619>45619 446191>456191 446199>456199 447>4571 4471>4571 44711>457110 447110>457110 44719>457120 447190>457120
+448>458 4481>458110 44811>458110 448110>458110 44812>458110 448120>458110 44813>458110 448130>458110 44814>458110 448140>458110
+44815>458110 448150>458110 44819>458110 448190>458110 4482>458210 44821>458210 448210>458210 4483>4583 44831>458310 448310>458310
+44832>458320 448320>458320 451>459 4511>4591 45111>459110 451110>459110 45112>459120 451120>459120 45113>459130 451130>459130
+45114>459140 451140>459140 4512>459210 45121>459210 451211>459210 451212>459210 452>455 4522>455110 45221>455110 452210>455110
+4523>45521 45231>45521 452311>455211 452319>455219 453>45 4531>459310 45311>459310 453110>459310 4532>4594 45321>459410
+453210>459410 45322>459420 453220>459420 4533>459510 45331>459510 453310>459510 4539>45 45391>459910 453910>459910 45392>459920
+453920>459920 45393>459930 453930>459930 45399>45 453991>459991 453998>45 454>44 4541>44 45411>44 454110>44
+4542>445132 45421>445132 454210>445132 4543>44 45431>457210 454310>457210 45439>44 454390>44 511>513 5111>5131
+51111>513110 511110>513110 51112>513120 511120>513120 51113>513130 511130>513130 51114>513140 511140>513140 51119>51319 511191>513191
+511199>513199 5112>513210 51121>513210 511210>513210 515>516 5151>516 51511>516 515111>516210 515112>516110 51512>516
+515120>516 5152>516210 51521>516210 515210>516210 5173>5171 51731>5171 517311>517111 517312>5171 5179>517 51791>517
+517911>51712 517919>517810 5191>51 51911>516210 519110>516210 51912>519210 519120>519210 51913>51 519130>51 51919>519290
+519190>519290 52212>522180 522120>522180 52219>522180 522190>522180 522293>522299 522294>522299 522298>522299 52311>523150 523110>523150
+52312>523150 523120>523150 52313>523160 523130>523160 52314>523160 523140>523160 52392>523940 523920>523940 52393>523940 523930>523940
+811112>811114 811113>811114 811118>811114 811211>811210 811212>811210 811213>811210 811219>811210`
+    .split(/\s+/)
+    .map((p) => p.split(">") as [string, string]),
+);
 
 const num = (s: string) => (s === "" || s == null ? null : Number(s));
 const TABLE = new Map<string, NaicsRate>();
@@ -1038,19 +1067,23 @@ export function cleanNaics(input: unknown): string {
 
 /**
  * Find the BLS rate for a NAICS code. If BLS doesn't publish that exact code it walks up
- * one digit at a time (722511 → 72251 → 7225 ...) and says which group it used. If
+ * one digit at a time (722511 → 72251 → 7225 ...) and says which group it used. A 2017
+ * code that 2022 NAICS dropped is first moved to its 2022 code (447110 → 457110). If
  * nothing matches it falls back to the ownership total. Returns null for blank input.
  */
 export function lookupNaics(input: unknown, ownership: Ownership = "private"): NaicsMatch | null {
   let code = cleanNaics(input);
   if (code.length < 2) return null;
   const typed = code;
-  let mapped = "";
-  if (/^\d+$/.test(code)) {
-    const cw = NAICS_2022.find(([from]) => code.startsWith(from));
-    if (cw && !getNaics(code, ownership)) {
-      code = cw[1];
-      mapped = `${typed} is a 2022 NAICS code. BLS still reports it as ${cw[1]} (${cw[2]}).`;
+  // A 2017 code that 2022 NAICS dropped: carry on from where it went.
+  let moved = false;
+  if (/^\d+$/.test(code) && !getNaics(code, ownership)) {
+    for (let c = code; c.length >= 3; c = c.slice(0, -1)) {
+      const to = NAICS_2017.get(c);
+      if (!to) continue;
+      code = to;
+      moved = true;
+      break;
     }
   }
   const p = PREFIX[ownership];
@@ -1060,8 +1093,16 @@ export function lookupNaics(input: unknown, ownership: Ownership = "private"): N
       const rate = TABLE.get(p + k);
       if (!rate) continue;
       // A 6-digit code ending in 0 is the same industry as its 5-digit parent (238160 = 23816).
-      const exact = k === typed || (typed.length === 6 && typed.endsWith("0") && k === typed.slice(0, 5));
-      const note = exact ? "" : mapped && k === code ? mapped : `BLS doesn't publish ${typed}${ownership === "private" ? "" : ` for ${ownership} government`}. Using ${k}, ${rate.name}, the closest group above it.`;
+      const same = (x: string) => k === x || (x.length === 6 && x.endsWith("0") && k === x.slice(0, 5));
+      const exact = !moved && same(typed);
+      const gov = ownership === "private" ? "" : ` for ${ownership} government`;
+      const note = exact
+        ? ""
+        : moved && same(code)
+          ? `${typed} is a 2017 NAICS code. BLS now reports it as ${k}, ${rate.name}.`
+          : moved
+            ? `${typed} is a 2017 NAICS code that BLS no longer reports${gov}. Using ${k}, ${rate.name}, the closest 2022 group that covers it.`
+            : `BLS doesn't publish ${typed}${gov}. Using ${k}, ${rate.name}, the closest group above it.`;
       return { input: typed, rate, exact, note };
     }
     if (c.includes("-")) break;

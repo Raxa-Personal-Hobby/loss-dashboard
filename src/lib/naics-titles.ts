@@ -1,9 +1,11 @@
 // NAICS titles and a plain-words search, so people can find their code by typing what they
 // do ("fishing", "roofing", "property management") instead of knowing the number.
 //
-// Source: U.S. Census Bureau, 2017 NAICS titles and descriptions (public domain), the same
-// NAICS version BLS uses for its 2024 injury tables. Keywords are words pulled from each
-// industry's Census description, with filler words and cross-references removed.
+// Source: U.S. Census Bureau, 2017 NAICS titles and descriptions (public domain). BLS moved
+// its injury tables to 2022 NAICS in 2025, so lookupNaics() in ./naics moves the 2017 codes
+// that changed (mostly retail and information) to their 2022 codes before finding a rate.
+// Keywords are words pulled from each industry's Census description, with filler words and
+// cross-references removed.
 // Pairs with ./naics (BLS rates). Copy both files to reuse the search in another project.
 //
 // Format: code|Title|keywords
