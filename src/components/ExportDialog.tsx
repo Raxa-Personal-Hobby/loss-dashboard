@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { FileSpreadsheet, Image as ImageIcon, Loader2, Presentation } from "lucide-react";
+import { Database, FileSpreadsheet, Image as ImageIcon, Loader2, Presentation } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 function Option({ icon, title, desc, cta, onClick, busy }: { icon: ReactNode; title: string; desc: ReactNode; cta: string; onClick: () => void; busy: boolean }) {
@@ -18,10 +18,10 @@ function Option({ icon, title, desc, cta, onClick, busy }: { icon: ReactNode; ti
   );
 }
 
-type Handlers = { onPptx: () => Promise<void>; onPng: () => Promise<void>; onXlsx: () => Promise<void> };
+type Handlers = { onPptx: () => Promise<void>; onPng: () => Promise<void>; onXlsx: () => Promise<void>; onPowerBi: () => Promise<void> };
 
 /** The export choices. Shared by the Export window and the Export section at the bottom of the page. */
-export function ExportOptions({ onPptx, onPng, onXlsx }: Handlers) {
+export function ExportOptions({ onPptx, onPng, onXlsx, onPowerBi }: Handlers) {
   const [busy, setBusy] = useState<string | null>(null);
   const run = (k: string, fn: () => Promise<void>) => async () => {
     setBusy(k);
@@ -47,6 +47,14 @@ export function ExportOptions({ onPptx, onPng, onXlsx }: Handlers) {
       />
       <Option icon={<ImageIcon className="h-5 w-5" />} title="PNG image" desc="The whole dashboard as one high-resolution image. Every card also has its own PNG button." cta="Download .png" busy={busy === "png"} onClick={run("png", onPng)} />
       <Option icon={<FileSpreadsheet className="h-5 w-5" />} title="Filtered claims (Excel)" desc="The claims behind this view with the cleaned-up categories. Claimant names are left out." cta="Download .xlsx" busy={busy === "xlsx"} onClick={run("xlsx", onXlsx)} />
+      <Option
+        icon={<Database className="h-5 w-5" />}
+        title="Power BI data model"
+        desc="Claims, locations, findings and safety rates as clean tables for Power BI, Excel Power Query or Tableau. Column names stay the same between versions: save over the same file and press Refresh. Clear the filters first to include every claim."
+        cta="Download .xlsx"
+        busy={busy === "powerbi"}
+        onClick={run("powerbi", onPowerBi)}
+      />
       <p className="pt-1 text-[11.5px] text-[#8b929b]">Your browser may ask you to confirm each download.</p>
     </div>
   );

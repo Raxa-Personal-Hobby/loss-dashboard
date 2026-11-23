@@ -21,6 +21,7 @@ import { GUIDANCE_DISCLAIMER, GUIDE_LABEL } from "./guidance";
 import { byYear, categoryCompare, coverageByYear, coverageColor, detailRows, filterSummary, heatGrid, money, num, pct, samePeriod, topClaims, yearsIn } from "./metrics";
 import { BAND_STYLE } from "@/components/bands";
 import type { Table } from "./parse";
+import { redactClaimant } from "./powerbi";
 
 const hx = (h: string) => h.replace("#", "").toUpperCase();
 const FONT = "Arial";
@@ -504,7 +505,7 @@ export function filteredClaimsXlsx(claims: Claim[], ind: Industry, links?: Locat
     Reserve: Math.round(c.reserve * 100) / 100,
     Incurred: Math.round(c.incurred * 100) / 100,
     Litigated: c.litigated ? "Y" : "N",
-    Description: c.description,
+    Description: redactClaimant(c.description, c.claimant),
     "OSHA Recordable": c.recordable == null ? "" : c.recordable ? "Yes" : "No",
     "OSHA Case Type": c.caseType ? OSHA_CASE_LABEL[c.caseType] : "",
     "Days Away From Work": c.daysAway ?? "",

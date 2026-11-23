@@ -52,7 +52,7 @@ flowchart LR
     A[Loss run<br/>Excel, CSV or Word] --> B[Check the<br/>matched columns]
     S[Safety report<br/>optional] -.-> B
     B --> C[Charts, findings<br/>and BLS benchmarks]
-    C --> D[Export<br/>PowerPoint, PNG, Excel]
+    C --> D[Export<br/>PowerPoint, PNG, Excel, Power BI]
 ```
 
 | Feature | What you get |
@@ -63,7 +63,7 @@ flowchart LR
 | Safety rates | Add OSHA columns and hours worked and it works out TRIR, DART, days-away and severity rates next to the BLS average. |
 | Safety report merge | Add an OSHA 300 log, OSHA's injury tracking (ITA) CSV or your own safety sheet. A blank template is included. Locations are matched for you, and you confirm every pair before anything is combined. |
 | Your branding | Add your logo and colors. Palettes are checked for color-blind readability. |
-| Exports | PowerPoint deck, PNG charts, and Excel with the filtered claims. |
+| Exports | PowerPoint deck, PNG charts, Excel with the filtered claims, and a Power BI data model. See [POWER-BI.md](POWER-BI.md). |
 
 ## Your data stays on your computer
 

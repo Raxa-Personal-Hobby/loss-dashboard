@@ -42,6 +42,7 @@ import {
 } from "@/lib/metrics";
 import { buildTheme, deepen, ordinalRamp, readableOn, tint } from "@/lib/color";
 import { buildPptx, filteredClaimsXlsx } from "@/lib/exporters";
+import { powerBiXlsx } from "@/lib/powerbi";
 import { OFFLINE, capability, inClaude, saveFile } from "@/lib/claude";
 import { FilterBar, type FilterOptions } from "@/components/FilterBar";
 import { ChartCard, SectionHead, Seg, announceSave, savePng } from "@/components/kit";
@@ -427,6 +428,14 @@ export default function App() {
     },
     onXlsx: async () => {
       announceSave(await saveFile(`${base}-claims.xlsx`, filteredClaimsXlsx(filtered, ind, merge?.links)), `${base}-claims.xlsx`);
+    },
+    onPowerBi: async () => {
+      try {
+        const blob = powerBiXlsx({ ind, th, filters, scope, filtered, valuationDay: V, kpis: k, locRows, concerns: found, sourceName: dataset.sourceName, isSample: dataset.isSample, appVersion: APP_VERSION, safety: osha ? { rows: sYears, locRows: sLocRows, bench } : undefined });
+        announceSave(await saveFile(`${base}-powerbi.xlsx`, blob), `${base}-powerbi.xlsx`);
+      } catch (e: any) {
+        toast.error(e?.message || "Could not build the Power BI file.");
+      }
     },
   };
 
