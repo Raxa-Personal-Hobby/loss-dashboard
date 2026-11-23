@@ -11,6 +11,7 @@ pnpm build:offline          # one offline file in ./offline with Vite (no AI, no
 bash build-offline.sh       # the same offline file with Parcel
 bash bundle.sh              # one bundle.html for claude.ai (optional AI color lookup)
 pnpm test                   # tests, on synthetic data only
+pnpm powerbi <file>         # loss run to Power BI workbook, no browser (see POWER-BI.md)
 ```
 
 ## Offline file
@@ -114,6 +115,8 @@ To change the guidance, edit the JSON, run `node scripts/build-guidance-md.mjs`,
 | `src/lib/metrics.ts` | KPIs, same-period YoY, rolling 12, location scoring, findings |
 | `src/lib/color.ts` | Brand palette builder with color-blind checks, logo color pull |
 | `src/lib/exporters.ts` | PPTX (pptxgenjs), PNG (html-to-image), Excel template and filtered claims |
+| `src/lib/powerbi.ts` | Power BI data model workbook. Its column lists are frozen; see [POWER-BI.md](POWER-BI.md) |
+| `src/lib/headless.ts` | The dashboard's calculations without the screen, for `pnpm powerbi` (`scripts/powerbi-export.ts`) |
 | `src/lib/sample.ts` | Synthetic sample generator (seeded), including OSHA columns and hours worked |
 | `src/lib/naics.ts` | BLS 2025 injury rates for every published NAICS code, plus lookup and search. Self-contained |
 | `src/lib/naics-titles.ts` | All 2017 NAICS titles with description keywords, and the plain-words search |

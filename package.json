@@ -9,6 +9,7 @@
     "lint": "oxlint",
     "build:offline": "node scripts/build-offline-vite.mjs",
     "test": "node --test --import ./tests/loader.mjs \"tests/*.test.ts\"",
+    "powerbi": "node --import ./tests/loader.mjs scripts/powerbi-export.ts",
     "preview": "vite preview"
   },
   "dependencies": {
