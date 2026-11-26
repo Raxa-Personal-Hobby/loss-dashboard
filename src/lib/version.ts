@@ -1,5 +1,5 @@
 // The app version and the notes shown in the "What's new" window. Newest first.
-export const APP_VERSION = "1.3.0";
+export const APP_VERSION = "1.3.1";
 
 export interface ReleaseNote {
   version: string;
@@ -8,6 +8,13 @@ export interface ReleaseNote {
 }
 
 export const RELEASE_NOTES: ReleaseNote[] = [
+  {
+    version: "1.3.1",
+    date: "November 2026",
+    items: [
+      { tag: "Improved", text: "Construction template: coverage lines are sorted into general liability by standard liability wording only, and the benchmark label now reads general contractor." },
+    ],
+  },
   {
     version: "1.3.0",
     date: "November 2026",

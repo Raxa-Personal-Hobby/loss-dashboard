@@ -75,6 +75,8 @@ It's general information, not legal, safety or insurance advice.
 
 ## What's new
 
+v1.3.1 (Nov 2026): construction template only. Coverage lines are sorted into general liability by standard liability wording, and the benchmark label now reads "general contractor".
+
 v1.3.0 (Nov 2026): export a Power BI data model, one Excel file with seven tables whose names and columns stay the same every month, so a Power BI, Tableau or Excel report refreshes without rework. There's also a command for scheduled refreshes that needs no browser. See [POWER-BI.md](POWER-BI.md). Claim descriptions in the Excel exports now show `[claimant]` in place of the claimant's name.
 
 v1.2.3 (Nov 2026): retail and information NAICS codes now find the right 2025 benchmark. BLS moved to 2022 NAICS codes this year, so older 2017 codes (446110 for a pharmacy) are matched to the new ones (456110).
