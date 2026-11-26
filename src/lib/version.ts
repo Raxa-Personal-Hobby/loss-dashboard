@@ -1,5 +1,5 @@
 // The app version and the notes shown in the "What's new" window. Newest first.
-export const APP_VERSION = "1.2.3";
+export const APP_VERSION = "1.3.0";
 
 export interface ReleaseNote {
   version: string;
@@ -8,6 +8,14 @@ export interface ReleaseNote {
 }
 
 export const RELEASE_NOTES: ReleaseNote[] = [
+  {
+    version: "1.3.0",
+    date: "November 2026",
+    items: [
+      { tag: "New", text: "Export a Power BI data model: one Excel file with seven tables whose names and columns stay the same every month, so a Power BI, Tableau or Excel report refreshes without rework." },
+      { tag: "Improved", text: "The claimant's name is replaced with [claimant] in claim descriptions in the Power BI and Filtered claims exports." },
+    ],
+  },
   {
     version: "1.2.3",
     date: "November 2026",
