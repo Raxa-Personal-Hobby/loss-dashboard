@@ -362,7 +362,7 @@ const construction: Industry = {
   unit: { one: "project", many: "projects", One: "Project", Many: "Projects" },
   coverages: [
     { key: "WC", label: "Workers' comp", short: "WC", match: WC },
-    { key: "GL", label: "General liability", short: "GL", match: /(general liab|gen\.? liab|\bgl\b|\bcgl\b|liabil|premises|products|completed op|umbrella|excess|wrap|ocip|ccip|\bocp\b|owner'?s? (and|&) contractor)/ },
+    { key: "GL", label: "General liability", short: "GL", match: /(general liab|gen\.? liab|\bgl\b|\bcgl\b|liabil|premises|products|completed op|umbrella|excess|\bocp\b|owner'?s? (and|&) contractor)/ },
     { key: "Auto", label: "Auto", short: "Auto", match: AUTO },
     { key: "BR", label: "Builder's risk / property", short: "BR", match: /(builder'?s'? ?risk|\bbr\b|course of construction|property|\bprop\b|installation)/ },
     { key: "Equip", label: "Contractor's equipment", short: "Equip", match: /(inland marine|contractor'?s? equip|equipment floater|\bim\b|tools? floater|equipment)/ },
@@ -399,7 +399,7 @@ const construction: Industry = {
   ],
   dowNote: "Construction claims track the work week",
   exposure: "payroll or work hours",
-  benchmark: "general contractor or wrap-up program",
+  benchmark: "general contractor",
   bls: { default: "23", options: ["23", "236", "238", "private"], mix: "23" },
   sample: {
     seed: 7,
