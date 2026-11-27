@@ -3,11 +3,14 @@
 import type { Table } from "./parse";
 import type { Industry } from "./industries";
 import { fieldsFor } from "./fields";
-import { dayNum, fromDay } from "./normalize";
+import { dayNum, fmtDay, fromDay } from "./normalize";
 import { BODY_PARTS, MEDIAN_DAYS_BY_INDUSTRY, MEDIAN_DAYS_BY_NATURE, NATURES, blsRate } from "./bls";
 import { HOURS_HEADERS } from "./safety";
 
 export const SAMPLE_VALUATION = dayNum(2026, 10, 31);
+
+/** The lines above the column headings in the downloadable sample loss run, as a carrier would print them. */
+export const sampleTopLines = (ind: Industry): unknown[][] => [[`${ind.sample.company}: loss run (synthetic data, not a real company)`], [`Valued as of ${fmtDay(SAMPLE_VALUATION)}`], []];
 
 function rng(seed: number) {
   return () => {
