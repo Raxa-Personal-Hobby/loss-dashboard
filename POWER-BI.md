@@ -17,7 +17,7 @@ pnpm powerbi "Loss Run Oct 2026.xlsx" --out "C:\Reports\loss-data.xlsx" --naics 
 | `--out` | Where to save. Default: `<input name>-powerbi.xlsx` next to the input |
 | `--naics` | Industry code. Picks the template and the BLS safety benchmark |
 | `--industry` | Template by name: `restaurant`, `construction`, `fleet`, `realestate`, `general` |
-| `--valuation` | Valuation date, e.g. `2026-10-31`. Default: the latest loss date |
+| `--valuation` | Valuation date, e.g. `2026-10-31`. Default: the as-of date the file states, else the latest loss date |
 
 The command line matches columns automatically, the same way the upload window first guesses them, and prints which columns it found. If a column is missed, rename the header in the file or use the dashboard, where you can fix the match by hand. It reads .xlsx, .xls and .csv. It doesn't combine a safety report, because that needs you to confirm location matches on screen.
 

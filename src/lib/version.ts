@@ -1,5 +1,5 @@
 // The app version and the notes shown in the "What's new" window. Newest first.
-export const APP_VERSION = "1.3.1";
+export const APP_VERSION = "1.4.0";
 
 export interface ReleaseNote {
   version: string;
@@ -8,6 +8,15 @@ export interface ReleaseNote {
 }
 
 export const RELEASE_NOTES: ReleaseNote[] = [
+  {
+    version: "1.4.0",
+    date: "November 2026",
+    items: [
+      { tag: "New", text: "The upload window reads the as-of date printed on your loss run (for example \"Valued as of 10/31/2026\", or a valuation date column) and asks you to confirm it before the dashboard is built." },
+      { tag: "New", text: "Change the as-of date any time: click the Valued date at the top of the dashboard. No need to upload again." },
+      { tag: "Improved", text: "The sample loss run now prints its as-of date, the way a carrier's loss run does." },
+    ],
+  },
   {
     version: "1.3.1",
     date: "November 2026",

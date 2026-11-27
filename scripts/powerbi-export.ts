@@ -22,7 +22,7 @@ Options:
   --out <file>         Where to save (default: <input name>-powerbi.xlsx next to the input)
   --naics <code>       Industry code for the BLS safety benchmark and the template
   --industry <name>    Template: ${INDUSTRIES.map((i) => i.id).join(", ")} (default: from --naics, else general)
-  --valuation <date>   Valuation date, e.g. 2026-10-31 (default: latest loss date)
+  --valuation <date>   Valuation date, e.g. 2026-10-31 (default: the date the file states, else latest loss date)
   --help               Show this help`;
 
 function fail(msg: string): never {

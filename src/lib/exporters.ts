@@ -6,7 +6,7 @@ import { BAND_LABEL } from "./types";
 import { fieldsFor } from "./fields";
 import type { Industry } from "./industries";
 import { DEFAULT_COMPANY, coverageLabel } from "./industries";
-import { makeSampleHours, makeSampleTable } from "./sample";
+import { makeSampleHours, makeSampleTable, sampleTopLines } from "./sample";
 import { HOURS_HEADERS, fmtRate, type SafetyLocation, type SafetyYear } from "./safety";
 import { benchmarkLabel, type Benchmark } from "./bls";
 import { OSHA_CASE_LABEL } from "./types";
@@ -628,7 +628,7 @@ function sampleRows(t: Table, ind: Industry) {
 }
 
 export function sampleXlsx(t: Table, ind: Industry) {
-  const ws = XLSX.utils.aoa_to_sheet([[`${ind.sample.company}: loss run (synthetic data, not a real company)`], [], ...sampleRows(t, ind)], { cellDates: true, dateNF: "mm/dd/yyyy" });
+  const ws = XLSX.utils.aoa_to_sheet([...sampleTopLines(ind), ...sampleRows(t, ind)], { cellDates: true, dateNF: "mm/dd/yyyy" });
   ws["!cols"] = fieldsFor(ind).map((f) => ({ wch: f.key === "description" ? 50 : f.key === "cause" ? 34 : f.key === "location" ? 28 : 14 }));
   const hrs = XLSX.utils.aoa_to_sheet(makeSampleHours(ind).rows);
   hrs["!cols"] = [{ wch: 30 }, { wch: 8 }, { wch: 14 }, { wch: 18 }, { wch: 12 }];

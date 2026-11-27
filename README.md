@@ -75,6 +75,8 @@ It's general information, not legal, safety or insurance advice.
 
 ## What's new
 
+v1.4.0 (Nov 2026): the upload window reads the as-of date printed on your loss run and asks you to confirm it before the dashboard is built. If the loss run doesn't state one, it offers the latest date in the file. Click the Valued date at the top of the dashboard to change it later without uploading again.
+
 v1.3.1 (Nov 2026): construction template only. Coverage lines are sorted into general liability by standard liability wording, and the benchmark label now reads "general contractor".
 
 v1.3.0 (Nov 2026): export a Power BI data model, one Excel file with seven tables whose names and columns stay the same every month, so a Power BI, Tableau or Excel report refreshes without rework. There's also a command for scheduled refreshes that needs no browser. See [POWER-BI.md](POWER-BI.md). Claim descriptions in the Excel exports now show `[claimant]` in place of the claimant's name.

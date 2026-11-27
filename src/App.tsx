@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Toaster, toast } from "sonner";
-import { Download, FileUp, Gauge, Info, Lock, Palette, X } from "lucide-react";
+import { Download, FileUp, Gauge, Info, Lock, Palette, Pencil, X } from "lucide-react";
 import { DEFAULT_THRESHOLDS, isDefault, mergeThresholds, type Thresholds } from "@/lib/thresholds";
 import { ThresholdsDialog } from "@/components/ThresholdsDialog";
+import { AsOfDialog } from "@/components/AsOfDialog";
 import type { Brand, Dataset, Filters, HoursRow, OshaRow, SafetyMerge } from "@/lib/types";
 import { EMPTY_FILTERS } from "@/lib/types";
 import { DEFAULT_COMPANY, SAMPLE_COMPANIES, coverageLabel, getIndustry, type Industry } from "@/lib/industries";
@@ -187,7 +188,7 @@ export default function App() {
   const bench = useMemo(() => resolveBenchmark(choice, ind.bls.default), [choice, ind]);
   const largeAt = th.largeLoss;
   const setLargeAt = (n: number) => setTh({ ...th, largeLoss: n });
-  const [dlg, setDlg] = useState<null | "data" | "brand" | "export" | "levels">(null);
+  const [dlg, setDlg] = useState<null | "data" | "brand" | "export" | "levels" | "asof">(null);
   /** Safety report dialog: add a new one, or review the matches of the one already combined (or held while a new loss run is re-matched). */
   const [safetyDlg, setSafetyDlg] = useState<null | { mode: "add" } | { mode: "review"; merge: SafetyMerge }>(null);
   const [trendMetric, setTrendMetric] = useState<"count" | "incurred">("count");
@@ -214,6 +215,7 @@ export default function App() {
   const theme = useMemo(() => buildTheme(brand.primary, brand.accent), [brand.primary, brand.accent]);
   const V = dataset.valuationDay;
   const all = dataset.claims;
+  const latestLossDay = useMemo(() => all.reduce<number | null>((m, c) => (m == null || c.lossDay > m ? c.lossDay : m), null), [all]);
   const allYears = useMemo(() => yearsIn(all), [all]);
   const dims = useMemo(() => applyDims(all, filters), [all, filters]);
   const filtered = useMemo(() => applyYears(dims, filters), [dims, filters]);
@@ -537,7 +539,12 @@ export default function App() {
                       Change
                     </span>
                   </button>
-                  <span className="rounded-full bg-white px-3 py-1.5 text-[12px] font-semibold text-[#3c434c] ring-1 ring-[#e3e6ea]">Valued {fmtDay(V, "long")}</span>
+                  <button type="button" onClick={() => setDlg("asof")} title="Change the as-of date" className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-[12px] font-semibold text-[#3c434c] ring-1 ring-[#e3e6ea] hover:ring-[#b7bcc4]">
+                    Valued {fmtDay(V, "long")}
+                    <span data-export-ignore aria-hidden>
+                      <Pencil className="h-3 w-3 text-[#8b929b]" />
+                    </span>
+                  </button>
                   <div className="flex items-center gap-2" data-export-ignore>
                     <button type="button" onClick={() => setDlg("data")} className="inline-flex h-9 items-center gap-1.5 rounded-lg bg-white px-3 text-[13px] font-semibold ring-1 ring-[#d8dce1] hover:ring-[#b7bcc4]">
                       <FileUp className="h-4 w-4" /> <span>Upload data</span>
@@ -821,6 +828,16 @@ export default function App() {
       <WhatsNew open={showNew && !showStart} onOpenChange={(v) => { setShowNew(v); if (!v) markSeen(); }} notes={newNotes} />
       {showStart && <StartScreen onPick={pickStart} onSkip={skipStart} onClose={startDone ? () => setShowStart(false) : undefined} />}
       <DataDialog open={dlg === "data"} onOpenChange={(v) => setDlg(v ? "data" : null)} onApply={applyData} onSample={() => { setDataset(sampleDataset(ind)); setFilters(EMPTY_FILTERS); }} largeAt={largeAt} setLargeAt={setLargeAt} ind={ind} onIndustry={switchIndustry} safetyName={merge?.report.sourceName} onSafety={() => { setDlg(null); setSafetyDlg(merge ? { mode: "review", merge } : { mode: "add" }); }} />
+      <AsOfDialog
+        open={dlg === "asof"}
+        onOpenChange={(v) => setDlg(v ? "asof" : null)}
+        day={V}
+        latestLossDay={latestLossDay}
+        onSave={(day) => {
+          setDataset((d) => ({ ...d, valuationDay: day }));
+          toast.success(`As-of date set to ${fmtDay(day, "long")}`);
+        }}
+      />
       <ThresholdsDialog open={dlg === "levels"} onOpenChange={(v) => setDlg(v ? "levels" : null)} th={th} setTh={setTh} unitLabel={ind.unit.One} />
       <BrandDialog open={dlg === "brand"} onOpenChange={(v) => setDlg(v ? "brand" : null)} brand={brand} setBrand={setBrand} theme={theme} />
       <ExportDialog

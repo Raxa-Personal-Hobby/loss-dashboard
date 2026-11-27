@@ -12,6 +12,7 @@ import { defaultChoice, resolveBenchmark } from "./bls";
 import { DEFAULT_THRESHOLDS, type Thresholds } from "./thresholds";
 import { parseDay, todayDay } from "./normalize";
 import { EMPTY_FILTERS } from "./types";
+import { findStatedValuation } from "./valuation";
 import { APP_VERSION } from "./version";
 import type { PowerBiInput } from "./powerbi";
 
@@ -21,7 +22,7 @@ export interface AnalyzeOptions {
   industry?: IndustryId;
   /** NAICS code for the BLS benchmark. Default: the hours sheet's code, else the template's. */
   naics?: string;
-  /** Valuation date as text (e.g. 2026-10-31). Default: latest loss date, capped at today. */
+  /** Valuation date as text (e.g. 2026-10-31). Default: the as-of date the file states, else the latest loss date, capped at today. */
   valuation?: string;
   isSample?: boolean;
   th?: Thresholds;
@@ -51,7 +52,7 @@ export function analyzeTables(tables: Table[], o: AnalyzeOptions): AnalyzeResult
   const headerRow = detectHeaderRow(table.rows, F);
   const built = buildClaims(table, headerRow, autoMap(table.rows[headerRow] ?? [], F), ind.coverages[0].key, ind);
   if (!built.claims.length) throw new Error(`No rows in "${table.name}" had a readable date of loss. Check that the file has a Date of loss column.`);
-  const V = (o.valuation ? parseDay(o.valuation) : null) ?? Math.min(built.maxDay ?? todayDay(), todayDay());
+  const V = (o.valuation ? parseDay(o.valuation) : null) ?? findStatedValuation(table.rows, headerRow)?.day ?? Math.min(built.maxDay ?? todayDay(), todayDay());
   const hours = hoursFromTables(tables, ti);
 
   // No filters: everything in the file.

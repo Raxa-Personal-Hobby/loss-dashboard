@@ -7,6 +7,7 @@ import { ACCEPT, buildClaims, detectHeaderRow, hoursFromTables, mappingProblems,
 import type { Coverage, Dataset, FieldKey, Mapping } from "@/lib/types";
 import { fmtDay, parseDay, todayDay } from "@/lib/normalize";
 import { num } from "@/lib/metrics";
+import { findStatedValuation } from "@/lib/valuation";
 import { saveFile } from "@/lib/claude";
 import { safetyTemplateXlsx, sampleXlsx, tableXlsx, templateXlsx } from "@/lib/exporters";
 import { makeSafetyTable, makeSampleTable } from "@/lib/sample";
@@ -47,6 +48,7 @@ export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, set
   const [mapping, setMapping] = useState<Mapping | null>(null);
   const [defCov, setDefCov] = useState<Coverage>(ind.coverages[0].key);
   const [valuation, setValuation] = useState("");
+  const [confirmed, setConfirmed] = useState(false);
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
   const [drag, setDrag] = useState(false);
@@ -57,6 +59,13 @@ export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, set
   const preview = useMemo(() => (table && mapping ? buildClaims(table, headerRow, mapping, defCov, ind) : null), [table, headerRow, mapping, defCov, ind]);
   const problems = mapping ? mappingProblems(mapping, FIELDS) : [];
   const hoursFound = useMemo(() => (tables.length ? hoursFromTables(tables, ti) : null), [tables, ti]);
+  // The as-of date: what the loss run says about itself, else the latest date in it. A date typed in wins.
+  const stated = useMemo(() => (table ? findStatedValuation(table.rows, headerRow) : null), [table, headerRow]);
+  const asOfDay = parseDay(valuation) ?? stated?.day ?? (preview?.maxDay != null ? Math.min(preview.maxDay, todayDay()) : null);
+  const setAsOf = (text: string) => {
+    setValuation(text);
+    setConfirmed(text !== "");
+  };
   const samples = (col: number, isDate: boolean) => {
     if (!table) return "";
     const out: string[] = [];
@@ -74,7 +83,7 @@ export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, set
     const h = detectHeaderRow(t[idx].rows, FIELDS);
     setHeaderRow(h);
     setMapping(autoMap(t[idx].rows[h] ?? [], FIELDS));
-    setValuation("");
+    setAsOf("");
   };
 
   const onFile = async (file: File) => {
@@ -100,17 +109,18 @@ export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, set
     setMapping(null);
     setFileName("");
     setErr("");
+    setAsOf("");
   };
 
   const setField = (k: FieldKey, cols: number[]) => mapping && setMapping({ ...mapping, [k]: cols });
 
   const apply = () => {
-    if (!preview || !mapping || problems.length) return;
+    if (!preview || !mapping || problems.length || !confirmed) return;
     if (!preview.claims.length) {
       setErr("No rows had a readable date of loss. Check the Date of loss column or the header row.");
       return;
     }
-    const vd = parseDay(valuation) ?? Math.min(preview.maxDay ?? todayDay(), todayDay());
+    const vd = asOfDay ?? todayDay();
     const hw = hoursFound;
     onApply({
       claims: preview.claims,
@@ -260,6 +270,7 @@ export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, set
                       const h = Math.max(0, Math.min(table.rows.length - 1, Number(e.target.value) - 1));
                       setHeaderRow(h);
                       setMapping(autoMap(table.rows[h] ?? [], FIELDS));
+                      setAsOf("");
                     }}
                     className="w-14 rounded-md border border-[#d8dce1] bg-white px-2 py-1 text-[12.5px]"
                   />
@@ -335,12 +346,24 @@ export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, set
                 </div>
               </div>
 
+              <div className={`rounded-xl border p-3.5 ${confirmed ? "border-[#e3e6ea]" : "border-[#e2c58a] bg-[#fdf8ec]"}`}>
+                <h4 className="text-[14px] font-bold text-[#1c2126]">Please confirm the as-of date</h4>
+                <p className="mt-0.5 text-[12px] leading-relaxed text-[#5d6570]">
+                  {stated ? <>Read from the loss run: {stated.text}.</> : "This loss run does not state an as-of date, so this is the latest date found in it. Use the date printed on the loss run if you know it."} Year-to-date comparisons end on this date.
+                </p>
+                <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-2">
+                  <input type="date" aria-label="As-of date" className="rounded-md border border-[#d8dce1] bg-white px-2 py-1.5 text-[13px]" value={asOfDay != null ? fmtDay(asOfDay, "iso") : ""} onChange={(e) => setAsOf(e.target.value)} />
+                  <label className="inline-flex items-center gap-2 text-[13px] font-semibold text-[#1c2126]">
+                    <input type="checkbox" className="h-4 w-4 accent-[color:var(--brand-deep)]" checked={confirmed} onChange={(e) => setConfirmed(e.target.checked)} />
+                    This date is correct
+                  </label>
+                </div>
+                {asOfDay != null && preview?.maxDay != null && asOfDay < preview.maxDay && (
+                  <p className="mt-2 text-[12px] text-[#9a5b00]">The file has a date after this one ({fmtDay(preview.maxDay)}). Check the date on the loss run.</p>
+                )}
+              </div>
+
               <div className="grid gap-3 sm:grid-cols-2">
-                <label className="block">
-                  <span className="text-[12.5px] font-semibold text-[#1c2126]">Valued as of</span>
-                  <input type="date" className="mt-1 w-full rounded-md border border-[#d8dce1] bg-white px-2 py-1.5 text-[13px]" value={valuation || (preview?.maxDay ? fmtDay(Math.min(preview.maxDay, todayDay()), "iso") : "")} onChange={(e) => setValuation(e.target.value)} />
-                  <span className="mt-1 block text-[11px] text-[#8b929b]">Defaults to the latest date in the file. Use the loss run's valuation date if it has one.</span>
-                </label>
                 <label className="block">
                   <span className="text-[12.5px] font-semibold text-[#1c2126]">Large loss threshold</span>
                   <input type="number" min={1000} step={5000} className="mt-1 w-full rounded-md border border-[#d8dce1] bg-white px-2 py-1.5 text-[13px]" value={largeAt} onChange={(e) => setLargeAt(Math.max(1000, Number(e.target.value) || 100000))} />
@@ -376,7 +399,7 @@ export function DataDialog({ open, onOpenChange, onApply, onSample, largeAt, set
                 <button type="button" onClick={() => onOpenChange(false)} className="rounded-lg px-4 py-2 text-[13px] font-semibold text-[#5d6570] hover:text-[#1c2126]">
                   Cancel
                 </button>
-                <button type="button" disabled={!!problems.length} onClick={apply} className="rounded-lg bg-[color:var(--brand-deep)] px-4 py-2 text-[13px] font-bold text-white disabled:opacity-40">
+                <button type="button" disabled={!!problems.length || !confirmed} title={confirmed ? undefined : "Confirm the as-of date first"} onClick={apply} className="rounded-lg bg-[color:var(--brand-deep)] px-4 py-2 text-[13px] font-bold text-white disabled:opacity-40">
                   Build dashboard
                 </button>
               </div>
